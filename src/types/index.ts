@@ -4,9 +4,12 @@ export interface Product {
   name: string;
   brandId: string;
   sellerId: string;
-  images: string[];
+  categoryId: string;
+  imageUrl: string;
   price: number;
   currency: string;
+  originalPrice?: number;
+  discount?: number;
   shades: string[];
   rating: number;
   reviewsCount: number;
@@ -17,6 +20,7 @@ export interface Product {
   isNew: boolean;
   isBestseller: boolean;
   badges: string[];
+  description: string;
 }
 
 export interface Brand {
@@ -54,6 +58,8 @@ export interface Category {
   name: string;
   parentId: string | null;
   icon: string;
+  description: string;
+  productCount: number;
 }
 
 export interface CartItem {

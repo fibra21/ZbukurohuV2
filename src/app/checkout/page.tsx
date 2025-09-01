@@ -1,336 +1,425 @@
-'use client';
-
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
-import { useAppStore } from '@/lib/store';
-import { t } from '@/lib/i18n';
+import { Suspense } from 'react';
+import { Metadata } from 'next';
 import { 
-  ArrowLeft, 
+  CheckCircle, 
+  Circle, 
+  ArrowRight, 
+  Lock, 
+  Shield, 
   Truck, 
-  CheckCircle,
-  Lock
+  CreditCard,
+  CreditCardIcon,
+  Banknote,
+  Gift,
+  Star,
+  Clock,
+  MapPin,
+  User,
+  Phone,
+  Mail
 } from 'lucide-react';
 
+export const metadata: Metadata = {
+  title: 'Checkout | Zbukurohu',
+  description: 'Complete your purchase securely with multiple payment options and fast delivery.',
+  openGraph: {
+    title: 'Checkout | Zbukurohu',
+    description: 'Complete your purchase securely with multiple payment options and fast delivery.',
+  },
+};
+
 export default function CheckoutPage() {
-  const router = useRouter();
-  const { locale, clearCart } = useAppStore();
-  const effectiveLocale = (locale === 'sq-AL' || locale === 'en') ? locale : 'sq-AL';
-  const [step, setStep] = useState<'form' | 'confirmation'>('form');
-  const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
-    email: '',
-    phone: '',
-    address: '',
-    city: '',
-    postalCode: '',
-    cardNumber: '',
-    expiryDate: '',
-    cvv: ''
-  });
+  const currentStep = 1; // In real app, this would be managed by state
+  
+  const steps = [
+    { id: 1, name: 'Shipping', icon: MapPin, status: 'current' },
+    { id: 2, name: 'Payment', icon: CreditCard, status: 'upcoming' },
+    { id: 3, name: 'Review', icon: CheckCircle, status: 'upcoming' }
+  ];
 
-  const subtotal = 45.99; // Mock total
-  const shipping = 5;
-  const total = subtotal + shipping;
+  const cartItems = [
+    {
+      id: 1,
+      name: 'Premium Hydrating Serum',
+      price: 45.99,
+      quantity: 1,
+      image: 'https://images.unsplash.com/photo-1556228720-195a672e8a03?w=100&h=100&fit=crop'
+    },
+    {
+      id: 2,
+      name: 'Luxury Foundation',
+      price: 32.50,
+      quantity: 1,
+      image: 'https://images.unsplash.com/photo-1512496015851-a90fb38ba796?w=100&h=100&fit=crop'
+    }
+  ];
 
-  const handleInputChange = (field: string, value: string) => {
-    setFormData(prev => ({ ...prev, [field]: value }));
-  };
+  const subtotal = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+  const shipping = subtotal > 50 ? 0 : 5.99;
+  const tax = subtotal * 0.20; // 20% tax
+  const total = subtotal + shipping + tax;
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    // Mock payment processing
-    setTimeout(() => {
-      setStep('confirmation');
-      clearCart();
-    }, 2000);
-  };
+  const paymentMethods = [
+    {
+      id: 'credit',
+      name: 'Credit Card',
+      icon: CreditCard,
+      description: 'Visa, Mastercard, American Express',
+      popular: true
+    },
+    {
+      id: 'paypal',
+      name: 'PayPal',
+      icon: CreditCardIcon,
+      description: 'Fast and secure checkout',
+      popular: false
+    },
+    {
+      id: 'bank',
+      name: 'Bank Transfer',
+      icon: Banknote,
+      description: 'Direct bank payment',
+      popular: false
+    }
+  ];
 
-  if (step === 'confirmation') {
-    return (
-        <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-          <div className="text-center">
-            <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
-              <CheckCircle className="w-10 h-10 text-green-600" />
-            </div>
-            <h1 className="text-3xl font-serif font-bold text-gray-900 mb-4">
-              {t(effectiveLocale, 'thankYou')}
-            </h1>
-            <p className="text-gray-600 mb-8">
-              Porosia juaj u konfirmua me sukses! Numri i porosisë: #ZB-2024-001
-            </p>
-            
-            <div className="bg-gray-50 rounded-2xl p-6 mb-8">
-              <h2 className="font-semibold text-gray-900 mb-4">Detajet e Dërgesës</h2>
-              <div className="space-y-2 text-sm text-gray-600">
-                <p>{formData.firstName} {formData.lastName}</p>
-                <p>{formData.address}</p>
-                <p>{formData.city}, {formData.postalCode}</p>
-                <p>{formData.email}</p>
-                <p>{formData.phone}</p>
-              </div>
-            </div>
-
-            <div className="bg-primary-50 rounded-2xl p-6 mb-8">
-              <div className="flex items-center space-x-2 text-primary mb-2">
-                <Truck className="w-5 h-5" />
-                <span className="font-semibold">Dërgesa</span>
-              </div>
-              <p className="text-sm text-gray-600">
-                Porosia juaj do të dërgohet në 2-3 ditë pune. Do të merrni një email me detajet e gjurmimit.
-              </p>
-            </div>
-
-            <div className="space-y-4">
-              <button
-                onClick={() => router.push('/')}
-                className="w-full bg-primary text-white py-3 rounded-2xl font-semibold hover:bg-primary-600 transition-colors"
-              >
-                Vazhdo Blerjen
-              </button>
-              <button
-                onClick={() => router.push('/account')}
-                className="w-full border border-gray-300 text-gray-700 py-3 rounded-2xl font-semibold hover:bg-gray-50 transition-colors"
-              >
-                Shiko Porositë e Mia
-              </button>
-            </div>
-          </div>
-        </div>
-    );
-  }
+  const trustFeatures = [
+    {
+      icon: <Lock className="w-5 h-5" />,
+      title: 'SSL Secure',
+      description: '256-bit encryption'
+    },
+    {
+      icon: <Shield className="w-5 h-5" />,
+      title: 'Money-back Guarantee',
+      description: '30-day return policy'
+    },
+    {
+      icon: <Truck className="w-5 h-5" />,
+      title: 'Fast Delivery',
+      description: '2-3 business days'
+    },
+    {
+      icon: <Star className="w-5 h-5" />,
+      title: '4.9/5 Rating',
+      description: 'From 10,000+ customers'
+    }
+  ];
 
   return (
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        {/* Header */}
-        <div className="flex items-center space-x-4 mb-8">
-          <button
-            onClick={() => router.back()}
-            className="p-2 text-gray-600 hover:text-primary transition-colors"
-          >
-            <ArrowLeft className="w-5 h-5" />
-          </button>
-          <h1 className="text-3xl font-serif font-bold text-gray-900">
-            {t(effectiveLocale, 'checkout')}
-          </h1>
+    <div className="min-h-screen bg-gray-50">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {/* Progress Bar */}
+        <div className="mb-8">
+          <nav aria-label="Progress">
+            <ol className="flex items-center justify-center">
+              {steps.map((step, stepIdx) => (
+                <li key={step.name} className={`relative ${stepIdx !== steps.length - 1 ? 'pr-8 sm:pr-20' : ''} ${stepIdx !== 0 ? 'pl-8 sm:pl-20' : ''}`}>
+                  <div className="absolute inset-0 flex items-center" aria-hidden="true">
+                    <div className={`h-0.5 w-full ${stepIdx === 0 ? 'bg-transparent' : step.status === 'complete' ? 'bg-primary' : 'bg-gray-200'}`} />
+                  </div>
+                  <div className={`relative flex h-8 w-8 items-center justify-center rounded-full ${
+                    step.status === 'complete' ? 'bg-primary' : step.status === 'current' ? 'bg-primary' : 'bg-gray-200'
+                  }`}>
+                    {step.status === 'complete' ? (
+                      <CheckCircle className="h-5 w-5 text-white" aria-hidden="true" />
+                    ) : step.status === 'current' ? (
+                      <step.icon className="h-5 w-5 text-white" aria-hidden="true" />
+                    ) : (
+                      <step.icon className="h-5 w-5 text-gray-400" aria-hidden="true" />
+                    )}
+                  </div>
+                  <span className={`absolute -bottom-6 left-1/2 -translate-x-1/2 text-sm font-medium ${
+                    step.status === 'complete' ? 'text-primary' : step.status === 'current' ? 'text-primary' : 'text-gray-500'
+                  }`}>
+                    {step.name}
+                  </span>
+                </li>
+              ))}
+            </ol>
+          </nav>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          {/* Checkout Form */}
-          <div>
-            <div className="bg-white rounded-2xl shadow-soft p-6">
-              <h2 className="text-xl font-semibold text-gray-900 mb-6">
-                Informacionet Personale
-              </h2>
-
-              <form onSubmit={handleSubmit} className="space-y-6">
-                {/* Personal Information */}
-                <div className="grid grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Emri
-                    </label>
-                    <input
-                      type="text"
-                      value={formData.firstName}
-                      onChange={(e) => handleInputChange('firstName', e.target.value)}
-                      required
-                      className="w-full px-4 py-3 border border-gray-300 rounded-2xl focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Mbiemri
-                    </label>
-                    <input
-                      type="text"
-                      value={formData.lastName}
-                      onChange={(e) => handleInputChange('lastName', e.target.value)}
-                      required
-                      className="w-full px-4 py-3 border border-gray-300 rounded-2xl focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
-                    />
-                  </div>
-                </div>
-
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          {/* Main Checkout Form */}
+          <div className="lg:col-span-2 space-y-8">
+            {/* Shipping Information */}
+            <div className="bg-white rounded-2xl shadow-sm p-8">
+              <div className="flex items-center space-x-3 mb-6">
+                <MapPin className="w-6 h-6 text-primary" />
+                <h2 className="text-2xl font-bold text-gray-900">Shipping Information</h2>
+              </div>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Email
-                  </label>
-                  <input
-                    type="email"
-                    value={formData.email}
-                    onChange={(e) => handleInputChange('email', e.target.value)}
-                    required
-                    className="w-full px-4 py-3 border border-gray-300 rounded-2xl focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                  <label className="block text-sm font-medium text-gray-700 mb-2">First Name</label>
+                  <input 
+                    type="text" 
+                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                    placeholder="John"
                   />
                 </div>
-
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Telefon
-                  </label>
-                  <input
-                    type="tel"
-                    value={formData.phone}
-                    onChange={(e) => handleInputChange('phone', e.target.value)}
-                    required
-                    className="w-full px-4 py-3 border border-gray-300 rounded-2xl focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Last Name</label>
+                  <input 
+                    type="text" 
+                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                    placeholder="Doe"
                   />
                 </div>
-
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Adresa
-                  </label>
-                  <input
-                    type="text"
-                    value={formData.address}
-                    onChange={(e) => handleInputChange('address', e.target.value)}
-                    required
-                    className="w-full px-4 py-3 border border-gray-300 rounded-2xl focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Email</label>
+                  <input 
+                    type="email" 
+                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                    placeholder="john@example.com"
                   />
                 </div>
-
-                <div className="grid grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Qyteti
-                    </label>
-                    <input
-                      type="text"
-                      value={formData.city}
-                      onChange={(e) => handleInputChange('city', e.target.value)}
-                      required
-                      className="w-full px-4 py-3 border border-gray-300 rounded-2xl focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Kodi Postar
-                    </label>
-                    <input
-                      type="text"
-                      value={formData.postalCode}
-                      onChange={(e) => handleInputChange('postalCode', e.target.value)}
-                      required
-                      className="w-full px-4 py-3 border border-gray-300 rounded-2xl focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
-                    />
-                  </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Phone</label>
+                  <input 
+                    type="tel" 
+                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                    placeholder="+1 (555) 123-4567"
+                  />
                 </div>
+                <div className="md:col-span-2">
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Address</label>
+                  <input 
+                    type="text" 
+                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                    placeholder="123 Main Street"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">City</label>
+                  <input 
+                    type="text" 
+                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                    placeholder="New York"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Postal Code</label>
+                  <input 
+                    type="text" 
+                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                    placeholder="10001"
+                  />
+                </div>
+                <div className="md:col-span-2">
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Country</label>
+                  <select className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                    <option>United States</option>
+                    <option>Canada</option>
+                    <option>United Kingdom</option>
+                    <option>Germany</option>
+                    <option>France</option>
+                  </select>
+                </div>
+              </div>
+            </div>
 
-                {/* Payment Information */}
-                <div className="border-t border-gray-200 pt-6">
-                  <h3 className="text-lg font-semibold text-gray-900 mb-4">
-                    Informacionet e Pagesës
-                  </h3>
-                  
-                  <div className="bg-yellow-50 border border-yellow-200 rounded-xl p-4 mb-6">
-                    <div className="flex items-center space-x-2 text-yellow-800 text-sm">
-                      <Lock className="w-4 h-4" />
-                      <span>Ky është një demo. Pagesat janë të çaktivizuara.</span>
+            {/* Payment Method Selection */}
+            <div className="bg-white rounded-2xl shadow-sm p-8">
+              <div className="flex items-center space-x-3 mb-6">
+                <CreditCard className="w-6 h-6 text-primary" />
+                <h2 className="text-2xl font-bold text-gray-900">Payment Method</h2>
+              </div>
+              
+              <div className="space-y-4">
+                {paymentMethods.map((method) => (
+                  <label key={method.id} className="relative flex cursor-pointer rounded-xl border border-gray-200 p-4 hover:border-primary transition-colors">
+                    <input type="radio" name="payment" value={method.id} className="sr-only" />
+                    <div className="flex items-center space-x-4">
+                      <div className="flex-shrink-0">
+                        <method.icon className="w-8 h-8 text-gray-400" />
+                      </div>
+                      <div className="flex-1">
+                        <div className="flex items-center space-x-2">
+                          <span className="font-medium text-gray-900">{method.name}</span>
+                          {method.popular && (
+                            <span className="bg-primary text-white text-xs px-2 py-1 rounded-full">Popular</span>
+                          )}
+                        </div>
+                        <p className="text-sm text-gray-500">{method.description}</p>
+                      </div>
                     </div>
-                  </div>
+                  </label>
+                ))}
+              </div>
 
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Numri i Kartës
-                    </label>
-                    <input
-                      type="text"
-                      value={formData.cardNumber}
-                      onChange={(e) => handleInputChange('cardNumber', e.target.value)}
+              {/* Credit Card Form (shown when credit card is selected) */}
+              <div className="mt-6 p-6 bg-gray-50 rounded-xl">
+                <h3 className="font-medium text-gray-900 mb-4">Credit Card Details</h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="md:col-span-2">
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Card Number</label>
+                    <input 
+                      type="text" 
+                      className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
                       placeholder="1234 5678 9012 3456"
-                      className="w-full px-4 py-3 border border-gray-300 rounded-2xl focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
                     />
                   </div>
-
-                  <div className="grid grid-cols-2 gap-4">
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Data e Skadimit
-                      </label>
-                      <input
-                        type="text"
-                        value={formData.expiryDate}
-                        onChange={(e) => handleInputChange('expiryDate', e.target.value)}
-                        placeholder="MM/YY"
-                        className="w-full px-4 py-3 border border-gray-300 rounded-2xl focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
-                        CVV
-                      </label>
-                      <input
-                        type="text"
-                        value={formData.cvv}
-                        onChange={(e) => handleInputChange('cvv', e.target.value)}
-                        placeholder="123"
-                        className="w-full px-4 py-3 border border-gray-300 rounded-2xl focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
-                      />
-                    </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Expiry Date</label>
+                    <input 
+                      type="text" 
+                      className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                      placeholder="MM/YY"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">CVV</label>
+                    <input 
+                      type="text" 
+                      className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                      placeholder="123"
+                    />
                   </div>
                 </div>
+              </div>
+            </div>
 
-                <button
-                  type="submit"
-                  className="w-full bg-primary text-white py-4 rounded-2xl font-semibold hover:bg-primary-600 transition-colors"
-                >
-                  Konfirmo Porosinë
-                </button>
-              </form>
+            {/* Order Review */}
+            <div className="bg-white rounded-2xl shadow-sm p-8">
+              <div className="flex items-center space-x-3 mb-6">
+                <CheckCircle className="w-6 h-6 text-primary" />
+                <h2 className="text-2xl font-bold text-gray-900">Order Review</h2>
+              </div>
+              
+              <div className="space-y-4">
+                {cartItems.map((item) => (
+                  <div key={item.id} className="flex items-center space-x-4 p-4 bg-gray-50 rounded-xl">
+                    <img 
+                      src={item.image} 
+                      alt={item.name}
+                      className="w-16 h-16 object-cover rounded-lg"
+                    />
+                    <div className="flex-1">
+                      <h3 className="font-medium text-gray-900">{item.name}</h3>
+                      <p className="text-sm text-gray-500">Quantity: {item.quantity}</p>
+                    </div>
+                    <div className="text-right">
+                      <p className="font-medium text-gray-900">€{item.price.toFixed(2)}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
 
-          {/* Order Summary */}
-          <div>
-            <div className="bg-white rounded-2xl shadow-soft p-6 sticky top-24">
-              <h2 className="text-xl font-semibold text-gray-900 mb-6">
-                Përmbledhja e Porosisë
-              </h2>
+          {/* Order Summary Sidebar */}
+          <div className="lg:col-span-1">
+            <div className="sticky top-8">
+              <div className="bg-white rounded-2xl shadow-sm p-6">
+                <h3 className="text-lg font-bold text-gray-900 mb-6">Order Summary</h3>
+                
+                {/* Cart Items */}
+                <div className="space-y-4 mb-6">
+                  {cartItems.map((item) => (
+                    <div key={item.id} className="flex items-center space-x-3">
+                      <img 
+                        src={item.image} 
+                        alt={item.name}
+                        className="w-12 h-12 object-cover rounded-lg"
+                      />
+                      <div className="flex-1 min-w-0">
+                        <h4 className="text-sm font-medium text-gray-900 truncate">{item.name}</h4>
+                        <p className="text-sm text-gray-500">Qty: {item.quantity}</p>
+                      </div>
+                      <p className="text-sm font-medium text-gray-900">€{(item.price * item.quantity).toFixed(2)}</p>
+                    </div>
+                  ))}
+                </div>
 
-              {/* Mock Order Items */}
-              <div className="space-y-4 mb-6">
-                <div className="flex justify-between">
-                  <span className="text-gray-600">L&#39;Oréal Paris True Match Foundation</span>
-                  <span>24.99 €</span>
+                {/* Price Breakdown */}
+                <div className="border-t border-gray-200 pt-4 space-y-3">
+                  <div className="flex justify-between text-sm text-gray-600">
+                    <span>Subtotal</span>
+                    <span>€{subtotal.toFixed(2)}</span>
+                  </div>
+                  <div className="flex justify-between text-sm text-gray-600">
+                    <span>Shipping</span>
+                    <span>{shipping === 0 ? 'Free' : `€${shipping.toFixed(2)}`}</span>
+                  </div>
+                  <div className="flex justify-between text-sm text-gray-600">
+                    <span>Tax</span>
+                    <span>€{tax.toFixed(2)}</span>
+                  </div>
+                  <div className="border-t border-gray-200 pt-3">
+                    <div className="flex justify-between text-lg font-bold text-gray-900">
+                      <span>Total</span>
+                      <span>€{total.toFixed(2)}</span>
+                    </div>
+                  </div>
                 </div>
-                <div className="flex justify-between">
-                  <span className="text-gray-600">Maybelline Sky High Mascara</span>
-                  <span>12.99 €</span>
+
+                {/* Trust Signals */}
+                <div className="mt-6 pt-6 border-t border-gray-200">
+                  <div className="grid grid-cols-2 gap-4">
+                    {trustFeatures.map((feature) => (
+                      <div key={feature.title} className="text-center">
+                        <div className="text-primary mb-2">{feature.icon}</div>
+                        <div className="text-xs font-medium text-gray-900">{feature.title}</div>
+                        <div className="text-xs text-gray-500">{feature.description}</div>
+                      </div>
+                    ))}
+                  </div>
                 </div>
-                <div className="flex justify-between">
-                  <span className="text-gray-600">CeraVe Moisturizing Cream</span>
-                  <span>18.50 €</span>
+
+                {/* Place Order Button */}
+                <button className="w-full bg-primary text-white py-4 rounded-xl font-bold text-lg hover:bg-primary/90 transition-colors mt-6 flex items-center justify-center space-x-2">
+                  <Lock className="w-5 h-5" />
+                  <span>Place Order Securely</span>
+                </button>
+
+                {/* Additional Trust Info */}
+                <div className="mt-4 text-center">
+                  <p className="text-xs text-gray-500">
+                    By placing your order, you agree to our{' '}
+                    <a href="/terms" className="text-primary hover:underline">Terms of Service</a>
+                    {' '}and{' '}
+                    <a href="/privacy" className="text-primary hover:underline">Privacy Policy</a>
+                  </p>
                 </div>
               </div>
 
-              {/* Price Breakdown */}
-              <div className="border-t border-gray-200 pt-4 space-y-3">
-                <div className="flex justify-between text-gray-600">
-                  <span>{t(effectiveLocale, 'subtotal')}</span>
-                  <span>{subtotal.toFixed(2)} €</span>
-                </div>
-                <div className="flex justify-between text-gray-600">
-                  <span>{t(effectiveLocale, 'shipping')}</span>
-                  <span>{shipping.toFixed(2)} €</span>
-                </div>
-                <div className="border-t border-gray-200 pt-3 flex justify-between font-semibold text-lg text-gray-900">
-                  <span>{t(effectiveLocale, 'total')}</span>
-                  <span>{total.toFixed(2)} €</span>
+              {/* Guest Checkout Option */}
+              <div className="mt-6 bg-blue-50 rounded-xl p-4">
+                <div className="flex items-center space-x-3">
+                  <User className="w-5 h-5 text-blue-600" />
+                  <div>
+                    <h4 className="font-medium text-blue-900">Guest Checkout</h4>
+                    <p className="text-sm text-blue-700">No account required to complete your purchase</p>
+                  </div>
                 </div>
               </div>
+            </div>
+          </div>
+        </div>
 
-              {/* Security Notice */}
-              <div className="mt-6 bg-gray-50 rounded-xl p-4">
-                <div className="flex items-center space-x-2 text-gray-600 text-sm">
-                  <Lock className="w-4 h-4" />
-                  <span>Pagesa e sigurt me enkriptim SSL</span>
+        {/* Trust Banner */}
+        <div className="mt-16 bg-gradient-to-r from-primary to-primary/80 rounded-2xl p-8 text-white text-center">
+          <div className="max-w-4xl mx-auto">
+            <h2 className="text-3xl font-serif font-bold mb-4">Shop with Confidence</h2>
+            <p className="text-xl text-white/90 mb-8">
+              Your security and satisfaction are our top priorities
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+              {trustFeatures.map((feature) => (
+                <div key={feature.title} className="text-center">
+                  <div className="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                    {feature.icon}
+                  </div>
+                  <h3 className="font-bold text-lg mb-2">{feature.title}</h3>
+                  <p className="text-white/80 text-sm">{feature.description}</p>
                 </div>
-              </div>
+              ))}
             </div>
           </div>
         </div>
       </div>
+    </div>
   );
 }

@@ -55,7 +55,7 @@ export function MiniCartDrawer({ open, onOpenChange }: MiniCartDrawerProps) {
               {cartWithProducts.map((item) => (
                 <div key={item.productId} className="flex items-center space-x-3">
                   <div className="relative w-16 h-16 flex-shrink-0 rounded-lg overflow-hidden bg-gray-100">
-                    <Image src={item.product.images[0]} alt={item.product.name} fill className="object-cover" />
+                    <Image src={item.product.imageUrl} alt={item.product.name} fill className="object-cover" />
                   </div>
                   <div className="flex-1 min-w-0">
                     <div className="font-medium text-sm text-gray-900 truncate">{item.product.name}</div>

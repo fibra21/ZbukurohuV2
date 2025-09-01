@@ -117,9 +117,9 @@ export function SearchBar() {
                   className="w-full px-4 py-3 text-left hover:bg-gray-50 transition-colors flex items-center space-x-3"
                 >
                   <div className="w-12 h-12 md:w-12 md:h-12 bg-gray-200 rounded-lg flex-shrink-0">
-                    {product.images[0] && (
+                    {product.imageUrl && (
                       <img
-                        src={product.images[0]}
+                        src={product.imageUrl}
                         alt={product.name}
                         className="w-full h-full object-cover rounded-lg"
                       />
