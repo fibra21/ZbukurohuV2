@@ -15,6 +15,7 @@ interface BrandCardProps {
 
 export function BrandCard({ brand, variant = 'default' }: BrandCardProps) {
   const { locale } = useAppStore();
+  const effectiveLocale = (locale === 'sq-AL' || locale === 'en') ? locale : 'sq-AL';
 
   if (variant === 'compact') {
     return (
@@ -40,7 +41,7 @@ export function BrandCard({ brand, variant = 'default' }: BrandCardProps) {
         {brand.isOfficialDistributorInKosovo && (
           <div className="mt-2 flex items-center justify-center space-x-1 text-xs text-primary">
             <Shield className="w-3 h-3" />
-            <span>{t(locale, 'officialDistributor')}</span>
+            <span>{t(effectiveLocale, 'officialDistributor')}</span>
           </div>
         )}
       </Link>
@@ -88,7 +89,7 @@ export function BrandCard({ brand, variant = 'default' }: BrandCardProps) {
         {brand.isOfficialDistributorInKosovo && (
           <div className="absolute top-4 right-4 bg-primary text-white text-xs px-3 py-1 rounded-full flex items-center space-x-1">
             <Shield className="w-3 h-3" />
-            <span>{t(locale, 'officialDistributor')}</span>
+            <span>{t(effectiveLocale, 'officialDistributor')}</span>
           </div>
         )}
       </div>
