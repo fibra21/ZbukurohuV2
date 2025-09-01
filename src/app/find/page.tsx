@@ -18,12 +18,13 @@ import { FaceIllustration } from '@/components/find/FaceIllustration';
 export default function FindPage() {
   const router = useRouter();
   const { locale } = useAppStore();
+  const effectiveLocale = (locale === 'sq-AL' || locale === 'en') ? locale : 'sq-AL';
   const [activeHotspot, setActiveHotspot] = useState<string | null>(null);
 
   const hotspots: FaceHotspot[] = [
     {
       id: 'eyes',
-      name: t(locale, 'eyes'),
+      name: t(effectiveLocale, 'eyes'),
       category: 'eyes',
       x: 50,
       y: 35,
@@ -32,7 +33,7 @@ export default function FindPage() {
     },
     {
       id: 'brows',
-      name: t(locale, 'brows'),
+      name: t(effectiveLocale, 'brows'),
       category: 'brows',
       x: 50,
       y: 25,
@@ -41,7 +42,7 @@ export default function FindPage() {
     },
     {
       id: 'lips',
-      name: t(locale, 'lips'),
+      name: t(effectiveLocale, 'lips'),
       category: 'lips',
       x: 50,
       y: 70,
@@ -50,7 +51,7 @@ export default function FindPage() {
     },
     {
       id: 'cheeks',
-      name: t(locale, 'cheeks'),
+      name: t(effectiveLocale, 'cheeks'),
       category: 'blush',
       x: 35,
       y: 50,
@@ -59,7 +60,7 @@ export default function FindPage() {
     },
     {
       id: 'cheeks-right',
-      name: t(locale, 'cheeks'),
+      name: t(effectiveLocale, 'cheeks'),
       category: 'blush',
       x: 65,
       y: 50,
@@ -68,7 +69,7 @@ export default function FindPage() {
     },
     {
       id: 'skin-forehead',
-      name: t(locale, 'skin'),
+      name: t(effectiveLocale, 'skin'),
       category: 'skincare',
       x: 50,
       y: 15,
@@ -77,7 +78,7 @@ export default function FindPage() {
     },
     {
       id: 'skin-cheeks',
-      name: t(locale, 'skin'),
+      name: t(effectiveLocale, 'skin'),
       category: 'skincare',
       x: 50,
       y: 45,
