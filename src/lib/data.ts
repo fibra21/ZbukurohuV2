@@ -1,11 +1,11 @@
 import { Product, Brand, Seller, Category } from '@/types';
 
 // Cache for data to avoid repeated fetches
-const cache = new Map<string, any>();
+const cache = new Map<string, unknown>();
 
 async function fetchData<T>(path: string): Promise<T[]> {
   if (cache.has(path)) {
-    return cache.get(path);
+    return cache.get(path) as T[];
   }
 
   try {

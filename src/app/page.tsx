@@ -10,8 +10,6 @@ import { getProducts, getBrands, getCategories } from '@/lib/data';
 import { Product, Brand, Category } from '@/types';
 import { 
   ArrowRight, 
-  Star, 
-  TrendingUp, 
   Sparkles,
   Eye,
   Heart,

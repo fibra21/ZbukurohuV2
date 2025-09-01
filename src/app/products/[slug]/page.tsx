@@ -1,12 +1,12 @@
 'use client';
 
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
 import Image from 'next/image';
 import { getProductBySlug, getProducts } from '@/lib/data';
 import { useAppStore } from '@/lib/store';
 import { Product } from '@/types';
-import { Star, Shield, Leaf, FlaskConical, BadgeCheck } from 'lucide-react';
+import { Star, BadgeCheck } from 'lucide-react';
 
 export default function ProductDetailPage() {
   const params = useParams<{ slug: string }>();

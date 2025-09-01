@@ -6,7 +6,6 @@ import { useAppStore } from '@/lib/store';
 import { t } from '@/lib/i18n';
 import { 
   ArrowLeft, 
-  CreditCard, 
   Truck, 
   CheckCircle,
   Lock
@@ -14,7 +13,7 @@ import {
 
 export default function CheckoutPage() {
   const router = useRouter();
-  const { locale, cart, clearCart } = useAppStore();
+  const { locale, clearCart } = useAppStore();
   const [step, setStep] = useState<'form' | 'confirmation'>('form');
   const [formData, setFormData] = useState({
     firstName: '',
