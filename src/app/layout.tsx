@@ -3,8 +3,9 @@ import "./globals.css";
 import { Layout } from "@/components/layout/Layout";
 
 export const metadata: Metadata = {
-  title: "Zbukurohu – Makeup & Skincare Marketplace",
-  description: "Frontend-only marketplace demo for the Balkans (Kosovo).",
+  title: "Zbukurohu - Frontend E-commerce Marketplace",
+  description: "Frontend-only e-commerce marketplace for makeup and skincare in the Balkans.",
+  viewport: "width=device-width, initial-scale=1, maximum-scale=5",
 };
 
 export default function RootLayout({

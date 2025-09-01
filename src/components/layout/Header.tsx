@@ -124,7 +124,7 @@ export function Header() {
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center ml-8 lg:ml-12 space-x-10 lg:space-x-12" suppressHydrationWarning>
+          <nav className="hidden lg:flex items-center ml-8 lg:ml-12 space-x-10 lg:space-x-12" suppressHydrationWarning>
             {navigation.map((item) => {
               const itemWithMega = item as typeof item & { mega?: 'makeup' | 'skincare' | 'services' };
               return (
@@ -209,18 +209,35 @@ export function Header() {
             );})}
           </nav>
 
+          {/* Tablet Navigation (simplified) */}
+          <nav className="hidden md:flex lg:hidden items-center ml-4 space-x-6" suppressHydrationWarning>
+            {navigation.slice(0, 4).map((item) => (
+              <Link
+                key={item.name}
+                href={item.href}
+                className="text-text-secondary hover:text-primary transition-colors font-medium text-sm"
+              >
+                {item.name}
+              </Link>
+            ))}
+          </nav>
+
           {/* Search Bar */}
-          <div className="hidden md:flex flex-1 max-w-md mx-8">
+          <div className="hidden md:flex flex-1 max-w-md mx-4 lg:mx-8">
             <SearchBar />
           </div>
 
           {/* Right Side Actions */}
-          <div className="flex items-center space-x-4">
+          <div className="flex items-center space-x-2 md:space-x-4">
             {/* Locale Switcher */}
-            <LocaleSwitcher />
+            <div className="hidden sm:block">
+              <LocaleSwitcher />
+            </div>
 
             {/* Theme Toggle */}
-            <ThemeToggle />
+            <div className="hidden sm:block">
+              <ThemeToggle />
+            </div>
 
             {/* Wishlist */}
             <Link
@@ -274,7 +291,7 @@ export function Header() {
 
         {/* Mobile Menu */}
         {isMenuOpen && (
-          <div className="md:hidden border-t border-gray-200 py-4">
+          <div className="md:hidden border-t border-gray-200 py-4 max-h-[80vh] overflow-y-auto">
             <nav className="flex flex-col space-y-4">
               {navigation.map((item) => {
                 const itemWithMega = item as typeof item & { mega?: 'makeup' | 'skincare' | 'services' };
@@ -282,20 +299,24 @@ export function Header() {
                   <div key={item.name}>
                     <Link
                       href={item.href}
-                      className="text-text-secondary hover:text-primary transition-colors font-medium"
+                      className="text-text-secondary hover:text-primary transition-colors font-medium text-lg"
                       onClick={() => setIsMenuOpen(false)}
                     >
                       {item.name}
                     </Link>
                     {itemWithMega.mega && (
-                      <div className="ml-4 mt-2 space-y-2">
+                      <div className="ml-4 mt-3 space-y-4 bg-gray-50 rounded-lg p-3">
                         {itemWithMega.mega === 'makeup' && makeupColumns.map(col => (
                           <div key={col.title}>
-                            <div className="font-semibold text-gray-700 text-sm">{col.title}</div>
-                            <ul className="ml-2 space-y-1">
-                              {col.items.slice(0, 3).map(it => (
+                            <div className="font-semibold text-gray-800 text-base mb-2">{col.title}</div>
+                            <ul className="ml-2 space-y-2">
+                              {col.items.map(it => (
                                 <li key={it}>
-                                  <Link href={makeLink(it)} className="text-gray-600 hover:text-primary text-sm">
+                                  <Link 
+                                    href={makeLink(it)} 
+                                    className="text-gray-600 hover:text-primary text-sm block py-1"
+                                    onClick={() => setIsMenuOpen(false)}
+                                  >
                                     {it}
                                   </Link>
                                 </li>
@@ -305,11 +326,15 @@ export function Header() {
                         ))}
                         {itemWithMega.mega === 'skincare' && skincareColumns.map(col => (
                           <div key={col.title}>
-                            <div className="font-semibold text-gray-700 text-sm">{col.title}</div>
-                            <ul className="ml-2 space-y-1">
-                              {col.items.slice(0, 3).map(it => (
+                            <div className="font-semibold text-gray-800 text-base mb-2">{col.title}</div>
+                            <ul className="ml-2 space-y-2">
+                              {col.items.map(it => (
                                 <li key={it}>
-                                  <Link href={makeLink(it)} className="text-gray-700 hover:text-primary text-sm">
+                                  <Link 
+                                    href={makeLink(it)} 
+                                    className="text-gray-600 hover:text-primary text-sm block py-1"
+                                    onClick={() => setIsMenuOpen(false)}
+                                  >
                                     {it}
                                   </Link>
                                 </li>
@@ -319,11 +344,15 @@ export function Header() {
                         ))}
                         {itemWithMega.mega === 'services' && servicesColumns.map(col => (
                           <div key={col.title}>
-                            <div className="font-semibold text-gray-700 text-sm">{col.title}</div>
-                            <ul className="ml-2 space-y-1">
-                              {col.items.slice(0, 3).map(it => (
+                            <div className="font-semibold text-gray-800 text-base mb-2">{col.title}</div>
+                            <ul className="ml-2 space-y-2">
+                              {col.items.map(it => (
                                 <li key={it}>
-                                  <Link href={makeLink(it)} className="text-gray-700 hover:text-primary text-sm">
+                                  <Link 
+                                    href={makeLink(it)} 
+                                    className="text-gray-600 hover:text-primary text-sm block py-1"
+                                    onClick={() => setIsMenuOpen(false)}
+                                  >
                                     {it}
                                   </Link>
                                 </li>

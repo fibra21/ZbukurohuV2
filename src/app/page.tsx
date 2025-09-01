@@ -76,122 +76,90 @@ export default function HomePage() {
   return (
     <>
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-primary-50 to-secondary-50 py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center">
-            <h1 className="text-4xl md:text-6xl font-serif font-bold text-primary mb-6">
-              Zbuloni Botën e Bukurisë
-            </h1>
-            <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
-              Platforma kryesore për kozmetikë dhe kujdesin e lëkurës në Kosovë. 
-              Produkte të origjinale nga distributuesit e autorizuar.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link
-                href="/categories"
-                className="bg-primary text-white px-8 py-3 rounded-2xl font-semibold hover:bg-primary-600 transition-colors inline-flex items-center justify-center"
-              >
-                Shiko Kategoritë
-                <ArrowRight className="ml-2 w-5 h-5" />
-              </Link>
-              <Link
-                href="/find"
-                className="bg-white text-primary border-2 border-primary px-8 py-3 rounded-2xl font-semibold hover:bg-primary hover:text-white transition-colors inline-flex items-center justify-center"
-              >
-                Gjej Produkte
-                <Sparkles className="ml-2 w-5 h-5" />
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Featured Categories */}
-      <section className="py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-serif font-bold text-gray-900 mb-4">
-              Kategoritë e Popullarizuara
-            </h2>
-            <p className="text-gray-600 max-w-2xl mx-auto">
-              Zbuloni produktet më të mira për çdo pjesë të fytyrës suaj
-            </p>
-          </div>
-          
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-            {categories.slice(0, 8).map((category) => {
-              const IconComponent = categoryIcons[category.slug as keyof typeof categoryIcons] || Sparkles;
-              return (
-                <Link
-                  key={category.id}
-                  href={`/categories/${category.slug}`}
-                  className="group bg-white p-6 rounded-2xl shadow-soft hover:shadow-medium transition-all duration-300 text-center"
-                >
-                  <div className="w-16 h-16 bg-primary-50 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:bg-primary transition-colors">
-                    <IconComponent className="w-8 h-8 text-primary group-hover:text-white transition-colors" />
-                  </div>
-                  <h3 className="font-semibold text-gray-900 group-hover:text-primary transition-colors">
-                    {category.name}
-                  </h3>
-                </Link>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
-      {/* Featured Brands */}
-      <section className="py-16 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-serif font-bold text-gray-900 mb-4">
-              Markat e Autorizuara
-            </h2>
-            <p className="text-gray-600 max-w-2xl mx-auto">
-              Vetëm nga distributuesit e autorizuar në Kosovë
-            </p>
-          </div>
-          
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-            {officialBrands.slice(0, 8).map((brand) => (
-              <BrandCard key={brand.id} brand={brand} />
-            ))}
-          </div>
-          
-          <div className="text-center mt-8">
+      <section className="relative bg-gradient-to-br from-primary to-secondary py-16 md:py-24 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto text-center">
+          <h1 className="text-4xl md:text-6xl font-serif font-bold text-white mb-6 leading-tight">
+            {t(effectiveLocale, 'home')}
+          </h1>
+          <p className="text-xl md:text-2xl text-white/90 mb-8 max-w-3xl mx-auto">
+            {t(effectiveLocale, 'home')}
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Link
+              href="/categories"
+              className="bg-white text-primary px-8 py-3 rounded-2xl font-semibold hover:bg-gray-100 transition-colors text-lg"
+            >
+              {t(effectiveLocale, 'categories')}
+            </Link>
             <Link
               href="/brands"
-              className="inline-flex items-center text-primary font-semibold hover:text-primary-600 transition-colors"
+              className="border-2 border-white text-white px-8 py-3 rounded-2xl font-semibold hover:bg-white hover:text-primary transition-colors text-lg"
             >
-              Shiko të gjitha markat
-              <ArrowRight className="ml-2 w-4 h-4" />
+              {t(effectiveLocale, 'brands')}
             </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Popular Categories */}
+      <section className="py-12 md:py-16 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto">
+          <h2 className="text-3xl md:text-4xl font-serif font-bold text-center mb-12">
+            {t(effectiveLocale, 'categories')}
+          </h2>
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
+            {categories.slice(0, 8).map((category) => (
+              <Link
+                key={category.slug}
+                href={`/categories/${category.slug}`}
+                className="group bg-white rounded-2xl p-4 md:p-6 shadow-soft hover:shadow-medium transition-shadow"
+              >
+                <div className="w-16 h-16 md:w-20 md:h-20 bg-secondary rounded-2xl flex items-center justify-center mb-4 mx-auto">
+                  <FlaskConical className="w-8 h-8 md:w-10 md:h-10 text-primary" />
+                </div>
+                <h3 className="font-semibold text-center text-gray-900 group-hover:text-primary transition-colors">
+                  {category.name}
+                </h3>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Authorized Brands */}
+      <section className="py-12 md:py-16 px-4 sm:px-6 lg:px-8 bg-gray-50">
+        <div className="max-w-7xl mx-auto">
+          <h2 className="text-3xl md:text-4xl font-serif font-bold text-center mb-12">
+            {t(effectiveLocale, 'brands')}
+          </h2>
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4 md:gap-6">
+            {brands.slice(0, 12).map((brand) => (
+              <Link
+                key={brand.slug}
+                href={`/brands/${brand.slug}`}
+                className="group bg-white rounded-2xl p-4 shadow-soft hover:shadow-medium transition-shadow"
+              >
+                <div className="w-16 h-16 md:w-20 md:h-20 bg-white rounded-2xl flex items-center justify-center mb-3 mx-auto border border-gray-200">
+                  <span className="text-2xl md:text-3xl font-bold text-primary">
+                    {brand.name.charAt(0)}
+                  </span>
+                </div>
+                <h3 className="font-medium text-center text-gray-900 group-hover:text-primary transition-colors text-sm">
+                  {brand.name}
+                </h3>
+              </Link>
+            ))}
           </div>
         </div>
       </section>
 
       {/* Bestsellers */}
-      <section className="py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between mb-12">
-            <div>
-              <h2 className="text-3xl font-serif font-bold text-gray-900 mb-2">
-                Më të Shiturit
-              </h2>
-              <p className="text-gray-600">
-                Produktet më të kërkuara nga klientët tanë
-              </p>
-            </div>
-            <Link
-              href="/categories"
-              className="inline-flex items-center text-primary font-semibold hover:text-primary-600 transition-colors"
-            >
-              Shiko të gjitha
-              <ArrowRight className="ml-2 w-4 h-4" />
-            </Link>
-          </div>
-          
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <section className="py-12 md:py-16 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto">
+          <h2 className="text-3xl md:text-4xl font-serif font-bold text-center mb-12">
+            {t(effectiveLocale, 'bestsellers')}
+          </h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             {featuredProducts.map((product) => (
               <ProductCard key={product.id} product={product} />
             ))}
@@ -200,27 +168,12 @@ export default function HomePage() {
       </section>
 
       {/* New Arrivals */}
-      <section className="py-16 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between mb-12">
-            <div>
-              <h2 className="text-3xl font-serif font-bold text-gray-900 mb-2">
-                Produkte të Reja
-              </h2>
-              <p className="text-gray-600">
-                Zbuloni produktet më të fundit në treg
-              </p>
-            </div>
-            <Link
-              href="/categories?filter=new"
-              className="inline-flex items-center text-primary font-semibold hover:text-primary-600 transition-colors"
-            >
-              Shiko të gjitha
-              <ArrowRight className="ml-2 w-4 h-4" />
-            </Link>
-          </div>
-          
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <section className="py-12 md:py-16 px-4 sm:px-6 lg:px-8 bg-gray-50">
+        <div className="max-w-7xl mx-auto">
+          <h2 className="text-3xl md:text-4xl font-serif font-bold text-center mb-12">
+            {t(effectiveLocale, 'new')}
+          </h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             {newProducts.map((product) => (
               <ProductCard key={product.id} product={product} />
             ))}
@@ -228,32 +181,39 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Editorial Section */}
-      <section className="py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="bg-gradient-to-r from-primary-50 to-secondary-50 rounded-2xl p-8 md:p-12">
-            <div className="grid md:grid-cols-2 gap-8 items-center">
-              <div>
-                <h2 className="text-3xl font-serif font-bold text-primary mb-4">
-                  Si të Zgjidhni Produktet e Duha
-                </h2>
-                <p className="text-gray-700 mb-6">
-                  Ekspertët tanë ju ndihmojnë të zbuloni rutinën perfekte për lëkurën tuaj. 
-                  Nga pastrimi deri te hidratimi, ne kemi gjithçka që ju nevojitet.
-                </p>
-                <Link
-                  href="/blog"
-                  className="inline-flex items-center bg-primary text-white px-6 py-3 rounded-2xl font-semibold hover:bg-primary-600 transition-colors"
-                >
-                  Lexo Më Shumë
-                  <ArrowRight className="ml-2 w-4 h-4" />
-                </Link>
+      {/* How-to Section */}
+      <section className="py-12 md:py-16 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto">
+          <h2 className="text-3xl md:text-4xl font-serif font-bold text-center mb-12">
+            {t(effectiveLocale, 'completeRoutine')}
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="text-center">
+              <div className="w-20 h-20 bg-primary rounded-2xl flex items-center justify-center mx-auto mb-4">
+                <span className="text-white text-2xl font-bold">1</span>
               </div>
-              <div className="text-center">
-                <div className="w-64 h-64 bg-white rounded-2xl shadow-soft mx-auto flex items-center justify-center">
-                  <Sparkles className="w-16 h-16 text-primary" />
-                </div>
+              <h3 className="text-xl font-semibold mb-2">{t(effectiveLocale, 'skinTypes')}</h3>
+              <p className="text-gray-600">
+                {t(effectiveLocale, 'completeRoutine')}
+              </p>
+            </div>
+            <div className="text-center">
+              <div className="w-20 h-20 bg-primary rounded-2xl flex items-center justify-center mx-auto mb-4">
+                <span className="text-white text-2xl font-bold">2</span>
               </div>
+              <h3 className="text-xl font-semibold mb-2">{t(effectiveLocale, 'skinConcerns')}</h3>
+              <p className="text-gray-600">
+                {t(effectiveLocale, 'completeRoutine')}
+              </p>
+            </div>
+            <div className="text-center">
+              <div className="w-20 h-20 bg-primary rounded-2xl flex items-center justify-center mx-auto mb-4">
+                <span className="text-white text-2xl font-bold">3</span>
+              </div>
+              <h3 className="text-xl font-semibold mb-2">{t(effectiveLocale, 'ingredients')}</h3>
+              <p className="text-gray-600">
+                {t(effectiveLocale, 'completeRoutine')}
+              </p>
             </div>
           </div>
         </div>

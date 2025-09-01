@@ -80,22 +80,22 @@ export function SearchBar() {
     <div className="relative w-full" ref={dropdownRef}>
       <form onSubmit={handleSubmit} className="relative">
         <div className="relative">
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4 md:w-4 md:h-4" />
           <input
             ref={inputRef}
             type="text"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder={t(effectiveLocale, 'searchPlaceholder')}
-            className="w-full pl-10 pr-10 py-2 border border-gray-300 rounded-2xl focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent bg-white"
+            className="w-full pl-10 pr-10 py-2 md:py-2 text-sm md:text-base border border-gray-300 rounded-2xl focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent bg-white"
           />
           {searchQuery && (
             <button
               type="button"
               onClick={clearSearch}
-              className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
+              className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 p-1"
             >
-              <X className="w-4 h-4" />
+              <X className="w-4 h-4 md:w-4 md:h-4" />
             </button>
           )}
         </div>
@@ -116,7 +116,7 @@ export function SearchBar() {
                   onClick={() => handleResultClick(product)}
                   className="w-full px-4 py-3 text-left hover:bg-gray-50 transition-colors flex items-center space-x-3"
                 >
-                  <div className="w-12 h-12 bg-gray-200 rounded-lg flex-shrink-0">
+                  <div className="w-12 h-12 md:w-12 md:h-12 bg-gray-200 rounded-lg flex-shrink-0">
                     {product.images[0] && (
                       <img
                         src={product.images[0]}
