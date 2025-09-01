@@ -51,7 +51,7 @@ export const translations = {
     skinType: 'Lloji i lëkurës',
     concern: 'Shqetësimi',
     shade: 'Ngjyra',
-    rating: 'Vlerësimi',
+    ratingAlt: 'Vlerësimi',
     inStock: 'Në stok',
     clearFilters: 'Pastro filtrat',
     sortBy: 'Rendit sipas',
