@@ -94,7 +94,7 @@ export default async function HomePage() {
   ];
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen w-full overflow-x-hidden">
       {/* Hero Section */}
       <section className="relative bg-gradient-to-br from-gray-50 via-white to-gray-50 text-gray-900 overflow-hidden">
         {/* Background Pattern */}
@@ -103,41 +103,41 @@ export default async function HomePage() {
           <div className="absolute bottom-0 right-0 w-96 h-96 bg-accent rounded-full translate-x-1/2 translate-y-1/2"></div>
         </div>
         
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-32">
+        <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-32">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
               <div className="flex items-center space-x-3 mb-6">
                 <Sparkles className="w-8 h-8 text-primary" />
                 <span className="text-lg font-medium text-gray-600">Premium Beauty Marketplace</span>
               </div>
-              <h1 className="text-5xl lg:text-6xl font-serif font-bold leading-tight mb-6">
+              <h1 className="text-4xl lg:text-5xl xl:text-6xl font-serif font-bold leading-tight mb-6">
                 Discover Your
                 <span className="block text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">
                   Natural Beauty
                 </span>
               </h1>
-              <p className="text-xl text-gray-600 mb-8 max-w-lg">
+              <p className="text-lg lg:text-xl text-gray-600 mb-8 max-w-lg">
                 Curated collection of premium beauty products, skincare essentials, and wellness solutions. Authentic brands, expert advice, and exclusive deals.
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
                 <Link 
                   href="/categories"
-                  className="bg-primary text-white px-8 py-4 rounded-2xl font-bold text-lg hover:bg-primary/90 transition-all transform hover:scale-105 flex items-center justify-center space-x-2"
+                  className="bg-primary text-white px-6 lg:px-8 py-3 lg:py-4 rounded-2xl font-bold text-base lg:text-lg hover:bg-primary/90 transition-all transform hover:scale-105 flex items-center justify-center space-x-2"
                 >
                   <span>Shop Now</span>
-                  <ArrowRight className="w-5 h-5" />
+                  <ArrowRight className="w-4 h-5 lg:w-5 lg:h-5" />
                 </Link>
                 <Link 
                   href="/find"
-                  className="border-2 border-primary/30 text-primary px-8 py-4 rounded-2xl font-medium text-lg hover:bg-primary/10 transition-all flex items-center justify-center space-x-2"
+                  className="border-2 border-primary/30 text-primary px-6 lg:px-8 py-3 lg:py-4 rounded-2xl font-medium text-base lg:text-lg hover:bg-primary/10 transition-all flex items-center justify-center space-x-2"
                 >
                   <span>Find Your Style</span>
-                  <Eye className="w-5 h-5" />
+                  <Eye className="w-4 h-5 lg:w-5 lg:h-5" />
                 </Link>
               </div>
               
               {/* Trust Indicators */}
-              <div className="flex items-center space-x-6 mt-8 text-sm text-gray-600">
+              <div className="flex flex-col sm:flex-row items-start sm:items-center space-y-3 sm:space-y-0 sm:space-x-6 mt-8 text-sm text-gray-600">
                 <div className="flex items-center space-x-2">
                   <Star className="w-5 h-5 text-yellow-400 fill-current" />
                   <span>4.9/5 from 10,000+ reviews</span>
@@ -150,52 +150,52 @@ export default async function HomePage() {
             </div>
             
             <div className="relative">
-              <div className="grid grid-cols-2 gap-4">
-                <div className="space-y-4">
-                  <div className="bg-white rounded-2xl p-4 shadow-lg border border-gray-100">
+              <div className="grid grid-cols-2 gap-3 lg:gap-4">
+                <div className="space-y-3 lg:space-y-4">
+                  <div className="bg-white rounded-2xl p-3 lg:p-4 shadow-lg border border-gray-100">
                     <img 
                       src="https://images.unsplash.com/photo-1556228720-195a672e8a03?w=200&h=200&fit=crop" 
                       alt="Skincare"
-                      className="w-full h-32 object-cover rounded-xl"
+                      className="w-full h-24 lg:h-32 object-cover rounded-xl"
                     />
-                    <div className="mt-3">
-                      <h3 className="font-semibold text-gray-900">Premium Skincare</h3>
-                      <p className="text-gray-600 text-sm">Starting from €25</p>
+                    <div className="mt-2 lg:mt-3">
+                      <h3 className="font-semibold text-gray-900 text-sm lg:text-base">Premium Skincare</h3>
+                      <p className="text-gray-600 text-xs lg:text-sm">Starting from €25</p>
                     </div>
                   </div>
-                  <div className="bg-white rounded-2xl p-4 shadow-lg border border-gray-100">
+                  <div className="bg-white rounded-2xl p-3 lg:p-4 shadow-lg border border-gray-100">
                     <img 
                       src="https://images.unsplash.com/photo-1512496015851-a90fb38ba796?w=200&h=200&fit=crop" 
                       alt="Makeup"
-                      className="w-full h-32 object-cover rounded-xl"
+                      className="w-full h-24 lg:h-32 object-cover rounded-xl"
                     />
-                    <div className="mt-3">
-                      <h3 className="font-semibold text-gray-900">Luxury Makeup</h3>
-                      <p className="text-gray-600 text-sm">Starting from €18</p>
+                    <div className="mt-2 lg:mt-3">
+                      <h3 className="font-semibold text-gray-900 text-sm lg:text-base">Luxury Makeup</h3>
+                      <p className="text-gray-600 text-xs lg:text-sm">Starting from €18</p>
                     </div>
                   </div>
                 </div>
-                <div className="space-y-4 pt-8">
-                  <div className="bg-white rounded-2xl p-4 shadow-lg border border-gray-100">
+                <div className="space-y-3 lg:space-y-4 pt-6 lg:pt-8">
+                  <div className="bg-white rounded-2xl p-3 lg:p-4 shadow-lg border border-gray-100">
                     <img 
                       src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=200&h=200&fit=crop" 
                       alt="Haircare"
-                      className="w-full h-32 object-cover rounded-xl"
+                      className="w-full h-24 lg:h-32 object-cover rounded-xl"
                     />
-                    <div className="mt-3">
-                      <h3 className="font-semibold text-gray-900">Professional Hair</h3>
-                      <p className="text-gray-600 text-sm">Starting from €30</p>
+                    <div className="mt-2 lg:mt-3">
+                      <h3 className="font-semibold text-gray-900 text-sm lg:text-base">Professional Hair</h3>
+                      <p className="text-gray-600 text-xs lg:text-sm">Starting from €30</p>
                     </div>
                   </div>
-                  <div className="bg-white rounded-2xl p-4 shadow-lg border border-gray-100">
+                  <div className="bg-white rounded-2xl p-3 lg:p-4 shadow-lg border border-gray-100">
                     <img 
                       src="https://images.unsplash.com/photo-1571781926291-c477ebfd024b?w=200&h=200&fit=crop" 
                       alt="Wellness"
-                      className="w-full h-32 object-cover rounded-xl"
+                      className="w-full h-24 lg:h-32 object-cover rounded-xl"
                     />
-                    <div className="mt-3">
-                      <h3 className="font-semibold text-gray-900">Wellness</h3>
-                      <p className="text-gray-600 text-sm">Starting from €20</p>
+                    <div className="mt-2 lg:mt-3">
+                      <h3 className="font-semibold text-gray-900 text-sm lg:text-base">Wellness</h3>
+                      <p className="text-gray-600 text-xs lg:text-sm">Starting from €20</p>
                     </div>
                   </div>
                 </div>
@@ -207,7 +207,7 @@ export default async function HomePage() {
 
       {/* Trust Features */}
       <section className="py-16 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {trustFeatures.map((feature) => (
               <div key={feature.title} className="text-center">
@@ -224,10 +224,10 @@ export default async function HomePage() {
 
       {/* Popular Categories */}
       <section className="py-16 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-4xl font-serif font-bold text-gray-900 mb-4">Shop by Category</h2>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+            <h2 className="text-3xl lg:text-4xl font-serif font-bold text-gray-900 mb-4">Shop by Category</h2>
+            <p className="text-lg lg:text-xl text-gray-600 max-w-2xl mx-auto">
               Explore our curated collections designed for every beauty need and preference
             </p>
           </div>
@@ -237,16 +237,16 @@ export default async function HomePage() {
               <Link 
                 key={category.id} 
                 href={`/categories/${category.slug}`}
-                className="group bg-white rounded-2xl p-8 shadow-sm hover:shadow-lg transition-all transform hover:-translate-y-1"
+                className="group bg-white rounded-2xl p-6 lg:p-8 shadow-sm hover:shadow-lg transition-all transform hover:-translate-y-1"
               >
-                <div className="text-6xl mb-6 group-hover:scale-110 transition-transform">
+                <div className="text-4xl lg:text-6xl mb-4 lg:mb-6 group-hover:scale-110 transition-transform">
                   {category.icon || '✨'}
                 </div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-3">{category.name}</h3>
-                <p className="text-gray-600 mb-4">{category.description}</p>
+                <h3 className="text-xl lg:text-2xl font-bold text-gray-900 mb-2 lg:mb-3">{category.name}</h3>
+                <p className="text-gray-600 mb-3 lg:mb-4 text-sm lg:text-base">{category.description}</p>
                 <div className="flex items-center justify-between">
-                  <span className="text-primary font-semibold">{category.productCount} products</span>
-                  <ArrowRight className="w-5 h-5 text-gray-400 group-hover:text-primary transition-colors" />
+                  <span className="text-primary font-semibold text-sm lg:text-base">{category.productCount} products</span>
+                  <ArrowRight className="w-4 h-5 lg:w-5 lg:h-5 text-gray-400 group-hover:text-primary transition-colors" />
                 </div>
               </Link>
             ))}
@@ -256,31 +256,28 @@ export default async function HomePage() {
 
       {/* Seasonal Highlights */}
       <section className="py-16 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-4xl font-serif font-bold text-gray-900 mb-4">Seasonal Highlights</h2>
-            <p className="text-xl text-gray-600">Discover what&apos;s trending this season</p>
+            <h2 className="text-3xl lg:text-4xl font-serif font-bold text-gray-900 mb-4">Seasonal Highlights</h2>
+            <p className="text-lg lg:text-xl text-gray-600 max-w-2xl mx-auto">
+              Discover what&apos;s trending this season
+            </p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {seasonalHighlights.map((highlight) => (
               <Link 
                 key={highlight.title} 
                 href={highlight.link}
-                className="group relative overflow-hidden rounded-2xl shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-2"
+                className="group block"
               >
-                <div className="relative h-64">
-                  <img 
-                    src={highlight.image} 
-                    alt={highlight.title}
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                  />
-                  <div className={`absolute inset-0 bg-gradient-to-t ${highlight.color} opacity-80`}></div>
-                  <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
-                    <h3 className="text-2xl font-bold mb-2">{highlight.title}</h3>
+                <div className={`bg-gradient-to-br ${highlight.color} rounded-2xl p-6 text-white relative overflow-hidden`}>
+                  <div className="absolute inset-0 bg-black/20 group-hover:bg-black/30 transition-colors"></div>
+                  <div className="relative">
+                    <h3 className="text-xl font-bold mb-2">{highlight.title}</h3>
                     <p className="text-white/90 mb-4">{highlight.description}</p>
-                    <div className="flex items-center space-x-2 text-white/80">
-                      <span>Shop Now</span>
+                    <div className="flex items-center space-x-2 text-sm">
+                      <span>Learn More</span>
                       <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                     </div>
                   </div>
@@ -293,28 +290,22 @@ export default async function HomePage() {
 
       {/* Bestsellers */}
       <section className="py-16 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between mb-8">
-            <div>
-              <h2 className="text-4xl font-serif font-bold text-gray-900 mb-2">Bestsellers</h2>
-              <p className="text-gray-600">Most loved products by our customers</p>
-            </div>
-            <Link 
-              href="/categories"
-              className="bg-primary text-white px-6 py-3 rounded-xl font-medium hover:bg-primary/90 transition-colors flex items-center space-x-2"
-            >
+            <h2 className="text-3xl lg:text-4xl font-serif font-bold text-gray-900">Bestsellers</h2>
+            <Link href="/categories" className="text-primary hover:text-primary/80 font-medium flex items-center space-x-2">
               <span>View All</span>
-              <ArrowRight className="w-4 h-4" />
+              <ArrowRight className="w-4 h-5" />
             </Link>
           </div>
           
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {bestsellers.map((product) => (
               <div key={product.id} className="relative">
-                <div className="absolute top-3 left-3 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded-full z-10">
-                  BESTSELLER
-                </div>
                 <ProductCard product={product} />
+                <div className="absolute top-2 left-2">
+                  <span className="bg-accent text-white text-xs px-2 py-1 rounded-lg font-medium">BESTSELLER</span>
+                </div>
               </div>
             ))}
           </div>
@@ -323,13 +314,15 @@ export default async function HomePage() {
 
       {/* Featured Brands */}
       <section className="py-16 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-4xl font-serif font-bold text-gray-900 mb-4">Featured Brands</h2>
-            <p className="text-xl text-gray-600">Authentic products from world-renowned beauty brands</p>
+            <h2 className="text-3xl lg:text-4xl font-serif font-bold text-gray-900 mb-4">Featured Brands</h2>
+            <p className="text-lg lg:text-xl text-gray-600 max-w-2xl mx-auto">
+              Shop from trusted and authentic beauty brands
+            </p>
           </div>
           
-          <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-6">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
             {featuredBrands.map((brand) => (
               <BrandCard key={brand.id} brand={brand} />
             ))}
@@ -339,28 +332,22 @@ export default async function HomePage() {
 
       {/* New Arrivals */}
       <section className="py-16 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between mb-8">
-            <div>
-              <h2 className="text-4xl font-serif font-bold text-gray-900 mb-2">New Arrivals</h2>
-              <p className="text-gray-600">Fresh products just in</p>
-            </div>
-            <Link 
-              href="/categories"
-              className="bg-primary text-white px-6 py-3 rounded-xl font-medium hover:bg-primary/90 transition-colors flex items-center space-x-2"
-            >
+            <h2 className="text-3xl lg:text-4xl font-serif font-bold text-gray-900">New Arrivals</h2>
+            <Link href="/categories" className="text-primary hover:text-primary/80 font-medium flex items-center space-x-2">
               <span>View All</span>
-              <ArrowRight className="w-4 h-4" />
+              <ArrowRight className="w-4 h-5" />
             </Link>
           </div>
           
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {newArrivals.map((product) => (
               <div key={product.id} className="relative">
-                <div className="absolute top-3 left-3 bg-green-500 text-white text-xs font-bold px-2 py-1 rounded-full z-10">
-                  NEW
-                </div>
                 <ProductCard product={product} />
+                <div className="absolute top-2 left-2">
+                  <span className="bg-primary text-white text-xs px-2 py-1 rounded-lg font-medium">NEW</span>
+                </div>
               </div>
             ))}
           </div>
@@ -369,19 +356,22 @@ export default async function HomePage() {
 
       {/* Trending Products */}
       <section className="py-16 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl font-serif font-bold text-gray-900 mb-4">Trending Now</h2>
-            <p className="text-xl text-gray-600">Products everyone is talking about</p>
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between mb-8">
+            <h2 className="text-3xl lg:text-4xl font-serif font-bold text-gray-900">Trending Now</h2>
+            <Link href="/search" className="text-primary hover:text-primary/80 font-medium flex items-center space-x-2">
+              <span>View All</span>
+              <ArrowRight className="w-4 h-5" />
+            </Link>
           </div>
           
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {trendingProducts.map((product) => (
               <div key={product.id} className="relative">
-                <div className="absolute top-3 left-3 bg-purple-500 text-white text-xs font-bold px-2 py-1 rounded-full z-10">
-                  TRENDING
-                </div>
                 <ProductCard product={product} />
+                <div className="absolute top-2 left-2">
+                  <span className="bg-green-500 text-white text-xs px-2 py-1 rounded-lg font-medium">TRENDING</span>
+                </div>
               </div>
             ))}
           </div>
@@ -389,70 +379,78 @@ export default async function HomePage() {
       </section>
 
       {/* How-to Section */}
-      <section className="py-16 bg-gradient-to-br from-gray-50 to-gray-100">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="py-16 bg-gray-50">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-4xl font-serif font-bold text-gray-900 mb-4">Beauty Tips & Tutorials</h2>
-            <p className="text-xl text-gray-600">Expert advice to help you look and feel your best</p>
+            <h2 className="text-3xl lg:text-4xl font-serif font-bold text-gray-900 mb-4">Beauty Tips & Tutorials</h2>
+            <p className="text-lg lg:text-xl text-gray-600 max-w-2xl mx-auto">
+              Learn from beauty experts and discover new techniques
+            </p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="bg-white rounded-2xl p-8 shadow-sm hover:shadow-md transition-shadow">
-              <div className="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center mb-6">
-                <Sparkles className="w-8 h-8 text-primary" />
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <Link href="/blog/skincare-routine" className="group block">
+              <div className="bg-white rounded-2xl p-6 shadow-sm hover:shadow-lg transition-all">
+                <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                  <Sparkles className="w-6 h-6 text-primary" />
+                </div>
+                <h3 className="text-xl font-bold text-gray-900 mb-2">Skincare Routine</h3>
+                <p className="text-gray-600 mb-4">Build the perfect skincare routine for your skin type</p>
+                <div className="flex items-center text-primary font-medium">
+                  <span>Read More</span>
+                  <ArrowRight className="w-4 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
+                </div>
               </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-4">Skincare Routine</h3>
-              <p className="text-gray-600 mb-4">Learn the essential steps for healthy, glowing skin</p>
-              <Link href="/blog/skincare-routine" className="text-primary font-medium hover:underline">
-                Read More →
-              </Link>
-            </div>
+            </Link>
             
-            <div className="bg-white rounded-2xl p-8 shadow-sm hover:shadow-md transition-shadow">
-              <div className="w-16 h-16 bg-accent/10 rounded-2xl flex items-center justify-center mb-6">
-                <TrendingUp className="w-8 h-8 text-accent" />
+            <Link href="/blog/makeup-tips" className="group block">
+              <div className="bg-white rounded-2xl p-6 shadow-sm hover:shadow-lg transition-all">
+                <div className="w-12 h-12 bg-accent/10 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                  <Gift className="w-6 h-6 text-accent" />
+                </div>
+                <h3 className="text-xl font-bold text-gray-900 mb-2">Makeup Tips</h3>
+                <p className="text-gray-600 mb-4">Professional makeup techniques for everyday looks</p>
+                <div className="flex items-center text-primary font-medium">
+                  <span>Read More</span>
+                  <ArrowRight className="w-4 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
+                </div>
               </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-4">Makeup Trends</h3>
-              <p className="text-gray-600 mb-4">Stay updated with the latest beauty trends</p>
-              <Link href="/blog/makeup-trends" className="text-primary font-medium hover:underline">
-                Read More →
-              </Link>
-            </div>
+            </Link>
             
-            <div className="bg-white rounded-2xl p-8 shadow-sm hover:shadow-md transition-shadow">
-              <div className="w-16 h-16 bg-green-500/10 rounded-2xl flex items-center justify-center mb-6">
-                <Gift className="w-8 h-8 text-green-500" />
+            <Link href="/blog/hair-styling" className="group block">
+              <div className="bg-white rounded-2xl p-6 shadow-sm hover:shadow-lg transition-all">
+                <div className="w-12 h-12 bg-green-500/10 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                  <TrendingUp className="w-6 h-6 text-green-500" />
+                </div>
+                <h3 className="text-xl font-bold text-gray-900 mb-2">Hair Styling</h3>
+                <p className="text-gray-600 mb-4">Easy hairstyles you can create at home</p>
+                <div className="flex items-center text-primary font-medium">
+                  <span>Read More</span>
+                  <ArrowRight className="w-4 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
+                </div>
               </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-4">Gift Guides</h3>
-              <p className="text-gray-600 mb-4">Perfect beauty gifts for every occasion</p>
-              <Link href="/blog/gift-guides" className="text-primary font-medium hover:underline">
-                Read More →
-              </Link>
-            </div>
+            </Link>
           </div>
         </div>
       </section>
 
       {/* Newsletter Signup */}
-      <section className="py-16 bg-primary text-white">
+      <section className="py-16 bg-primary">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-4xl font-serif font-bold mb-4">Stay Beautiful</h2>
-          <p className="text-xl text-white/90 mb-8">
-            Subscribe to get exclusive offers, beauty tips, and early access to sales
+          <h2 className="text-3xl lg:text-4xl font-serif font-bold text-white mb-4">Stay Updated</h2>
+          <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
+            Get the latest beauty tips, product launches, and exclusive offers delivered to your inbox
           </p>
           <div className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
-            <input 
-              type="email" 
+            <input
+              type="email"
               placeholder="Enter your email"
-              className="flex-1 px-6 py-4 rounded-xl text-gray-900 focus:outline-none focus:ring-2 focus:ring-white"
+              className="flex-1 px-6 py-3 rounded-2xl border-0 focus:outline-none focus:ring-2 focus:ring-white/50 text-gray-900"
             />
-            <button className="bg-white text-primary px-8 py-4 rounded-xl font-bold hover:bg-gray-100 transition-colors">
+            <button className="bg-white text-primary px-8 py-3 rounded-2xl font-bold hover:bg-gray-100 transition-colors">
               Subscribe
             </button>
           </div>
-          <p className="text-sm text-white/70 mt-4">
-            By subscribing, you agree to our Privacy Policy and Terms of Service
-          </p>
         </div>
       </section>
     </div>
