@@ -1,0 +1,58 @@
+[
+  {
+    "id": "1",
+    "slug": "foundation",
+    "name": "Foundation",
+    "parentId": null,
+    "icon": "Foundation"
+  },
+  {
+    "id": "2",
+    "slug": "mascara",
+    "name": "Mascara",
+    "parentId": null,
+    "icon": "Eye"
+  },
+  {
+    "id": "3",
+    "slug": "lipstick",
+    "name": "Lipstick",
+    "parentId": null,
+    "icon": "Lips"
+  },
+  {
+    "id": "4",
+    "slug": "moisturizer",
+    "name": "Moisturizer",
+    "parentId": null,
+    "icon": "Droplets"
+  },
+  {
+    "id": "5",
+    "slug": "serum",
+    "name": "Serum",
+    "parentId": null,
+    "icon": "Flask"
+  },
+  {
+    "id": "6",
+    "slug": "cleanser",
+    "name": "Cleanser",
+    "parentId": null,
+    "icon": "Sparkles"
+  },
+  {
+    "id": "7",
+    "slug": "blush",
+    "name": "Blush",
+    "parentId": null,
+    "icon": "Heart"
+  },
+  {
+    "id": "8",
+    "slug": "eyeshadow",
+    "name": "Eyeshadow",
+    "parentId": null,
+    "icon": "Eye"
+  }
+]

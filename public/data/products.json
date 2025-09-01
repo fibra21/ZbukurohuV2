@@ -1,0 +1,113 @@
+[
+  {
+    "id": "1",
+    "slug": "loreal-paris-true-match-foundation",
+    "name": "L'Oréal Paris True Match Foundation",
+    "brandId": "loreal",
+    "sellerId": "beauty-kosovo",
+    "images": [
+      "https://images.unsplash.com/photo-1556228720-195a672e8a03?w=400&h=400&fit=crop",
+      "https://images.unsplash.com/photo-1556228720-195a672e8a03?w=400&h=400&fit=crop&crop=face"
+    ],
+    "price": 24.99,
+    "currency": "EUR",
+    "shades": ["1N", "2N", "3N", "4N", "5N", "1W", "2W", "3W", "4W", "5W"],
+    "rating": 4.5,
+    "reviewsCount": 128,
+    "tags": ["foundation", "base", "long-lasting", "natural"],
+    "ingredients": ["Water", "Cyclopentasiloxane", "Glycerin", "Dimethicone", "Titanium Dioxide"],
+    "skinTypes": ["normal", "combination", "dry"],
+    "concerns": ["uneven-skin-tone", "redness"],
+    "isNew": false,
+    "isBestseller": true,
+    "badges": ["Authorised Distributor", "Dermatologist Tested"]
+  },
+  {
+    "id": "2",
+    "slug": "maybelline-sky-high-mascara",
+    "name": "Maybelline Sky High Washable Mascara",
+    "brandId": "maybelline",
+    "sellerId": "cosmetics-kosovo",
+    "images": [
+      "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=400&h=400&fit=crop"
+    ],
+    "price": 12.99,
+    "currency": "EUR",
+    "shades": ["Black", "Brown Black", "Very Black"],
+    "rating": 4.7,
+    "reviewsCount": 89,
+    "tags": ["mascara", "volumizing", "lengthening", "washable"],
+    "ingredients": ["Water", "Acrylic Acid", "Glycerin", "Beeswax"],
+    "skinTypes": ["all"],
+    "concerns": ["short-lashes", "thin-lashes"],
+    "isNew": true,
+    "isBestseller": true,
+    "badges": ["Authorised Distributor", "Vegan"]
+  },
+  {
+    "id": "3",
+    "slug": "cerave-moisturizing-cream",
+    "name": "CeraVe Moisturizing Cream",
+    "brandId": "cerave",
+    "sellerId": "pharmacy-kosovo",
+    "images": [
+      "https://images.unsplash.com/photo-1556228720-195a672e8a03?w=400&h=400&fit=crop"
+    ],
+    "price": 18.50,
+    "currency": "EUR",
+    "shades": ["Universal"],
+    "rating": 4.8,
+    "reviewsCount": 256,
+    "tags": ["moisturizer", "ceramides", "hyaluronic-acid", "fragrance-free"],
+    "ingredients": ["Water", "Glycerin", "Ceramide NP", "Hyaluronic Acid"],
+    "skinTypes": ["dry", "normal", "sensitive"],
+    "concerns": ["dryness", "dehydration", "barrier-repair"],
+    "isNew": false,
+    "isBestseller": true,
+    "badges": ["Authorised Distributor", "Dermatologist Tested", "Fragrance Free"]
+  },
+  {
+    "id": "4",
+    "slug": "mac-ruby-woo-lipstick",
+    "name": "MAC Ruby Woo Lipstick",
+    "brandId": "mac",
+    "sellerId": "beauty-kosovo",
+    "images": [
+      "https://images.unsplash.com/photo-1586495777744-4413f21062fa?w=400&h=400&fit=crop"
+    ],
+    "price": 21.00,
+    "currency": "EUR",
+    "shades": ["Ruby Woo"],
+    "rating": 4.6,
+    "reviewsCount": 167,
+    "tags": ["lipstick", "matte", "long-lasting", "classic"],
+    "ingredients": ["Ricinus Communis Oil", "Tocopheryl Acetate", "Ascorbyl Palmitate"],
+    "skinTypes": ["all"],
+    "concerns": ["lip-color"],
+    "isNew": false,
+    "isBestseller": true,
+    "badges": ["Authorised Distributor"]
+  },
+  {
+    "id": "5",
+    "slug": "the-ordinary-niacinamide",
+    "name": "The Ordinary Niacinamide 10% + Zinc 1%",
+    "brandId": "ordinary",
+    "sellerId": "skincare-kosovo",
+    "images": [
+      "https://images.unsplash.com/photo-1556228720-195a672e8a03?w=400&h=400&fit=crop"
+    ],
+    "price": 8.90,
+    "currency": "EUR",
+    "shades": ["Universal"],
+    "rating": 4.4,
+    "reviewsCount": 342,
+    "tags": ["serum", "niacinamide", "zinc", "blemish-control"],
+    "ingredients": ["Water", "Niacinamide", "Zinc PCA", "Hyaluronic Acid"],
+    "skinTypes": ["oily", "combination", "acne-prone"],
+    "concerns": ["acne", "large-pores", "oil-control"],
+    "isNew": false,
+    "isBestseller": true,
+    "badges": ["Authorised Distributor", "Vegan", "Cruelty Free"]
+  }
+]

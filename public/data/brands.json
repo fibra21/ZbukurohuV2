@@ -1,0 +1,122 @@
+[
+  {
+    "id": "loreal",
+    "slug": "loreal-paris",
+    "name": "L'Oréal Paris",
+    "logo": "https://images.unsplash.com/photo-1556228720-195a672e8a03?w=200&h=100&fit=crop",
+    "country": "France",
+    "isOfficialDistributorInKosovo": true,
+    "story": "L'Oréal Paris is the world's leading beauty brand, offering innovative products and unique expertise from beauty experts in makeup, skincare, hair care, styling and hair color.",
+    "heroImage": "https://images.unsplash.com/photo-1556228720-195a672e8a03?w=800&h=400&fit=crop"
+  },
+  {
+    "id": "maybelline",
+    "slug": "maybelline",
+    "name": "Maybelline New York",
+    "logo": "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=200&h=100&fit=crop",
+    "country": "USA",
+    "isOfficialDistributorInKosovo": true,
+    "story": "Maybelline New York is the number one makeup brand worldwide, offering affordable, quality cosmetics for every woman.",
+    "heroImage": "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=800&h=400&fit=crop"
+  },
+  {
+    "id": "cerave",
+    "slug": "cerave",
+    "name": "CeraVe",
+    "logo": "https://images.unsplash.com/photo-1556228720-195a672e8a03?w=200&h=100&fit=crop",
+    "country": "USA",
+    "isOfficialDistributorInKosovo": true,
+    "story": "CeraVe is developed with dermatologists and contains essential ceramides to help restore and maintain the skin's natural barrier.",
+    "heroImage": "https://images.unsplash.com/photo-1556228720-195a672e8a03?w=800&h=400&fit=crop"
+  },
+  {
+    "id": "mac",
+    "slug": "mac-cosmetics",
+    "name": "MAC Cosmetics",
+    "logo": "https://images.unsplash.com/photo-1586495777744-4413f21062fa?w=200&h=100&fit=crop",
+    "country": "Canada",
+    "isOfficialDistributorInKosovo": true,
+    "story": "MAC Cosmetics is the world's leading professional makeup authority because of our unrivalled expertise in makeup artistry.",
+    "heroImage": "https://images.unsplash.com/photo-1586495777744-4413f21062fa?w=800&h=400&fit=crop"
+  },
+  {
+    "id": "ordinary",
+    "slug": "the-ordinary",
+    "name": "The Ordinary",
+    "logo": "https://images.unsplash.com/photo-1556228720-195a672e8a03?w=200&h=100&fit=crop",
+    "country": "Canada",
+    "isOfficialDistributorInKosovo": true,
+    "story": "The Ordinary is a clinical skincare brand with integrity. We communicate with clarity and bring you effective, science-backed formulas.",
+    "heroImage": "https://images.unsplash.com/photo-1556228720-195a672e8a03?w=800&h=400&fit=crop"
+  },
+  {
+    "id": "neutrogena",
+    "slug": "neutrogena",
+    "name": "Neutrogena",
+    "logo": "https://images.unsplash.com/photo-1556228720-195a672e8a03?w=200&h=100&fit=crop",
+    "country": "USA",
+    "isOfficialDistributorInKosovo": false,
+    "story": "Neutrogena is a brand of the Johnson & Johnson Company, known for its dermatologist-recommended skincare products.",
+    "heroImage": "https://images.unsplash.com/photo-1556228720-195a672e8a03?w=800&h=400&fit=crop"
+  },
+  {
+    "id": "nyx",
+    "slug": "nyx-professional-makeup",
+    "name": "NYX Professional Makeup",
+    "logo": "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=200&h=100&fit=crop",
+    "country": "USA",
+    "isOfficialDistributorInKosovo": true,
+    "story": "NYX Professional Makeup is a professional makeup brand that offers high-quality, professional products at accessible prices.",
+    "heroImage": "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=800&h=400&fit=crop"
+  },
+  {
+    "id": "la-roche-posay",
+    "slug": "la-roche-posay",
+    "name": "La Roche-Posay",
+    "logo": "https://images.unsplash.com/photo-1556228720-195a672e8a03?w=200&h=100&fit=crop",
+    "country": "France",
+    "isOfficialDistributorInKosovo": true,
+    "story": "La Roche-Posay is a French pharmaceutical company specializing in skincare products that are formulated with thermal spring water.",
+    "heroImage": "https://images.unsplash.com/photo-1556228720-195a672e8a03?w=800&h=400&fit=crop"
+  },
+  {
+    "id": "revlon",
+    "slug": "revlon",
+    "name": "Revlon",
+    "logo": "https://images.unsplash.com/photo-1586495777744-4413f21062fa?w=200&h=100&fit=crop",
+    "country": "USA",
+    "isOfficialDistributorInKosovo": false,
+    "story": "Revlon is a global beauty company that creates and markets innovative, high-quality products in color cosmetics, hair color, and beauty care.",
+    "heroImage": "https://images.unsplash.com/photo-1586495777744-4413f21062fa?w=800&h=400&fit=crop"
+  },
+  {
+    "id": "clinique",
+    "slug": "clinique",
+    "name": "Clinique",
+    "logo": "https://images.unsplash.com/photo-1556228720-195a672e8a03?w=200&h=100&fit=crop",
+    "country": "USA",
+    "isOfficialDistributorInKosovo": true,
+    "story": "Clinique is a dermatologist-created brand that offers safe, effective skincare and makeup products for all skin types.",
+    "heroImage": "https://images.unsplash.com/photo-1556228720-195a672e8a03?w=800&h=400&fit=crop"
+  },
+  {
+    "id": "garnier",
+    "slug": "garnier",
+    "name": "Garnier",
+    "logo": "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=200&h=100&fit=crop",
+    "country": "France",
+    "isOfficialDistributorInKosovo": true,
+    "story": "Garnier is a global beauty brand that offers natural and organic beauty products for hair care, skin care, and sun care.",
+    "heroImage": "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=800&h=400&fit=crop"
+  },
+  {
+    "id": "nivea",
+    "slug": "nivea",
+    "name": "NIVEA",
+    "logo": "https://images.unsplash.com/photo-1556228720-195a672e8a03?w=200&h=100&fit=crop",
+    "country": "Germany",
+    "isOfficialDistributorInKosovo": true,
+    "story": "NIVEA is one of the world's largest skin care brands, offering products for all skin types and ages.",
+    "heroImage": "https://images.unsplash.com/photo-1556228720-195a672e8a03?w=800&h=400&fit=crop"
+  }
+]
