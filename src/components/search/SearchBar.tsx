@@ -12,6 +12,7 @@ import { Product } from '@/types';
 export function SearchBar() {
   const router = useRouter();
   const { locale, searchQuery, setSearchQuery } = useAppStore();
+  const effectiveLocale: 'sq-AL' | 'en' = locale === 'en' ? 'en' : 'sq-AL';
   const [isOpen, setIsOpen] = useState(false);
   const [results, setResults] = useState<Product[]>([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -85,7 +86,7 @@ export function SearchBar() {
             type="text"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder={t(locale, 'searchPlaceholder')}
+            placeholder={t(effectiveLocale, 'searchPlaceholder')}
             className="w-full pl-10 pr-10 py-2 border border-gray-300 rounded-2xl focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent bg-white"
           />
           {searchQuery && (
@@ -105,7 +106,7 @@ export function SearchBar() {
         <div className="absolute top-full left-0 right-0 mt-1 bg-white border border-gray-200 rounded-2xl shadow-medium z-50 max-h-96 overflow-y-auto">
           {isLoading ? (
             <div className="p-4 text-center text-gray-500">
-              {t(locale, 'loading')}...
+              {t(effectiveLocale, 'loading')}...
             </div>
           ) : results.length > 0 ? (
             <div className="py-2">
@@ -142,13 +143,13 @@ export function SearchBar() {
                   }}
                   className="w-full px-4 py-2 text-left text-sm text-primary hover:bg-gray-50 transition-colors"
                 >
-                  {t(locale, 'view')} {t(locale, 'searchResults')} ({results.length})
+                  {t(effectiveLocale, 'view')} {t(effectiveLocale, 'searchResults')} ({results.length})
                 </button>
               </div>
             </div>
           ) : searchQuery.trim().length >= 2 ? (
             <div className="p-4 text-center text-gray-500">
-              {t(locale, 'noResults')}
+              {t(effectiveLocale, 'noResults')}
             </div>
           ) : null}
         </div>
