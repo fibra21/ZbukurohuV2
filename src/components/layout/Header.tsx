@@ -23,7 +23,8 @@ export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
-  const [openMega, setOpenMega] = useState<null | 'makeup' | 'skincare'>(null);
+  const [openMega, setOpenMega] = useState<null | 'makeup' | 'skincare' | 'services'>(null);
+  const [hoverTimer, setHoverTimer] = useState<NodeJS.Timeout | null>(null);
   const { locale, getCartItemCount, getWishlistCount } = useAppStore();
 
   useEffect(() => setMounted(true), []);
@@ -34,8 +35,8 @@ export function Header() {
     { name: t(effectiveLocale, 'home'), href: '/' },
     { name: 'Makeup', href: '/categories/makeup', mega: 'makeup' as const },
     { name: 'Skincare', href: '/categories/skincare', mega: 'skincare' as const },
+    { name: 'Services', href: '/services', mega: 'services' as const },
     { name: t(effectiveLocale, 'find'), href: '/find' },
-    { name: t(effectiveLocale, 'categories'), href: '/categories' },
     { name: t(effectiveLocale, 'brands'), href: '/brands' },
     { name: t(effectiveLocale, 'sellers'), href: '/sellers' },
   ];
@@ -85,6 +86,31 @@ export function Header() {
     },
   ] as const;
 
+  const servicesColumns = [
+    {
+      title: 'Beauty Services',
+      items: ['Nail Appointment', 'Makeup Artist', 'Waxing', 'Facial Treatment', 'Eyebrow Shaping', 'Lash Extensions'],
+    },
+    {
+      title: 'Wellness Services',
+      items: ['Massage Therapy', 'Spa Treatment', 'Body Scrub', 'Aromatherapy', 'Relaxation Session'],
+    },
+  ] as const;
+
+  const handleMouseEnter = (megaType: 'makeup' | 'skincare' | 'services' | null) => {
+    if (hoverTimer) {
+      clearTimeout(hoverTimer);
+    }
+    setOpenMega(megaType);
+  };
+
+  const handleMouseLeave = () => {
+    const timer = setTimeout(() => {
+      setOpenMega(null);
+    }, 300); // 300ms delay before closing
+    setHoverTimer(timer);
+  };
+
   return (
     <header className="sticky top-0 z-50 bg-background-secondary border-b border-gray-200 shadow-soft">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -100,17 +126,11 @@ export function Header() {
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center ml-8 lg:ml-12 space-x-10 lg:space-x-12" suppressHydrationWarning>
             {navigation.map((item) => {
-              const itemWithMega = item as typeof item & { mega?: 'makeup' | 'skincare' };
+              const itemWithMega = item as typeof item & { mega?: 'makeup' | 'skincare' | 'services' };
               return (
               <div key={item.name} className="relative"
-                onMouseEnter={() => {
-                  console.log('Mouse enter:', item.name, itemWithMega.mega);
-                  setOpenMega(itemWithMega.mega ?? null);
-                }}
-                onMouseLeave={() => {
-                  console.log('Mouse leave:', item.name);
-                  setOpenMega(null);
-                }}
+                onMouseEnter={() => handleMouseEnter(itemWithMega.mega ?? null)}
+                onMouseLeave={handleMouseLeave}
               >
                 <Link
                   href={item.href}
@@ -150,6 +170,26 @@ export function Header() {
                 {(openMega === 'skincare' && itemWithMega.mega === 'skincare') && (
                   <div className="absolute left-0 mt-3 w-[760px] bg-blue-100 rounded-2xl shadow-medium border-2 border-blue-500 p-6 grid grid-cols-2 gap-6 z-50">
                     {skincareColumns.map(col => (
+                      <div key={col.title}>
+                        <div className="font-semibold text-gray-900 mb-3">{col.title}</div>
+                        <ul className="space-y-2">
+                          {col.items.map(it => (
+                            <li key={it}>
+                              <Link href={makeLink(it)} className="text-gray-700 hover:text-primary">
+                                {it}
+                              </Link>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    ))}
+                  </div>
+                )}
+
+                {/* Services Mega Menu */}
+                {(openMega === 'services' && itemWithMega.mega === 'services') && (
+                  <div className="absolute left-0 mt-3 w-[760px] bg-green-100 rounded-2xl shadow-medium border-2 border-green-500 p-6 grid grid-cols-2 gap-6 z-50">
+                    {servicesColumns.map(col => (
                       <div key={col.title}>
                         <div className="font-semibold text-gray-900 mb-3">{col.title}</div>
                         <ul className="space-y-2">
@@ -236,16 +276,66 @@ export function Header() {
         {isMenuOpen && (
           <div className="md:hidden border-t border-gray-200 py-4">
             <nav className="flex flex-col space-y-4">
-              {navigation.map((item) => (
-                <Link
-                  key={item.name}
-                  href={item.href}
-                  className="text-text-secondary hover:text-primary transition-colors font-medium"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  {item.name}
-                </Link>
-              ))}
+              {navigation.map((item) => {
+                const itemWithMega = item as typeof item & { mega?: 'makeup' | 'skincare' | 'services' };
+                return (
+                  <div key={item.name}>
+                    <Link
+                      href={item.href}
+                      className="text-text-secondary hover:text-primary transition-colors font-medium"
+                      onClick={() => setIsMenuOpen(false)}
+                    >
+                      {item.name}
+                    </Link>
+                    {itemWithMega.mega && (
+                      <div className="ml-4 mt-2 space-y-2">
+                        {itemWithMega.mega === 'makeup' && makeupColumns.map(col => (
+                          <div key={col.title}>
+                            <div className="font-semibold text-gray-700 text-sm">{col.title}</div>
+                            <ul className="ml-2 space-y-1">
+                              {col.items.slice(0, 3).map(it => (
+                                <li key={it}>
+                                  <Link href={makeLink(it)} className="text-gray-600 hover:text-primary text-sm">
+                                    {it}
+                                  </Link>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        ))}
+                        {itemWithMega.mega === 'skincare' && skincareColumns.map(col => (
+                          <div key={col.title}>
+                            <div className="font-semibold text-gray-700 text-sm">{col.title}</div>
+                            <ul className="ml-2 space-y-1">
+                              {col.items.slice(0, 3).map(it => (
+                                <li key={it}>
+                                  <Link href={makeLink(it)} className="text-gray-700 hover:text-primary text-sm">
+                                    {it}
+                                  </Link>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        ))}
+                        {itemWithMega.mega === 'services' && servicesColumns.map(col => (
+                          <div key={col.title}>
+                            <div className="font-semibold text-gray-700 text-sm">{col.title}</div>
+                            <ul className="ml-2 space-y-1">
+                              {col.items.slice(0, 3).map(it => (
+                                <li key={it}>
+                                  <Link href={makeLink(it)} className="text-gray-700 hover:text-primary text-sm">
+                                    {it}
+                                  </Link>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
             </nav>
           </div>
         )}
