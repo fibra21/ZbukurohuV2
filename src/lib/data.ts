@@ -1,25 +1,38 @@
 import { Product, Brand, Seller, Category } from '@/types';
 
-// Import JSON data directly for static generation
-import productsData from '../../public/data/products.json';
-import brandsData from '../../public/data/brands.json';
-import sellersData from '../../public/data/sellers.json';
-import categoriesData from '../../public/data/categories.json';
+// Cache for data to avoid repeated fetches
+const cache = new Map<string, unknown>();
+
+async function fetchData<T>(path: string): Promise<T[]> {
+  if (cache.has(path)) {
+    return cache.get(path) as T[];
+  }
+
+  try {
+    // Use dynamic import for better reliability
+    const data = await import(`../../public/data/${path}.json`);
+    cache.set(path, data.default);
+    return data.default as T[];
+  } catch (error) {
+    console.error(`Error fetching ${path}:`, error);
+    return [];
+  }
+}
 
 export async function getProducts(): Promise<Product[]> {
-  return productsData as Product[];
+  return fetchData<Product>('products');
 }
 
 export async function getBrands(): Promise<Brand[]> {
-  return brandsData as Brand[];
+  return fetchData<Brand>('brands');
 }
 
 export async function getSellers(): Promise<Seller[]> {
-  return sellersData as Seller[];
+  return fetchData<Seller>('sellers');
 }
 
 export async function getCategories(): Promise<Category[]> {
-  return categoriesData as Category[];
+  return fetchData<Category>('categories');
 }
 
 export async function getProductBySlug(slug: string): Promise<Product | null> {
