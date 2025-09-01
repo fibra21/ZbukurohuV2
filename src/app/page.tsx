@@ -19,6 +19,7 @@ import {
 
 export default function HomePage() {
   const { locale } = useAppStore();
+  const effectiveLocale = (locale === 'sq-AL' || locale === 'en') ? locale : 'sq-AL';
   const [products, setProducts] = useState<Product[]>([]);
   const [brands, setBrands] = useState<Brand[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
@@ -66,7 +67,7 @@ export default function HomePage() {
       <div className="flex items-center justify-center min-h-96">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
-          <p className="text-gray-600">{t(locale, 'loading')}...</p>
+          <p className="text-gray-600">{t(effectiveLocale, 'loading')}...</p>
         </div>
       </div>
     );
