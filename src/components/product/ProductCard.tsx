@@ -22,6 +22,7 @@ interface ProductCardProps {
 
 export function ProductCard({ product, variant = 'default' }: ProductCardProps) {
   const { locale, addToWishlist, removeFromWishlist, isInWishlist, addToRecentlyViewed } = useAppStore();
+  const effectiveLocale: 'sq-AL' | 'en' = locale === 'en' ? 'en' : 'sq-AL';
   const [isHovered, setIsHovered] = useState(false);
   const [isAddingToCart, setIsAddingToCart] = useState(false);
 
@@ -73,12 +74,12 @@ export function ProductCard({ product, variant = 'default' }: ProductCardProps) 
           />
           {product.isNew && (
             <div className="absolute top-2 left-2 bg-accent text-white text-xs px-2 py-1 rounded-full">
-              {t(locale, 'new')}
+              {t(effectiveLocale, 'new')}
             </div>
           )}
           {product.isBestseller && (
             <div className="absolute top-2 right-2 bg-primary text-white text-xs px-2 py-1 rounded-full">
-              {t(locale, 'bestseller')}
+              {t(effectiveLocale, 'bestseller')}
             </div>
           )}
         </div>
@@ -119,12 +120,12 @@ export function ProductCard({ product, variant = 'default' }: ProductCardProps) 
           <div className="absolute top-3 left-3 flex flex-col space-y-2">
             {product.isNew && (
               <div className="bg-accent text-white text-xs px-2 py-1 rounded-full">
-                {t(locale, 'new')}
+                {t(effectiveLocale, 'new')}
               </div>
             )}
             {product.isBestseller && (
               <div className="bg-primary text-white text-xs px-2 py-1 rounded-full">
-                {t(locale, 'bestseller')}
+                {t(effectiveLocale, 'bestseller')}
               </div>
             )}
           </div>
@@ -204,7 +205,7 @@ export function ProductCard({ product, variant = 'default' }: ProductCardProps) 
                 <span>Shtuar</span>
               </div>
             ) : (
-              t(locale, 'addToCart')
+              t(effectiveLocale, 'addToCart')
             )}
           </button>
         </div>
@@ -217,7 +218,7 @@ export function ProductCard({ product, variant = 'default' }: ProductCardProps) 
                 key={index}
                 className="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded-full"
               >
-                {t(locale, badge.toLowerCase().replace(/\s+/g, ''))}
+                {t(effectiveLocale, badge.toLowerCase().replace(/\s+/g, ''))}
               </span>
             ))}
           </div>
