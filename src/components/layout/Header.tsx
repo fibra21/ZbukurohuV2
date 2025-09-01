@@ -103,8 +103,14 @@ export function Header() {
               const itemWithMega = item as typeof item & { mega?: 'makeup' | 'skincare' };
               return (
               <div key={item.name} className="relative"
-                onMouseEnter={() => setOpenMega(itemWithMega.mega ?? null)}
-                onMouseLeave={() => setOpenMega(null)}
+                onMouseEnter={() => {
+                  console.log('Mouse enter:', item.name, itemWithMega.mega);
+                  setOpenMega(itemWithMega.mega ?? null);
+                }}
+                onMouseLeave={() => {
+                  console.log('Mouse leave:', item.name);
+                  setOpenMega(null);
+                }}
               >
                 <Link
                   href={item.href}
@@ -115,7 +121,7 @@ export function Header() {
 
                 {/* Makeup Mega Menu */}
                 {(openMega === 'makeup' && itemWithMega.mega === 'makeup') && (
-                  <div className="absolute left-0 mt-3 w-[900px] bg-white rounded-2xl shadow-medium border border-gray-200 p-6 grid grid-cols-4 gap-6">
+                  <div className="absolute left-0 mt-3 w-[900px] bg-red-100 rounded-2xl shadow-medium border-2 border-red-500 p-6 grid grid-cols-4 gap-6 z-50">
                     {makeupColumns.map(col => (
                       <div key={col.title}>
                         <div className="font-semibold text-gray-900 mb-3">{col.title}</div>
@@ -142,7 +148,7 @@ export function Header() {
 
                 {/* Skincare Mega Menu */}
                 {(openMega === 'skincare' && itemWithMega.mega === 'skincare') && (
-                  <div className="absolute left-0 mt-3 w-[760px] bg-white rounded-2xl shadow-medium border border-gray-200 p-6 grid grid-cols-2 gap-6">
+                  <div className="absolute left-0 mt-3 w-[760px] bg-blue-100 rounded-2xl shadow-medium border-2 border-blue-500 p-6 grid grid-cols-2 gap-6 z-50">
                     {skincareColumns.map(col => (
                       <div key={col.title}>
                         <div className="font-semibold text-gray-900 mb-3">{col.title}</div>
