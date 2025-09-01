@@ -51,19 +51,16 @@ export const translations = {
     skinType: 'Lloji i lëkurës',
     concern: 'Shqetësimi',
     shade: 'Ngjyra',
-    ratingAlt: 'Vlerësimi',
-    inStock: 'Në stok',
+    
     clearFilters: 'Pastro filtrat',
     sortBy: 'Rendit sipas',
     relevance: 'Relevanca',
     newest: 'Më i ri',
     priceLowToHigh: 'Çmimi: nga i ulët te i lartë',
     priceHighToLow: 'Çmimi: nga i lartë te i ulët',
-    rating: 'Vlerësimi',
     bestsellers: 'Më të shiturit',
     
     // Cart & Checkout
-    cart: 'Shporta',
     cartEmpty: 'Shporta juaj është bosh',
     continueShopping: 'Vazhdo blerjen',
     subtotal: 'Nëntotali',
