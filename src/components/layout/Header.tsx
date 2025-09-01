@@ -27,7 +27,7 @@ export function Header() {
 
   useEffect(() => setMounted(true), []);
 
-  const effectiveLocale = mounted ? locale : 'sq-AL';
+  const effectiveLocale: 'sq-AL' | 'en' = mounted && locale === 'en' ? 'en' : 'sq-AL';
 
   const navigation = [
     { name: t(effectiveLocale, 'home'), href: '/' },
