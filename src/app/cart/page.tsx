@@ -22,6 +22,7 @@ import {
 export default function CartPage() {
   const router = useRouter();
   const { locale, cart, removeFromCart, updateCartItemQuantity, clearCart } = useAppStore();
+  const effectiveLocale = (locale === 'sq-AL' || locale === 'en') ? locale : 'sq-AL';
   const [products, setProducts] = useState<Product[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -69,7 +70,7 @@ export default function CartPage() {
         <div className="flex items-center justify-center min-h-96">
           <div className="text-center">
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
-            <p className="text-gray-600">{t(locale, 'loading')}...</p>
+            <p className="text-gray-600">{t(effectiveLocale, 'loading')}...</p>
           </div>
         </div>
     );
@@ -83,7 +84,7 @@ export default function CartPage() {
               <ShoppingBag className="w-12 h-12 text-gray-400" />
             </div>
             <h1 className="text-2xl font-bold text-gray-900 mb-4">
-              {t(locale, 'cartEmpty')}
+              {t(effectiveLocale, 'cartEmpty')}
             </h1>
             <p className="text-gray-600 mb-8">
               Shporta juaj është bosh. Filloni blerjen për të shtuar produkte.
@@ -93,7 +94,7 @@ export default function CartPage() {
               className="inline-flex items-center bg-primary text-white px-6 py-3 rounded-2xl font-semibold hover:bg-primary-600 transition-colors"
             >
               <ArrowLeft className="mr-2 w-4 h-4" />
-              {t(locale, 'continueShopping')}
+              {t(effectiveLocale, 'continueShopping')}
             </Link>
           </div>
         </div>
@@ -112,7 +113,7 @@ export default function CartPage() {
               <ArrowLeft className="w-5 h-5" />
             </button>
             <h1 className="text-3xl font-serif font-bold text-gray-900">
-              {t(locale, 'cart')}
+              {t(effectiveLocale, 'cart')}
             </h1>
           </div>
           <button
@@ -209,15 +210,15 @@ export default function CartPage() {
               {/* Price Breakdown */}
               <div className="space-y-4 mb-6">
                 <div className="flex justify-between text-gray-600">
-                  <span>{t(locale, 'subtotal')}</span>
+                  <span>{t(effectiveLocale, 'subtotal')}</span>
                   <span>{subtotal.toFixed(2)} €</span>
                 </div>
                 <div className="flex justify-between text-gray-600">
-                  <span>{t(locale, 'shipping')}</span>
+                  <span>{t(effectiveLocale, 'shipping')}</span>
                   <span>{shipping === 0 ? 'Falas' : `${shipping.toFixed(2)} €`}</span>
                 </div>
                 <div className="border-t border-gray-200 pt-4 flex justify-between font-semibold text-lg text-gray-900">
-                  <span>{t(locale, 'total')}</span>
+                  <span>{t(effectiveLocale, 'total')}</span>
                   <span>{total.toFixed(2)} €</span>
                 </div>
               </div>
@@ -240,7 +241,7 @@ export default function CartPage() {
                 onClick={handleCheckout}
                 className="w-full bg-primary text-white py-4 rounded-2xl font-semibold hover:bg-primary-600 transition-colors mb-4"
               >
-                {t(locale, 'checkout')}
+                {t(effectiveLocale, 'checkout')}
               </button>
 
               {/* Trust Badges */}
