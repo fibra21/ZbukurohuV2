@@ -14,6 +14,7 @@ import {
 export default function CheckoutPage() {
   const router = useRouter();
   const { locale, clearCart } = useAppStore();
+  const effectiveLocale = (locale === 'sq-AL' || locale === 'en') ? locale : 'sq-AL';
   const [step, setStep] = useState<'form' | 'confirmation'>('form');
   const [formData, setFormData] = useState({
     firstName: '',
@@ -53,7 +54,7 @@ export default function CheckoutPage() {
               <CheckCircle className="w-10 h-10 text-green-600" />
             </div>
             <h1 className="text-3xl font-serif font-bold text-gray-900 mb-4">
-              {t(locale, 'thankYou')}
+              {t(effectiveLocale, 'thankYou')}
             </h1>
             <p className="text-gray-600 mb-8">
               Porosia juaj u konfirmua me sukses! Numri i porosisë: #ZB-2024-001
@@ -110,7 +111,7 @@ export default function CheckoutPage() {
             <ArrowLeft className="w-5 h-5" />
           </button>
           <h1 className="text-3xl font-serif font-bold text-gray-900">
-            {t(locale, 'checkout')}
+            {t(effectiveLocale, 'checkout')}
           </h1>
         </div>
 
@@ -307,15 +308,15 @@ export default function CheckoutPage() {
               {/* Price Breakdown */}
               <div className="border-t border-gray-200 pt-4 space-y-3">
                 <div className="flex justify-between text-gray-600">
-                  <span>{t(locale, 'subtotal')}</span>
+                  <span>{t(effectiveLocale, 'subtotal')}</span>
                   <span>{subtotal.toFixed(2)} €</span>
                 </div>
                 <div className="flex justify-between text-gray-600">
-                  <span>{t(locale, 'shipping')}</span>
+                  <span>{t(effectiveLocale, 'shipping')}</span>
                   <span>{shipping.toFixed(2)} €</span>
                 </div>
                 <div className="border-t border-gray-200 pt-3 flex justify-between font-semibold text-lg text-gray-900">
-                  <span>{t(locale, 'total')}</span>
+                  <span>{t(effectiveLocale, 'total')}</span>
                   <span>{total.toFixed(2)} €</span>
                 </div>
               </div>
