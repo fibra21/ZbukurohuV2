@@ -18,7 +18,6 @@ import {
   Gift,
   Sparkles
 } from 'lucide-react';
-import { SearchBar } from '../search/SearchBar';
 import { MiniCartDrawer } from '../cart/MiniCartDrawer';
 import { LocaleSwitcher } from '../ui/LocaleSwitcher';
 import { ThemeToggle } from '../ui/ThemeToggle';
@@ -29,6 +28,7 @@ export function Header() {
   const [mounted, setMounted] = useState(false);
   const [openMega, setOpenMega] = useState<null | 'skincare' | 'makeup' | 'haircare' | 'brands' | 'offers'>(null);
   const [hoverTimer, setHoverTimer] = useState<NodeJS.Timeout | null>(null);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
   const { locale, getCartItemCount, getWishlistCount } = useAppStore();
 
   useEffect(() => setMounted(true), []);
@@ -52,6 +52,16 @@ export function Header() {
       .replace(/(^-|-$)/g, ''), []);
 
   const makeLink = useCallback((label: string) => `/categories/${slugify(label)}`,[slugify]);
+
+  const handleMouseEnter = useCallback((mega: 'skincare' | 'makeup' | 'haircare' | 'brands' | 'offers' | null) => {
+    if (hoverTimer) clearTimeout(hoverTimer);
+    setOpenMega(mega);
+  }, [hoverTimer]);
+
+  const handleMouseLeave = useCallback(() => {
+    const timer = setTimeout(() => setOpenMega(null), 150);
+    setHoverTimer(timer);
+  }, []);
 
   // Enhanced category data with better organization
   const skincareCategories = [
@@ -103,103 +113,89 @@ export function Header() {
   const haircareCategories = [
     {
       title: 'Hair Care',
-      items: ['Shampoo', 'Conditioner', 'Hair Masks', 'Hair Oils', 'Heat Protection'],
+      items: ['Shampoo', 'Conditioner', 'Hair Masks', 'Hair Oils', 'Leave-in Products'],
       featured: 'Best Sellers'
     },
     {
       title: 'Styling',
-      items: ['Hair Spray', 'Hair Gel', 'Hair Wax', 'Texturizing Sprays', 'Dry Shampoo'],
+      items: ['Hair Spray', 'Mousse', 'Gel', 'Wax', 'Heat Protection'],
       featured: 'New Arrivals'
     },
     {
-      title: 'Hair Tools',
-      items: ['Hair Dryers', 'Straighteners', 'Curling Irons', 'Hair Brushes'],
+      title: 'Tools',
+      items: ['Hair Dryers', 'Straighteners', 'Curling Irons', 'Brushes', 'Combs'],
       featured: 'Trending'
     },
     {
-      title: 'Hair Accessories',
-      items: ['Hair Clips', 'Headbands', 'Hair Ties', 'Scrunchies'],
+      title: 'Accessories',
+      items: ['Hair Ties', 'Clips', 'Headbands', 'Hair Pins'],
       featured: 'Limited Time'
     }
   ];
 
   const brandsCategories = [
     {
-      title: 'Luxury Brands',
+      title: 'Luxury',
       items: ['La Mer', 'SK-II', 'Estée Lauder', 'Lancôme', 'Dior'],
       featured: 'Premium'
     },
     {
-      title: 'Drugstore Favorites',
-      items: ['Neutrogena', 'Cetaphil', 'CeraVe', 'The Ordinary', 'Inkey List'],
-      featured: 'Affordable'
+      title: 'Professional',
+      items: ['MAC', 'NARS', 'Urban Decay', 'Too Faced', 'Benefit'],
+      featured: 'Pro Quality'
     },
     {
-      title: 'Clean Beauty',
-      items: ['Drunk Elephant', 'Glossier', 'Tower 28', 'Saie', 'Ilia'],
-      featured: 'Eco-Friendly'
+      title: 'Natural',
+      items: ['The Ordinary', 'Paula\'s Choice', 'CeraVe', 'Neutrogena', 'Cetaphil'],
+      featured: 'Clean Beauty'
     },
     {
-      title: 'K-Beauty',
-      items: ['Innisfree', 'Etude House', 'Missha', 'Cosrx', 'Laneige'],
+      title: 'Indie',
+      items: ['Glossier', 'Fenty Beauty', 'Rare Beauty', 'Milk Makeup', 'Ilia'],
       featured: 'Trending'
     }
   ];
 
   const offersCategories = [
     {
-      title: 'Seasonal Deals',
-      items: ['Autumn Essentials', 'Winter Skincare', 'Holiday Sets', 'New Year Specials'],
-      featured: 'Limited Time'
+      title: 'Flash Sales',
+      items: ['24h Deals', 'Weekend Specials', 'Clearance', 'Limited Time'],
+      featured: 'Hurry!'
     },
     {
-      title: 'Bundle Offers',
-      items: ['Skincare Sets', 'Makeup Kits', 'Gift Sets', 'Travel Size'],
-      featured: 'Save Up to 40%'
+      title: 'Bundles',
+      items: ['Skincare Sets', 'Makeup Kits', 'Haircare Packs', 'Gift Sets'],
+      featured: 'Save More'
     },
     {
-      title: 'Clearance',
-      items: ['Last Chance', 'Discontinued', 'Overstock', 'Sample Sale'],
-      featured: 'Up to 70% Off'
+      title: 'Seasonal',
+      items: ['Summer Essentials', 'Winter Care', 'Holiday Specials', 'New Year'],
+      featured: 'Seasonal'
     },
     {
-      title: 'Member Benefits',
+      title: 'Member Only',
       items: ['VIP Access', 'Early Bird', 'Exclusive Deals', 'Birthday Offers'],
-      featured: 'Members Only'
+      featured: 'Members'
     }
   ];
 
-  const handleMouseEnter = (megaType: 'skincare' | 'makeup' | 'haircare' | 'brands' | 'offers' | null) => {
-    if (hoverTimer) {
-      clearTimeout(hoverTimer);
-    }
-    setOpenMega(megaType);
-  };
-
-  const handleMouseLeave = () => {
-    const timer = setTimeout(() => {
-      setOpenMega(null);
-    }, 300);
-    setHoverTimer(timer);
-  };
-
   return (
-    <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-gray-100 shadow-sm">
+    <header className="bg-white border-b border-gray-100 shadow-sm sticky top-0 z-50">
       {/* Top Bar with Trust Signals */}
-      <div className="bg-gradient-to-r from-primary to-primary/80 text-white py-2">
+      <div className="bg-gradient-to-r from-primary/10 to-secondary/10 border-b border-gray-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-center space-x-6 text-sm">
+          <div className="flex items-center justify-center space-x-8 py-2 text-sm">
             <div className="flex items-center space-x-2">
-              <Truck className="w-4 h-4" />
-              <span>Free Delivery on Orders Over €50</span>
+              <Truck className="w-4 h-4 text-primary" />
+              <span className="text-gray-700">Free Delivery</span>
             </div>
             <div className="flex items-center space-x-2">
-              <Shield className="w-4 h-4" />
-              <span>Secure Checkout</span>
+              <Shield className="w-4 h-4 text-primary" />
+              <span className="text-gray-700">Secure Checkout</span>
             </div>
             <div className="flex items-center space-x-2">
-              <Star className="w-4 h-4" />
-              <span>4.9/5 Customer Rating</span>
+              <Star className="w-4 h-4 text-primary" />
+              <span className="text-gray-700">4.9/5 Customer Rating</span>
             </div>
           </div>
         </div>
@@ -411,9 +407,15 @@ export function Header() {
             })}
           </nav>
 
-          {/* Search Bar */}
-          <div className="hidden lg:flex flex-1 max-w-lg mx-8">
-            <SearchBar />
+          {/* Search Icon - Grows on Hover */}
+          <div className="hidden lg:flex flex-1 justify-center">
+            <button
+              onClick={() => setIsSearchOpen(true)}
+              className="group p-3 text-gray-600 hover:text-primary transition-all duration-300 hover:scale-125 hover:bg-gray-50 rounded-full"
+              aria-label="Open search"
+            >
+              <Search className="w-6 h-6 group-hover:w-7 group-hover:h-7 transition-all duration-300" />
+            </button>
           </div>
 
           {/* Right Side Actions */}
@@ -475,7 +477,14 @@ export function Header() {
 
         {/* Mobile Search Bar */}
         <div className="lg:hidden pb-4">
-          <SearchBar />
+          <div className="relative">
+            <input
+              type="text"
+              placeholder="Search products..."
+              className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-2xl focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+            />
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+          </div>
         </div>
 
         {/* Mobile Menu */}

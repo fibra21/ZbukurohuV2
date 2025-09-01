@@ -96,40 +96,40 @@ export default async function HomePage() {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-primary via-primary/90 to-accent text-white overflow-hidden">
+      <section className="relative bg-gradient-to-br from-gray-50 via-white to-gray-50 text-gray-900 overflow-hidden">
         {/* Background Pattern */}
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute top-0 left-0 w-72 h-72 bg-white rounded-full -translate-x-1/2 -translate-y-1/2"></div>
-          <div className="absolute bottom-0 right-0 w-96 h-96 bg-white rounded-full translate-x-1/2 translate-y-1/2"></div>
+        <div className="absolute inset-0 opacity-5">
+          <div className="absolute top-0 left-0 w-72 h-72 bg-primary rounded-full -translate-x-1/2 -translate-y-1/2"></div>
+          <div className="absolute bottom-0 right-0 w-96 h-96 bg-accent rounded-full translate-x-1/2 translate-y-1/2"></div>
         </div>
         
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-32">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
               <div className="flex items-center space-x-3 mb-6">
-                <Sparkles className="w-8 h-8 text-yellow-300" />
-                <span className="text-lg font-medium">Premium Beauty Marketplace</span>
+                <Sparkles className="w-8 h-8 text-primary" />
+                <span className="text-lg font-medium text-gray-600">Premium Beauty Marketplace</span>
               </div>
               <h1 className="text-5xl lg:text-6xl font-serif font-bold leading-tight mb-6">
                 Discover Your
-                <span className="block text-transparent bg-clip-text bg-gradient-to-r from-yellow-300 to-pink-300">
+                <span className="block text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">
                   Natural Beauty
                 </span>
               </h1>
-              <p className="text-xl text-white/90 mb-8 max-w-lg">
+              <p className="text-xl text-gray-600 mb-8 max-w-lg">
                 Curated collection of premium beauty products, skincare essentials, and wellness solutions. Authentic brands, expert advice, and exclusive deals.
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
                 <Link 
                   href="/categories"
-                  className="bg-white text-primary px-8 py-4 rounded-2xl font-bold text-lg hover:bg-gray-100 transition-all transform hover:scale-105 flex items-center justify-center space-x-2"
+                  className="bg-primary text-white px-8 py-4 rounded-2xl font-bold text-lg hover:bg-primary/90 transition-all transform hover:scale-105 flex items-center justify-center space-x-2"
                 >
                   <span>Shop Now</span>
                   <ArrowRight className="w-5 h-5" />
                 </Link>
                 <Link 
                   href="/find"
-                  className="border-2 border-white/30 text-white px-8 py-4 rounded-2xl font-medium text-lg hover:bg-white/10 transition-all flex items-center justify-center space-x-2"
+                  className="border-2 border-primary/30 text-primary px-8 py-4 rounded-2xl font-medium text-lg hover:bg-primary/10 transition-all flex items-center justify-center space-x-2"
                 >
                   <span>Find Your Style</span>
                   <Eye className="w-5 h-5" />
@@ -137,9 +137,9 @@ export default async function HomePage() {
               </div>
               
               {/* Trust Indicators */}
-              <div className="flex items-center space-x-6 mt-8 text-sm">
+              <div className="flex items-center space-x-6 mt-8 text-sm text-gray-600">
                 <div className="flex items-center space-x-2">
-                  <Star className="w-5 h-5 text-yellow-300 fill-current" />
+                  <Star className="w-5 h-5 text-yellow-400 fill-current" />
                   <span>4.9/5 from 10,000+ reviews</span>
                 </div>
                 <div className="flex items-center space-x-2">
@@ -152,50 +152,50 @@ export default async function HomePage() {
             <div className="relative">
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-4">
-                  <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-4">
+                  <div className="bg-white rounded-2xl p-4 shadow-lg border border-gray-100">
                     <img 
                       src="https://images.unsplash.com/photo-1556228720-195a672e8a03?w=200&h=200&fit=crop" 
                       alt="Skincare"
                       className="w-full h-32 object-cover rounded-xl"
                     />
                     <div className="mt-3">
-                      <h3 className="font-semibold text-white">Premium Skincare</h3>
-                      <p className="text-white/70 text-sm">Starting from €25</p>
+                      <h3 className="font-semibold text-gray-900">Premium Skincare</h3>
+                      <p className="text-gray-600 text-sm">Starting from €25</p>
                     </div>
                   </div>
-                  <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-4">
+                  <div className="bg-white rounded-2xl p-4 shadow-lg border border-gray-100">
                     <img 
                       src="https://images.unsplash.com/photo-1512496015851-a90fb38ba796?w=200&h=200&fit=crop" 
                       alt="Makeup"
                       className="w-full h-32 object-cover rounded-xl"
                     />
                     <div className="mt-3">
-                      <h3 className="font-semibold text-white">Luxury Makeup</h3>
-                      <p className="text-white/70 text-sm">Starting from €18</p>
+                      <h3 className="font-semibold text-gray-900">Luxury Makeup</h3>
+                      <p className="text-gray-600 text-sm">Starting from €18</p>
                     </div>
                   </div>
                 </div>
                 <div className="space-y-4 pt-8">
-                  <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-4">
+                  <div className="bg-white rounded-2xl p-4 shadow-lg border border-gray-100">
                     <img 
                       src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=200&h=200&fit=crop" 
                       alt="Haircare"
                       className="w-full h-32 object-cover rounded-xl"
                     />
                     <div className="mt-3">
-                      <h3 className="font-semibold text-white">Professional Hair</h3>
-                      <p className="text-white/70 text-sm">Starting from €30</p>
+                      <h3 className="font-semibold text-gray-900">Professional Hair</h3>
+                      <p className="text-gray-600 text-sm">Starting from €30</p>
                     </div>
                   </div>
-                  <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-4">
+                  <div className="bg-white rounded-2xl p-4 shadow-lg border border-gray-100">
                     <img 
                       src="https://images.unsplash.com/photo-1571781926291-c477ebfd024b?w=200&h=200&fit=crop" 
                       alt="Wellness"
                       className="w-full h-32 object-cover rounded-xl"
                     />
                     <div className="mt-3">
-                      <h3 className="font-semibold text-white">Wellness</h3>
-                      <p className="text-white/70 text-sm">Starting from €20</p>
+                      <h3 className="font-semibold text-gray-900">Wellness</h3>
+                      <p className="text-gray-600 text-sm">Starting from €20</p>
                     </div>
                   </div>
                 </div>
