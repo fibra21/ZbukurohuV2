@@ -291,7 +291,7 @@ export default function CheckoutPage() {
               {/* Mock Order Items */}
               <div className="space-y-4 mb-6">
                 <div className="flex justify-between">
-                  <span className="text-gray-600">L'Oréal Paris True Match Foundation</span>
+                  <span className="text-gray-600">L&#39;Oréal Paris True Match Foundation</span>
                   <span>24.99 €</span>
                 </div>
                 <div className="flex justify-between">

@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
 import Image from 'next/image';
+import { ProductCard } from '@/components/product/ProductCard';
 import { getProductBySlug, getProducts } from '@/lib/data';
 import { useAppStore } from '@/lib/store';
 import { Product } from '@/types';
@@ -26,7 +27,7 @@ export default function ProductDetailPage() {
         setSimilar(all.filter(x => x.brandId === p.brandId && x.id !== p.id).slice(0, 8));
       }
     })();
-  }, [params?.slug]);
+  }, [params?.slug, addToRecentlyViewed]);
 
   if (!product) {
     return (
