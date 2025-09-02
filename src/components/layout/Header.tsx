@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useRef, useEffect } from 'react';
 import Link from 'next/link';
 import { useAuth } from '@/contexts/AuthContext';
 import { 
@@ -25,15 +25,44 @@ export function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const megaMenuRef = useRef<HTMLDivElement>(null);
+  const hoverTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const handleMouseEnter = useCallback((type: string) => {
+    if (hoverTimeoutRef.current) {
+      clearTimeout(hoverTimeoutRef.current);
+    }
     setOpenMega(type);
   }, [setOpenMega]);
 
   const handleMouseLeave = useCallback(() => {
-    setTimeout(() => {
+    hoverTimeoutRef.current = setTimeout(() => {
       setOpenMega(null);
-    }, 200);
+    }, 100); // Reduced delay for better responsiveness
+  }, [setOpenMega]);
+
+  const handleMegaMenuMouseEnter = useCallback(() => {
+    if (hoverTimeoutRef.current) {
+      clearTimeout(hoverTimeoutRef.current);
+    }
+  }, []);
+
+  const handleMegaMenuMouseLeave = useCallback(() => {
+    hoverTimeoutRef.current = setTimeout(() => {
+      setOpenMega(null);
+    }, 100);
+  }, [setOpenMega]);
+
+  // Close mega menu when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (megaMenuRef.current && !megaMenuRef.current.contains(event.target as Node)) {
+        setOpenMega(null);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
   }, [setOpenMega]);
 
   const handleLogout = async () => {
@@ -136,49 +165,54 @@ export function Header() {
 
     return (
       <div 
-        className="absolute top-full left-0 right-0 bg-white rounded-b-2xl shadow-xl border border-gray-100 p-8 z-50"
-        onMouseEnter={() => handleMouseEnter(type)}
-        onMouseLeave={handleMouseLeave}
+        ref={megaMenuRef}
+        className="absolute top-full left-0 right-0 bg-white rounded-b-2xl shadow-xl border border-gray-100 z-50"
+        onMouseEnter={handleMegaMenuMouseEnter}
+        onMouseLeave={handleMegaMenuMouseLeave}
       >
-        <div className="max-w-6xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-            <div className="md:col-span-1">
-              <h3 className={`text-2xl font-bold bg-gradient-to-r ${color} bg-clip-text text-transparent mb-4`}>
-                {title}
-              </h3>
-              <p className="text-gray-600 mb-6">
-                Discover our curated collection of premium beauty products and services
-              </p>
-              <Link 
-                href={`/categories/${type}`}
-                className="inline-flex items-center space-x-2 text-primary hover:text-primary/80 font-medium"
-              >
-                <span>View All {type}</span>
-                <ChevronDown className="w-4 h-4 rotate-[-90deg]" />
-              </Link>
-            </div>
-            
-            <div className="md:col-span-3">
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-                {categories.map((category) => (
-                  <div key={category.title}>
-                    <h4 className="font-semibold text-gray-900 mb-3">{category.title}</h4>
-                    <ul className="space-y-2">
-                                             {category.items.map((item: string) => (
-                         <li key={item}>
-                           <Link 
-                             href={`/categories/${type}/${item.toLowerCase().replace(/\s+/g, '-')}`}
-                             className="text-gray-600 hover:text-primary text-sm transition-colors"
-                           >
-                             {item}
-                           </Link>
-                         </li>
-                       ))}
-                    </ul>
-                  </div>
-                ))}
+        <div className="max-w-6xl mx-auto p-6">
+          {/* Header Section */}
+          <div className="mb-6">
+            <h3 className={`text-2xl font-bold bg-gradient-to-r ${color} bg-clip-text text-transparent mb-2`}>
+              {title}
+            </h3>
+            <p className="text-gray-600 text-sm">
+              Discover our curated collection of premium beauty products and services
+            </p>
+          </div>
+          
+          {/* Categories Grid */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+            {categories.map((category) => (
+              <div key={category.title} className="space-y-3">
+                <h4 className="font-semibold text-gray-900 text-sm uppercase tracking-wide">
+                  {category.title}
+                </h4>
+                <ul className="space-y-2">
+                  {category.items.map((item: string) => (
+                    <li key={item}>
+                      <Link 
+                        href={`/categories/${type}/${item.toLowerCase().replace(/\s+/g, '-')}`}
+                        className="text-gray-600 hover:text-primary text-sm transition-colors duration-200 block py-1 hover:bg-gray-50 rounded px-2 -ml-2"
+                      >
+                        {item}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
               </div>
-            </div>
+            ))}
+          </div>
+          
+          {/* Footer Link */}
+          <div className="mt-6 pt-4 border-t border-gray-100">
+            <Link 
+              href={`/categories/${type}`}
+              className="inline-flex items-center space-x-2 text-primary hover:text-primary/80 font-medium transition-colors text-sm"
+            >
+              <span>View All {type}</span>
+              <ChevronDown className="w-4 h-4 rotate-[-90deg]" />
+            </Link>
           </div>
         </div>
       </div>
@@ -233,11 +267,11 @@ export function Header() {
                 >
                   <Link
                     href={item.href}
-                    className="flex items-center space-x-2 py-2 px-3 rounded-lg hover:bg-gray-50 transition-colors"
+                    className="flex items-center space-x-2 py-2 px-3 rounded-lg hover:bg-gray-50 transition-colors duration-200 group"
                   >
                     <span className="text-lg">{item.icon}</span>
-                    <span className="font-medium text-gray-700">{item.name}</span>
-                    <ChevronDown className="w-4 h-4 text-gray-400" />
+                    <span className="font-medium text-gray-700 group-hover:text-primary">{item.name}</span>
+                    <ChevronDown className="w-4 h-4 text-gray-400 group-hover:text-primary transition-colors duration-200" />
                   </Link>
                   {renderMegaMenu(item.name.toLowerCase())}
                 </div>
