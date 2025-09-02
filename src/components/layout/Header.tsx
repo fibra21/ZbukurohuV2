@@ -140,7 +140,7 @@ export function Header() {
     return (
       <div 
         ref={megaMenuRef}
-        className="absolute top-full left-1/2 transform -translate-x-1/2 bg-surface-elevated text-text-primary p-6 rounded-xl shadow-xl border border-neutral-200 z-50 w-[500px] max-w-[calc(100vw-2rem)]"
+        className="absolute top-full left-1/2 transform -translate-x-1/2 bg-surface-elevated text-text-primary p-6 rounded-xl shadow-xl border border-neutral-200 z-50 w-[500px] max-w-[calc(100vw-2rem)] mt-2 mega-menu"
         onMouseEnter={handleMegaMenuMouseEnter}
         onMouseLeave={handleMegaMenuMouseLeave}
       >
@@ -197,7 +197,7 @@ export function Header() {
       {/* Main Header */}
       <header className="sticky top-0 z-40 bg-surface-elevated border-b border-neutral-200 shadow-md w-full">
         <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-20">
+          <div className="flex items-center justify-between h-20 gap-4">
             {/* Logo */}
             <Link href="/" className="flex items-center space-x-4 flex-shrink-0">
               <div className="w-12 h-12 bg-gradient-to-br from-brand-primary to-brand-accent rounded-xl flex items-center justify-center">
@@ -210,20 +210,20 @@ export function Header() {
             </Link>
 
             {/* Desktop Navigation */}
-            <nav className="hidden lg:flex items-center space-x-1 flex-1 justify-center max-w-2xl">
+            <nav className="hidden lg:flex items-center space-x-4 flex-1 justify-center max-w-5xl mx-10">
               {navigation.map((item) => (
                 <div
                   key={item.name}
-                  className="relative"
+                  className="relative nav-item"
                   onMouseEnter={() => handleMouseEnter(item.name.toLowerCase())}
                   onMouseLeave={handleMouseLeave}
                 >
                   <Link
                     href={item.href}
-                    className="flex items-center space-x-2 py-2 px-3 rounded-lg hover:bg-brand-primary transition-colors duration-base group"
+                    className="flex items-center space-x-2 py-3 px-4 rounded-lg hover:bg-brand-primary transition-colors duration-base group whitespace-nowrap"
                   >
                     <span className="text-lg">{item.icon}</span>
-                    <span className="font-medium text-text-primary group-hover:text-brand-accent font-body">{item.name}</span>
+                    <span className="font-medium text-text-primary group-hover:text-brand-accent font-body nav-text">{item.name}</span>
                     <ChevronDown className="w-4 h-4 text-text-secondary group-hover:text-brand-accent transition-colors duration-base" />
                   </Link>
                   {renderMegaMenu(item.name.toLowerCase(), false)}
