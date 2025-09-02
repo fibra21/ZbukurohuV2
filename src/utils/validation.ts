@@ -3,7 +3,7 @@ export interface ValidationRule {
   minLength?: number;
   maxLength?: number;
   pattern?: RegExp;
-  custom?: (value: any) => boolean | string;
+  custom?: (value: string | number) => boolean | string;
 }
 
 export interface ValidationResult {
@@ -11,7 +11,7 @@ export interface ValidationResult {
   errors: string[];
 }
 
-export const validateField = (value: any, rules: ValidationRule): ValidationResult => {
+export const validateField = (value: string | number, rules: ValidationRule): ValidationResult => {
   const errors: string[] = [];
 
   // Required check
@@ -52,14 +52,14 @@ export const validateField = (value: any, rules: ValidationRule): ValidationResu
   };
 };
 
-export const validateForm = (data: Record<string, any>, rules: Record<string, ValidationRule>): ValidationResult => {
+export const validateForm = (data: Record<string, string | number>, rules: Record<string, ValidationRule>): ValidationResult => {
   const errors: string[] = [];
   let isValid = true;
 
   for (const [field, fieldRules] of Object.entries(rules)) {
     const fieldValue = data[field];
     const fieldValidation = validateField(fieldValue, fieldRules);
-    
+
     if (!fieldValidation.isValid) {
       isValid = false;
       errors.push(...fieldValidation.errors.map(error => `${field}: ${error}`));
@@ -74,8 +74,8 @@ export const commonRules = {
   email: {
     required: true,
     pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-    custom: (value: string) => {
-      if (value && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
+    custom: (value: string | number) => {
+      if (value && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value.toString())) {
         return 'Please enter a valid email address';
       }
       return true;
@@ -84,11 +84,11 @@ export const commonRules = {
   password: {
     required: true,
     minLength: 8,
-    custom: (value: string) => {
-      if (value && value.length < 8) {
+    custom: (value: string | number) => {
+      if (value && value.toString().length < 8) {
         return 'Password must be at least 8 characters long';
       }
-      if (value && !/(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/.test(value)) {
+      if (value && !/(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/.test(value.toString())) {
         return 'Password must contain at least one uppercase letter, one lowercase letter, and one number';
       }
       return true;
@@ -96,8 +96,8 @@ export const commonRules = {
   },
   phone: {
     pattern: /^[\+]?[1-9][\d]{0,15}$/,
-    custom: (value: string) => {
-      if (value && !/^[\+]?[1-9][\d]{0,15}$/.test(value)) {
+    custom: (value: string | number) => {
+      if (value && !/^[\+]?[1-9][\d]{0,15}$/.test(value.toString())) {
         return 'Please enter a valid phone number';
       }
       return true;
@@ -105,8 +105,8 @@ export const commonRules = {
   },
   discountCode: {
     pattern: /^[A-Z0-9]{4,20}$/,
-    custom: (value: string) => {
-      if (value && !/^[A-Z0-9]{4,20}$/.test(value)) {
+    custom: (value: string | number) => {
+      if (value && !/^[A-Z0-9]{4,20}$/.test(value.toString())) {
         return 'Discount code must be 4-20 characters, uppercase letters and numbers only';
       }
       return true;
@@ -114,11 +114,11 @@ export const commonRules = {
   },
   wholesaleQuantity: {
     required: true,
-    custom: (value: number) => {
-      if (value && value < 1) {
+    custom: (value: string | number) => {
+      if (value && Number(value) < 1) {
         return 'Quantity must be at least 1';
       }
-      if (value && value > 10000) {
+      if (value && Number(value) > 10000) {
         return 'Quantity cannot exceed 10,000';
       }
       return true;
@@ -126,11 +126,11 @@ export const commonRules = {
   },
   price: {
     required: true,
-    custom: (value: number) => {
-      if (value && value < 0) {
+    custom: (value: string | number) => {
+      if (value && Number(value) < 0) {
         return 'Price cannot be negative';
       }
-      if (value && value > 10000) {
+      if (value && Number(value) > 10000) {
         return 'Price cannot exceed €10,000';
       }
       return true;
@@ -170,9 +170,9 @@ export const businessApplicationRules = {
   },
   businessType: {
     required: true,
-    custom: (value: string) => {
+    custom: (value: string | number) => {
       const validTypes = ['retail', 'wholesale', 'salon', 'spa', 'other'];
-      if (value && !validTypes.includes(value)) {
+      if (value && !validTypes.includes(value.toString())) {
         return 'Please select a valid business type';
       }
       return true;

@@ -74,7 +74,14 @@ export function BusinessApplicationForm() {
     e.preventDefault();
     
     // Validate all fields
-    const validation = validateForm(formData, businessApplicationRules);
+    const formDataForValidation: Record<string, string | number> = {};
+    Object.entries(formData).forEach(([key, value]) => {
+      if (value !== undefined && value !== '') {
+        formDataForValidation[key] = value;
+      }
+    });
+    
+    const validation = validateForm(formDataForValidation, businessApplicationRules);
     if (!validation.isValid) {
       const fieldErrors: Record<string, string> = {};
       validation.errors.forEach(error => {
@@ -385,8 +392,8 @@ export function BusinessApplicationForm() {
               <p className="font-medium mb-1">What happens next?</p>
               <ul className="space-y-1 text-blue-700">
                 <li>• We review your application within 2-3 business days</li>
-                <li>• You'll receive an email with our decision</li>
-                <li>• If approved, you'll get access to wholesale pricing</li>
+                <li>• You&apos;ll receive an email with our decision</li>
+                <li>• If approved, you&apos;ll get access to wholesale pricing</li>
                 <li>• You can start placing bulk orders immediately</li>
               </ul>
             </div>
