@@ -95,7 +95,7 @@ export function Header() {
   const renderMegaMenu = (type: string) => {
     if (!openMega || openMega !== type) return null;
 
-    let categories: any[] = [];
+    let categories: { title: string; items: string[] }[] = [];
     let title = '';
     let color = '';
 

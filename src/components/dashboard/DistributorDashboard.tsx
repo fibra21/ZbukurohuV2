@@ -99,7 +99,7 @@ export function DistributorDashboard({ user }: DistributorDashboardProps) {
           </div>
           <div>
             <h2 className="text-2xl font-bold">Welcome back, {user.name}! 🏪</h2>
-            <p className="text-white/90">Here's your business overview for today</p>
+            <p className="text-white/90">Here&apos;s your business overview for today</p>
           </div>
         </div>
       </div>

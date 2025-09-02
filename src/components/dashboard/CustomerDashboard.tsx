@@ -102,7 +102,7 @@ export function CustomerDashboard({ user }: CustomerDashboardProps) {
           </div>
           <div>
             <h2 className="text-2xl font-bold">Welcome back, {user.name}! 👋</h2>
-            <p className="text-white/90">Here's what's happening with your beauty journey</p>
+            <p className="text-white/90">Here&apos;s what&apos;s happening with your beauty journey</p>
           </div>
         </div>
       </div>
@@ -316,7 +316,7 @@ export function CustomerDashboard({ user }: CustomerDashboardProps) {
           <div className="text-center py-8">
             <Star className="w-16 h-16 text-gray-300 mx-auto mb-4" />
             <h3 className="text-lg font-medium text-gray-900 mb-2">No reviews yet</h3>
-            <p className="text-gray-600 mb-4">Start reviewing products you've purchased to help other customers</p>
+            <p className="text-gray-600 mb-4">Start reviewing products you&apos;ve purchased to help other customers</p>
             <Link 
               href="/orders"
               className="bg-primary text-white px-6 py-2 rounded-lg font-medium hover:bg-primary/90"
