@@ -1,4 +1,3 @@
-import Link from 'next/link';
 import { Star, Sparkles } from 'lucide-react';
 import { HeroSection } from '@/components/home/HeroSection';
 import { FeaturesSection } from '@/components/home/FeaturesSection';
@@ -13,10 +12,10 @@ export default async function HomePage() {
   const brands = await getBrands();
 
   // Filter featured products
-  const featuredProducts = products.filter(product => product.featured).slice(0, 8);
+  const featuredProducts = products.filter(product => product.isBestseller || product.isNew).slice(0, 8);
   
   // Filter new arrivals (products added in last 30 days)
-  const newArrivals = products.slice(0, 8);
+  const newArrivals = products.filter(product => product.isNew).slice(0, 8);
   
   // Filter bestsellers (products with highest ratings)
   const bestsellers = products.sort((a, b) => (b.rating || 0) - (a.rating || 0)).slice(0, 8);
