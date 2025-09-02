@@ -15,7 +15,14 @@ import {
   Sparkles,
   Palette,
   Scissors,
-  Star
+  Star,
+  Eye,
+  Smile,
+  PaintBucket,
+  Droplets,
+  Zap,
+  Flower,
+  Headphones
 } from 'lucide-react';
 import { MiniCartDrawer } from '@/components/cart/MiniCartDrawer';
 import { useAppStore } from '@/lib/store';
@@ -66,57 +73,172 @@ export function Header() {
   }, [setOpenMega]);
 
   const navigation = [
-    { name: 'Skincare', href: '/categories/skincare', icon: <Sparkles className="w-5 h-5" /> },
     { name: 'Makeup', href: '/categories/makeup', icon: <Palette className="w-5 h-5" /> },
+    { name: 'Skincare', href: '/categories/skincare', icon: <Sparkles className="w-5 h-5" /> },
     { name: 'Haircare', href: '/categories/haircare', icon: <Scissors className="w-5 h-5" /> },
-    { name: 'Fragrances', href: '/categories/fragrances', icon: <Heart className="w-5 h-5" /> },
-    { name: 'Services', href: '/services', icon: <Star className="w-5 h-5" /> },
+    { name: 'Fragrances', href: '/categories/fragrances', icon: <Flower className="w-5 h-5" /> },
+    { name: 'Services', href: '/services', icon: <Headphones className="w-5 h-5" /> },
     { name: 'Offers', href: '/offers', icon: <Gift className="w-5 h-5" /> }
   ];
 
   const megaMenuData = {
-    skincare: {
-      title: 'Skincare Collection',
-      description: 'Nourish and protect your skin with premium products',
-      items: ['Cleansers', 'Moisturizers', 'Serums', 'Sunscreen', 'Masks', 'Toners']
-    },
     makeup: {
-      title: 'Makeup by Face Parts',
-      description: 'Complete makeup collection organized by face areas',
+      title: 'Makeup by Face & Body Parts',
+      description: 'Complete makeup collection organized by areas',
       sections: [
         {
-          title: 'Eyes',
-          items: ['Eyeshadow', 'Mascara', 'Eyeliner', 'Eyebrows']
+          title: 'Face',
+          icon: <Smile className="w-4 h-4" />,
+          items: [
+            { name: 'Foundation', href: '/categories/foundation' },
+            { name: 'Concealer', href: '/categories/concealer' },
+            { name: 'Blush', href: '/categories/blush' },
+            { name: 'Bronzer', href: '/categories/bronzer' },
+            { name: 'Highlighter', href: '/categories/highlighter' },
+            { name: 'Setting Powder', href: '/categories/setting-powder' }
+          ]
         },
         {
-          title: 'Face',
-          items: ['Foundation', 'Concealer', 'Blush', 'Powder']
+          title: 'Eyes',
+          icon: <Eye className="w-4 h-4" />,
+          items: [
+            { name: 'Mascara', href: '/categories/mascara' },
+            { name: 'Eyeliner', href: '/categories/eyeliner' },
+            { name: 'Eyeshadow', href: '/categories/eyeshadow' },
+            { name: 'Brows', href: '/categories/brows' }
+          ]
         },
         {
           title: 'Lips',
-          items: ['Lipstick', 'Lip Gloss', 'Lip Liner', 'Lip Balm']
+          icon: <Heart className="w-4 h-4" />,
+          items: [
+            { name: 'Lipstick', href: '/categories/lipstick' },
+            { name: 'Lip Gloss', href: '/categories/lip-gloss' },
+            { name: 'Lip Liner', href: '/categories/lip-liner' },
+            { name: 'Lip Care', href: '/categories/lip-care' }
+          ]
+        },
+        {
+          title: 'Nails',
+          icon: <PaintBucket className="w-4 h-4" />,
+          items: [
+            { name: 'Nail Polish', href: '/categories/nail-polish' },
+            { name: 'Nail Care', href: '/categories/nail-care' },
+            { name: 'Tools & Accessories', href: '/categories/nail-tools' }
+          ]
+        }
+      ]
+    },
+    skincare: {
+      title: 'Skincare Solutions',
+      description: 'Targeted skincare for every concern and need',
+      sections: [
+        {
+          title: 'By Skin Concern',
+          icon: <Zap className="w-4 h-4" />,
+          items: [
+            { name: 'Acne', href: '/categories/acne-treatment' },
+            { name: 'Dryness', href: '/categories/dry-skin' },
+            { name: 'Anti-Aging', href: '/categories/anti-aging' },
+            { name: 'Dark Spots', href: '/categories/dark-spots' },
+            { name: 'Sensitivity', href: '/categories/sensitive-skin' },
+            { name: 'Oily/Combo', href: '/categories/oily-skin' },
+            { name: 'Sun Protection', href: '/categories/sun-protection' }
+          ]
+        },
+        {
+          title: 'By Product Type',
+          icon: <Droplets className="w-4 h-4" />,
+          items: [
+            { name: 'Cleansers', href: '/categories/cleansers' },
+            { name: 'Toners', href: '/categories/toners' },
+            { name: 'Serums', href: '/categories/serums' },
+            { name: 'Moisturizers', href: '/categories/moisturizers' },
+            { name: 'Eye Care', href: '/categories/eye-care' },
+            { name: 'Masks', href: '/categories/masks' },
+            { name: 'Sunscreen', href: '/categories/sunscreen' }
+          ]
         }
       ]
     },
     haircare: {
-      title: 'Haircare Collection',
-      description: 'Transform your hair with expert care products',
-      items: ['Shampoo', 'Conditioner', 'Hair Masks', 'Styling', 'Hair Oils', 'Tools']
+      title: 'Haircare Solutions',
+      description: 'Transform your hair with targeted treatments',
+      sections: [
+        {
+          title: 'By Hair Concern',
+          icon: <Zap className="w-4 h-4" />,
+          items: [
+            { name: 'Dandruff', href: '/categories/dandruff' },
+            { name: 'Hair Loss', href: '/categories/hair-loss' },
+            { name: 'Dry/Damaged', href: '/categories/dry-damaged-hair' },
+            { name: 'Frizz Control', href: '/categories/frizz-control' },
+            { name: 'Color Protection', href: '/categories/color-protection' }
+          ]
+        },
+        {
+          title: 'By Product Type',
+          icon: <Droplets className="w-4 h-4" />,
+          items: [
+            { name: 'Shampoo', href: '/categories/shampoo' },
+            { name: 'Conditioner', href: '/categories/conditioner' },
+            { name: 'Treatments', href: '/categories/hair-treatments' },
+            { name: 'Hair Oils', href: '/categories/hair-oils' },
+            { name: 'Styling Products', href: '/categories/hair-styling' }
+          ]
+        }
+      ]
     },
-    brands: {
-      title: 'Brand Collections',
-      description: 'Discover premium beauty brands and their stories',
-      items: ['MAC', 'L\'Oréal', 'The Ordinary', 'Urban Decay', 'CeraVe', 'Fenty Beauty']
+    fragrances: {
+      title: 'Fragrance Collection',
+      description: 'Discover your signature scent',
+      sections: [
+        {
+          title: 'Shop by Category',
+          icon: <Flower className="w-4 h-4" />,
+          items: [
+            { name: 'Women', href: '/categories/fragrances-women' },
+            { name: 'Men', href: '/categories/fragrances-men' },
+            { name: 'Unisex', href: '/categories/fragrances-unisex' },
+            { name: 'Body Mists', href: '/categories/body-mists' },
+            { name: 'Gift Sets', href: '/categories/fragrance-gift-sets' }
+          ]
+        }
+      ]
+    },
+    services: {
+      title: 'Beauty Services',
+      description: 'Professional beauty services and consultations',
+      sections: [
+        {
+          title: 'Our Services',
+          icon: <Star className="w-4 h-4" />,
+          items: [
+            { name: 'Skin Consultation', href: '/services/skin-consultation' },
+            { name: 'Makeup Services', href: '/services/makeup' },
+            { name: 'Gift Wrapping', href: '/services/gift-wrapping' },
+            { name: 'Subscriptions', href: '/services/subscriptions' }
+          ]
+        }
+      ]
     },
     offers: {
       title: 'Special Offers',
       description: 'Exclusive deals and seasonal collections',
-      items: ['Autumn Essentials', 'Holiday Collections', 'Flash Sales', 'VIP Benefits', 'New Arrivals', 'Limited Edition']
-    },
-    services: {
-      title: 'Beauty Services',
-      description: 'Professional beauty services at your fingertips',
-      items: ['Makeup Artist', 'Nail Technician', 'Hair Stylist', 'Facial Treatments', 'Wedding Makeup', 'Consultations']
+      sections: [
+        {
+          title: 'Current Offers',
+          icon: <Gift className="w-4 h-4" />,
+          items: [
+            { name: 'Flash Sales', href: '/offers/flash-sales' },
+            { name: 'Bundle Deals', href: '/offers/bundles' },
+            { name: 'New Arrivals', href: '/offers/new-arrivals' },
+            { name: 'Seasonal Sets', href: '/offers/seasonal' },
+            { name: 'VIP Benefits', href: '/offers/vip' },
+            { name: 'Limited Edition', href: '/offers/limited-edition' }
+          ]
+        }
+      ]
     }
   };
 
@@ -126,29 +248,34 @@ export function Header() {
     const data = megaMenuData[type as keyof typeof megaMenuData];
     if (!data) return null;
 
-    // Special handling for makeup with sections
-    if (type === 'makeup' && 'sections' in data) {
+    // All categories now use sections structure
+    if ('sections' in data) {
       if (isMobile) {
         return (
-          <div className="mt-4 p-4 bg-surface-muted rounded-xl border border-neutral-200">
+          <div className="mt-4 p-4 bg-surface-muted rounded-xl border border-neutral-200 shadow-sm">
             <h4 className="font-bold text-text-primary mb-3 font-heading">{data.title}</h4>
             <p className="text-sm text-text-secondary mb-4 font-body">{data.description}</p>
             <div className="space-y-4">
-              {data.sections.map((section: { title: string; items: string[] }) => (
+              {data.sections.map((section: { title: string; icon: React.ReactNode; items: { name: string; href: string }[] }) => (
                 <div key={section.title}>
-                  <h5 className="font-semibold text-brand-accent mb-2 text-sm font-heading">{section.title}</h5>
+                  <div className="flex items-center space-x-2 mb-2">
+                    <div className="text-brand-accent">{section.icon}</div>
+                    <h5 className="font-semibold text-brand-accent text-sm font-heading">{section.title}</h5>
+                  </div>
                   <div className="grid grid-cols-2 gap-2">
-                    {section.items.map((item: string) => (
+                    {section.items.map((item: { name: string; href: string }) => (
                       <Link
-                        key={item}
-                        href={`/categories/${item.toLowerCase().replace(/\s+/g, '-')}`}
-                        className="bg-surface-elevated text-text-primary px-3 py-2 rounded-lg text-sm text-center hover:bg-brand-primary transition-colors border border-transparent hover:border-brand-accent font-body"
+                        key={item.name}
+                        href={item.href}
+                        className="group bg-surface-elevated text-text-primary px-3 py-2 rounded-lg text-sm text-center hover:bg-brand-primary transition-all duration-200 border border-transparent hover:border-brand-accent font-body hover:shadow-sm"
                         onClick={() => {
                           setIsMobileMenuOpen(false);
                           setActiveMobileMenu(null);
                         }}
                       >
-                        {item}
+                        <span className="group-hover:text-brand-accent-dark transition-colors">
+                          {item.name}
+                        </span>
                       </Link>
                     ))}
                   </div>
@@ -159,88 +286,66 @@ export function Header() {
         );
       }
 
+      // Desktop mega menu with enhanced design
+      const isWideMenu = type === 'makeup' || type === 'skincare' || type === 'haircare';
+      const menuWidth = isWideMenu ? 'w-[800px]' : 'w-[600px]';
+      const gridCols = isWideMenu && data.sections.length > 2 ? 'grid-cols-4' : data.sections.length === 2 ? 'grid-cols-2' : 'grid-cols-3';
+
       return (
         <div 
           ref={megaMenuRef}
-          className="absolute top-full left-1/2 transform -translate-x-1/2 bg-surface-elevated text-text-primary p-6 rounded-xl shadow-xl border border-neutral-200 z-50 w-[600px] max-w-[calc(100vw-2rem)] mt-2 mega-menu"
+          className={`absolute top-full left-1/2 transform -translate-x-1/2 bg-surface-elevated text-text-primary p-8 rounded-2xl shadow-2xl border border-neutral-200 z-50 ${menuWidth} max-w-[calc(100vw-2rem)] mt-3 mega-menu`}
           onMouseEnter={handleMegaMenuMouseEnter}
           onMouseLeave={handleMegaMenuMouseLeave}
         >
-          <h3 className="text-xl font-bold mb-3 text-center text-text-primary font-heading">{data.title}</h3>
-          <p className="mb-6 text-center text-text-secondary text-sm font-body">{data.description}</p>
+          <div className="text-center mb-6">
+            <h3 className="text-2xl font-bold text-text-primary font-heading mb-2">{data.title}</h3>
+            <p className="text-text-secondary text-sm font-body">{data.description}</p>
+          </div>
           
-          {/* Face parts layout */}
-          <div className="grid grid-cols-3 gap-4">
-            {data.sections.map((section: { title: string; items: string[] }) => (
-              <div key={section.title} className="space-y-2">
-                <h4 className="font-bold text-brand-accent text-center mb-3 font-heading">{section.title}</h4>
+          {/* Enhanced sections layout */}
+          <div className={`grid ${gridCols} gap-6`}>
+            {data.sections.map((section: { title: string; icon: React.ReactNode; items: { name: string; href: string }[] }) => (
+              <div key={section.title} className="space-y-3">
+                <div className="flex items-center space-x-2 mb-4 pb-2 border-b border-brand-primary/20">
+                  <div className="w-8 h-8 bg-brand-accent/10 rounded-lg flex items-center justify-center text-brand-accent">
+                    {section.icon}
+                  </div>
+                  <h4 className="font-bold text-brand-accent font-heading text-lg">{section.title}</h4>
+                </div>
                 <div className="space-y-2">
-                  {section.items.map((item: string) => (
+                  {section.items.map((item: { name: string; href: string }) => (
                     <Link
-                      key={item}
-                      href={`/categories/${item.toLowerCase().replace(/\s+/g, '-')}`}
-                      className="block bg-brand-primary text-text-primary px-3 py-2 rounded-lg text-sm text-center hover:bg-brand-secondary transition-colors duration-base border border-transparent hover:border-brand-accent font-body"
+                      key={item.name}
+                      href={item.href}
+                      className="group flex items-center space-x-2 bg-brand-primary/30 text-text-primary px-4 py-3 rounded-xl text-sm hover:bg-brand-secondary transition-all duration-200 border border-transparent hover:border-brand-accent hover:shadow-md font-body"
                     >
-                      {item}
+                      <span className="w-2 h-2 bg-brand-accent/60 rounded-full group-hover:bg-brand-accent transition-colors"></span>
+                      <span className="group-hover:text-brand-accent-dark transition-colors font-medium">
+                        {item.name}
+                      </span>
                     </Link>
                   ))}
                 </div>
               </div>
             ))}
           </div>
-        </div>
-      );
-    }
 
-    // Default handling for other categories
-    if (isMobile) {
-      return (
-        <div className="mt-4 p-4 bg-surface-muted rounded-xl border border-neutral-200">
-          <h4 className="font-bold text-text-primary mb-3 font-heading">{data.title}</h4>
-          <p className="text-sm text-text-secondary mb-4 font-body">{data.description}</p>
-          <div className="grid grid-cols-2 gap-2">
-            {(data as { items: string[] }).items.map((item: string) => (
-              <Link
-                key={item}
-                href={`/categories/${type}/${item.toLowerCase().replace(/\s+/g, '-')}`}
-                className="bg-surface-elevated text-text-primary px-3 py-2 rounded-lg text-sm text-center hover:bg-brand-primary transition-colors border border-transparent hover:border-brand-accent font-body"
-                onClick={() => {
-                  setIsMobileMenuOpen(false);
-                  setActiveMobileMenu(null);
-                }}
-              >
-                {item}
-              </Link>
-            ))}
+          {/* View All Link */}
+          <div className="text-center mt-6 pt-4 border-t border-neutral-200">
+            <Link
+              href={`/categories/${type}`}
+              className="inline-flex items-center space-x-2 text-brand-accent hover:text-brand-accent-dark font-semibold text-sm transition-colors"
+            >
+              <span>View All {data.title}</span>
+              <ChevronDown className="w-4 h-4 rotate-[-90deg]" />
+            </Link>
           </div>
         </div>
       );
     }
 
-    return (
-      <div 
-        ref={megaMenuRef}
-        className="absolute top-full left-1/2 transform -translate-x-1/2 bg-surface-elevated text-text-primary p-6 rounded-xl shadow-xl border border-neutral-200 z-50 w-[500px] max-w-[calc(100vw-2rem)] mt-2 mega-menu"
-        onMouseEnter={handleMegaMenuMouseEnter}
-        onMouseLeave={handleMegaMenuMouseLeave}
-      >
-        <h3 className="text-xl font-bold mb-3 text-center text-text-primary font-heading">{data.title}</h3>
-        <p className="mb-4 text-center text-text-secondary text-sm font-body">{data.description}</p>
-        
-        {/* Clickable horizontal layout */}
-        <div className="grid grid-cols-3 gap-3">
-          {(data as { items: string[] }).items.map((item: string) => (
-            <Link
-              key={item}
-              href={`/categories/${type}/${item.toLowerCase().replace(/\s+/g, '-')}`}
-              className="bg-brand-primary text-text-primary px-3 py-2 rounded-lg text-sm text-center hover:bg-brand-secondary transition-colors duration-base border border-transparent hover:border-brand-accent font-body"
-            >
-              {item}
-            </Link>
-          ))}
-        </div>
-      </div>
-    );
+    return null;
   };
 
   const toggleMobileMenu = (type: string) => {
