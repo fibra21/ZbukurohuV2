@@ -42,7 +42,7 @@ export default function LoginPage() {
         </h2>
         <p className="mt-2 text-center text-sm text-gray-600">
           Or{' '}
-          <Link href="/auth/register" className="font-medium text-primary hover:text-primary/80">
+          <Link href="/auth/register" className="font-medium text-brand-accent hover:text-brand-accent-dark">
             create a new account
           </Link>
         </p>
@@ -121,7 +121,7 @@ export default function LoginPage() {
               </div>
 
               <div className="text-sm">
-                <Link href="/auth/forgot-password" className="font-medium text-primary hover:text-primary/80">
+                <Link href="/auth/forgot-password" className="font-medium text-brand-accent hover:text-brand-accent-dark">
                   Forgot your password?
                 </Link>
               </div>
@@ -131,11 +131,11 @@ export default function LoginPage() {
               <button
                 type="submit"
                 disabled={isLoading}
-                className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-primary hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary disabled:opacity-50 disabled:cursor-not-allowed"
+                className="btn-accent w-full text-center"
               >
                 {isLoading ? (
-                  <div className="flex items-center">
-                    <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2" />
+                  <div className="flex items-center justify-center">
+                    <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-text-inverse mr-2" />
                     Signing in...
                   </div>
                 ) : (
@@ -158,7 +158,7 @@ export default function LoginPage() {
             <div className="mt-6">
               <Link
                 href="/auth/register"
-                className="w-full flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
+                className="btn-secondary w-full text-center"
               >
                 Create new account
               </Link>

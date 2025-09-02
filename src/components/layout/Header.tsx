@@ -199,9 +199,9 @@ export function Header() {
         <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-20">
             {/* Logo */}
-            <Link href="/" className="flex items-center space-x-3 flex-shrink-0">
-              <div className="w-10 h-10 bg-gradient-to-br from-brand-primary to-brand-accent rounded-xl flex items-center justify-center">
-                <span className="text-text-primary font-bold text-xl font-heading">Z</span>
+            <Link href="/" className="flex items-center space-x-4 flex-shrink-0">
+              <div className="w-12 h-12 bg-gradient-to-br from-brand-primary to-brand-accent rounded-xl flex items-center justify-center">
+                <span className="text-text-primary font-bold text-2xl font-heading">Z</span>
               </div>
               <div>
                 <h1 className="text-2xl font-bold text-text-primary font-heading">Zbukurohu</h1>
