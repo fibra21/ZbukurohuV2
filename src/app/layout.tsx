@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { Layout } from "@/components/layout/Layout";
 import { AuthProvider } from "@/contexts/AuthContext";
+import { ToastProvider } from "@/components/ui/Toast";
 
 export const metadata: Metadata = {
   title: "Zbukurohu - Frontend E-commerce Marketplace",
@@ -23,7 +24,9 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body className="antialiased">
         <AuthProvider>
-          <Layout>{children}</Layout>
+          <ToastProvider>
+            <Layout>{children}</Layout>
+          </ToastProvider>
         </AuthProvider>
       </body>
     </html>

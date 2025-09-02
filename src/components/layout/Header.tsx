@@ -8,8 +8,6 @@ import {
   Heart,
   ShoppingBag,
   User,
-  LogOut,
-  Settings,
   Menu,
   X,
   ChevronDown,
@@ -17,10 +15,11 @@ import {
   Sparkles
 } from 'lucide-react';
 import { MiniCartDrawer } from '@/components/cart/MiniCartDrawer';
+import { RoleBasedMenu } from '@/components/auth/RoleBasedMenu';
 import { useAppStore } from '@/lib/store';
 
 export function Header() {
-  const { user, logout, isAuthenticated } = useAuth();
+  const { user, isAuthenticated } = useAuth();
   const { cart, wishlist, openMega, setOpenMega } = useAppStore();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
@@ -37,7 +36,7 @@ export function Header() {
   const handleMouseLeave = useCallback(() => {
     hoverTimeoutRef.current = setTimeout(() => {
       setOpenMega(null);
-    }, 100); // Reduced delay for better responsiveness
+    }, 100);
   }, [setOpenMega]);
 
   const handleMegaMenuMouseEnter = useCallback(() => {
@@ -52,7 +51,6 @@ export function Header() {
     }, 100);
   }, [setOpenMega]);
 
-  // Close mega menu when clicking outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (megaMenuRef.current && !megaMenuRef.current.contains(event.target as Node)) {
@@ -63,11 +61,6 @@ export function Header() {
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, [setOpenMega]);
-
-  const handleLogout = async () => {
-    await logout();
-    setIsUserMenuOpen(false);
-  };
 
   const navigation = [
     { name: 'Skincare', href: '/categories/skincare', icon: '✨' },
@@ -123,6 +116,8 @@ export function Header() {
         className="absolute top-full left-0 right-0 bg-white rounded-b-2xl shadow-lg border border-gray-100 z-50"
         onMouseEnter={handleMegaMenuMouseEnter}
         onMouseLeave={handleMegaMenuMouseLeave}
+        role="menu"
+        aria-label={`${type} submenu`}
       >
         <div className="max-w-7xl mx-auto p-8">
           {/* Header Section */}
@@ -142,8 +137,10 @@ export function Header() {
                 key={item}
                 href={`/categories/${type}/${item.toLowerCase().replace(/\s+/g, '-')}`}
                 className="text-center group"
+                role="menuitem"
+                aria-label={`Browse ${item} in ${type}`}
               >
-                <div className="p-4 rounded-xl hover:bg-[#F9E7E7] transition-all duration-300 border border-transparent hover:border-[#E5C6A8]">
+                <div className="p-4 rounded-xl hover:bg-[#F9E7E7] transition-all duration-300 border border-transparent hover:border-[#E5C6A8] focus:outline-none focus:ring-2 focus:ring-[#D4AF37] focus:ring-offset-2">
                   <h4 className="font-semibold text-[#2E2E2E] text-sm group-hover:text-[#D4AF37] transition-colors duration-300">
                     {item}
                   </h4>
@@ -156,7 +153,8 @@ export function Header() {
           <div className="mt-8 pt-6 border-t border-[#F9E7E7]">
             <Link 
               href={`/categories/${type}`}
-              className="inline-flex items-center space-x-2 text-[#D4AF37] hover:text-[#B8941F] font-medium transition-colors text-base"
+              className="inline-flex items-center space-x-2 text-[#D4AF37] hover:text-[#B8941F] font-medium transition-colors text-base focus:outline-none focus:ring-2 focus:ring-[#D4AF37] focus:ring-offset-2 rounded-lg px-2 py-1"
+              aria-label={`View all ${type} products`}
             >
               <span>View All {type}</span>
               <ChevronDown className="w-4 h-4 rotate-[-90deg]" />
@@ -174,27 +172,27 @@ export function Header() {
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-center space-x-6 py-2 text-sm">
             <div className="flex items-center space-x-2 text-[#2E2E2E]">
-              <Gift className="w-4 h-4 text-[#D4AF37]" />
+              <Gift className="w-4 h-4 text-[#D4AF37]" aria-hidden="true" />
               <span>Free Delivery Over €50</span>
             </div>
             <div className="flex items-center space-x-2 text-[#2E2E2E]">
-              <Sparkles className="w-4 h-4 text-[#D4AF37]" />
-              <span>Secure Checkout</span>
+              <Sparkles className="w-4 h-4 text-[#D4AF37]" aria-hidden="true" />
+              <span>Authentic Products</span>
             </div>
             <div className="flex items-center space-x-2 text-[#2E2E2E]">
-              <Gift className="w-4 h-4 text-[#D4AF37]" />
-              <span>Customer Rating 4.9/5</span>
+              <Gift className="w-4 h-4 text-[#D4AF37]" aria-hidden="true" />
+              <span>Secure Checkout</span>
             </div>
           </div>
         </div>
       </div>
 
       {/* Main Header */}
-      <header className="bg-white border-b border-gray-100 shadow-sm sticky top-0 z-50">
+      <header className="sticky top-0 z-40 bg-white border-b border-gray-100 shadow-sm">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-20">
             {/* Logo */}
-            <Link href="/" className="flex items-center space-x-3">
+            <Link href="/" className="flex items-center space-x-3" aria-label="Go to homepage">
               <div className="w-10 h-10 bg-gradient-to-br from-[#F9E7E7] to-[#D4AF37] rounded-xl flex items-center justify-center">
                 <span className="text-[#2E2E2E] font-bold text-xl">Z</span>
               </div>
@@ -205,7 +203,7 @@ export function Header() {
             </Link>
 
             {/* Desktop Navigation */}
-            <nav className="hidden lg:flex items-center space-x-1">
+            <nav className="hidden lg:flex items-center space-x-1" role="navigation" aria-label="Main navigation">
               {navigation.map((item) => (
                 <div
                   key={item.name}
@@ -215,11 +213,14 @@ export function Header() {
                 >
                   <Link
                     href={item.href}
-                    className="flex items-center space-x-2 py-2 px-3 rounded-lg hover:bg-[#F9E7E7] transition-colors duration-200 group"
+                    className="flex items-center space-x-2 py-2 px-3 rounded-lg hover:bg-[#F9E7E7] transition-colors duration-200 group focus:outline-none focus:ring-2 focus:ring-[#D4AF37] focus:ring-offset-2"
+                    aria-label={`Browse ${item.name} products`}
+                    aria-expanded={openMega === item.name.toLowerCase()}
+                    aria-haspopup="true"
                   >
-                    <span className="text-lg">{item.icon}</span>
+                    <span className="text-lg" aria-hidden="true">{item.icon}</span>
                     <span className="font-medium text-[#2E2E2E] group-hover:text-[#D4AF37]">{item.name}</span>
-                    <ChevronDown className="w-4 h-4 text-[#555555] group-hover:text-[#D4AF37] transition-colors duration-200" />
+                    <ChevronDown className="w-4 h-4 text-[#555555] group-hover:text-[#D4AF37] transition-colors duration-200" aria-hidden="true" />
                   </Link>
                   {renderMegaMenu(item.name.toLowerCase())}
                 </div>
@@ -231,17 +232,19 @@ export function Header() {
               {/* Search */}
               <button
                 onClick={() => console.log('Search clicked')}
-                className="group p-3 text-[#555555] hover:text-[#D4AF37] transition-all duration-300 hover:scale-125 hover:bg-[#F9E7E7] rounded-full"
+                className="group p-3 text-[#555555] hover:text-[#D4AF37] transition-all duration-300 hover:scale-125 hover:bg-[#F9E7E7] rounded-full focus:outline-none focus:ring-2 focus:ring-[#D4AF37] focus:ring-offset-2"
+                aria-label="Open search"
               >
-                <Search className="w-5 h-5" />
+                <Search className="w-5 h-5" aria-hidden="true" />
               </button>
 
               {/* Wishlist */}
               <Link 
                 href="/wishlist"
-                className="p-3 text-[#555555] hover:text-[#D4AF37] hover:bg-[#F9E7E7] rounded-lg transition-colors relative"
+                className="p-3 text-[#555555] hover:text-[#D4AF37] hover:bg-[#F9E7E7] rounded-lg transition-colors relative focus:outline-none focus:ring-2 focus:ring-[#D4AF37] focus:ring-offset-2"
+                aria-label={`View wishlist (${wishlist.length} items)`}
               >
-                <Heart className="w-5 h-5" />
+                <Heart className="w-5 h-5" aria-hidden="true" />
                 {wishlist.length > 0 && (
                   <span className="absolute -top-1 -right-1 w-5 h-5 bg-[#D4AF37] text-white text-xs rounded-full flex items-center justify-center">
                     {wishlist.length}
@@ -252,9 +255,10 @@ export function Header() {
               {/* Cart */}
               <button 
                 onClick={() => useAppStore.getState().setIsCartOpen(true)}
-                className="p-3 text-[#555555] hover:text-[#D4AF37] hover:bg-[#F9E7E7] rounded-lg transition-colors relative"
+                className="p-3 text-[#555555] hover:text-[#D4AF37] hover:bg-[#F9E7E7] rounded-lg transition-colors relative focus:outline-none focus:ring-2 focus:ring-[#D4AF37] focus:ring-offset-2"
+                aria-label={`View shopping cart (${cart.length} items)`}
               >
-                <ShoppingBag className="w-5 h-5" />
+                <ShoppingBag className="w-5 h-5" aria-hidden="true" />
                 {cart.length > 0 && (
                   <span className="absolute -top-1 -right-1 w-5 h-5 bg-[#D4AF37] text-white text-xs rounded-full flex items-center justify-center">
                     {cart.length}
@@ -263,71 +267,39 @@ export function Header() {
               </button>
 
               {/* User Menu */}
-              {isAuthenticated ? (
-                <div className="relative">
-                  <button
-                    onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
-                    className="flex items-center space-x-2 p-3 text-[#555555] hover:text-[#D4AF37] hover:bg-[#F9E7E7] rounded-lg transition-colors"
-                  >
-                    <div className="w-8 h-8 bg-[#F9E7E7] rounded-full flex items-center justify-center">
-                      <User className="w-4 h-4 text-[#D4AF37]" />
-                    </div>
-                    <span className="hidden sm:block font-medium">{user?.name}</span>
-                    <ChevronDown className="w-4 h-4 text-[#555555]" />
-                  </button>
+              <div className="relative">
+                <button
+                  onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
+                  className="flex items-center space-x-2 p-3 text-[#555555] hover:text-[#D4AF37] hover:bg-[#F9E7E7] rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-[#D4AF37] focus:ring-offset-2"
+                  aria-label={isUserMenuOpen ? "Close user menu" : "Open user menu"}
+                  aria-expanded={isUserMenuOpen}
+                  aria-haspopup="true"
+                >
+                  <div className="w-8 h-8 bg-[#F9E7E7] rounded-full flex items-center justify-center">
+                    <User className="w-4 h-4 text-[#D4AF37]" aria-hidden="true" />
+                  </div>
+                  <ChevronDown className="w-4 h-4 text-[#555555]" aria-hidden="true" />
+                </button>
 
-                  {isUserMenuOpen && (
-                    <div className="absolute right-0 top-full mt-2 w-48 bg-white rounded-xl shadow-lg border border-gray-100 py-2 z-50">
-                      <Link
-                        href="/dashboard"
-                        className="flex items-center space-x-3 px-4 py-2 text-gray-700 hover:bg-gray-50"
-                        onClick={() => setIsUserMenuOpen(false)}
-                      >
-                        <User className="w-4 h-4" />
-                        <span>Dashboard</span>
-                      </Link>
-                      <Link
-                        href="/profile"
-                        className="flex items-center space-x-3 px-4 py-2 text-gray-700 hover:bg-gray-50"
-                        onClick={() => setIsUserMenuOpen(false)}
-                      >
-                        <Settings className="w-4 h-4" />
-                        <span>Settings</span>
-                      </Link>
-                      <hr className="my-2" />
-                      <button
-                        onClick={handleLogout}
-                        className="flex items-center space-x-3 px-4 py-2 text-red-600 hover:bg-red-50 w-full text-left"
-                      >
-                        <LogOut className="w-4 h-4" />
-                        <span>Sign Out</span>
-                      </button>
-                    </div>
-                  )}
-                </div>
-              ) : (
-                <div className="flex items-center space-x-2">
-                  <Link
-                    href="/auth/login"
-                    className="px-4 py-2 text-[#2E2E2E] hover:text-[#D4AF37] font-medium transition-colors"
+                {isUserMenuOpen && (
+                  <div 
+                    className="absolute right-0 mt-2 w-80 bg-white rounded-lg shadow-lg border border-gray-100 py-2 z-50"
+                    role="menu"
+                    aria-label="User account menu"
                   >
-                    Sign In
-                  </Link>
-                  <Link
-                    href="/auth/register"
-                    className="px-4 py-2 bg-[#D4AF37] text-white rounded-lg font-medium hover:bg-[#B8941F] transition-colors"
-                  >
-                    Sign Up
-                  </Link>
-                </div>
-              )}
+                    <RoleBasedMenu />
+                  </div>
+                )}
+              </div>
 
               {/* Mobile Menu Button */}
               <button
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                className="lg:hidden p-3 text-[#555555] hover:text-[#D4AF37] hover:bg-[#F9E7E7] rounded-lg transition-colors"
+                className="lg:hidden p-3 text-[#555555] hover:text-[#D4AF37] hover:bg-[#F9E7E7] rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-[#D4AF37] focus:ring-offset-2"
+                aria-label={isMobileMenuOpen ? "Close mobile menu" : "Open mobile menu"}
+                aria-expanded={isMobileMenuOpen}
               >
-                {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+                {isMobileMenuOpen ? <X className="w-5 h-5" aria-hidden="true" /> : <Menu className="w-5 h-5" aria-hidden="true" />}
               </button>
             </div>
           </div>
@@ -342,10 +314,11 @@ export function Header() {
                   <Link
                     key={item.name}
                     href={item.href}
-                    className="flex items-center space-x-3 p-4 bg-[#F9E7E7] rounded-xl hover:bg-[#E5C6A8] transition-colors"
+                    className="flex items-center space-x-3 p-4 bg-[#F9E7E7] rounded-xl hover:bg-[#E5C6A8] transition-colors focus:outline-none focus:ring-2 focus:ring-[#D4AF37] focus:ring-offset-2"
                     onClick={() => setIsMobileMenuOpen(false)}
+                    aria-label={`Browse ${item.name} products`}
                   >
-                    <span className="text-2xl">{item.icon}</span>
+                    <span className="text-2xl" aria-hidden="true">{item.icon}</span>
                     <div>
                       <p className="font-medium text-[#2E2E2E]">{item.name}</p>
                       <p className="text-sm text-[#555555]">Browse collection</p>
