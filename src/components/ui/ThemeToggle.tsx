@@ -2,8 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { useAppStore } from '@/lib/store';
-import { Sun, Moon, Monitor } from 'lucide-react';
-import { cn } from '@/utils/cn';
+import { Sun, Moon } from 'lucide-react';
 
 export function ThemeToggle() {
   const { theme, setTheme } = useAppStore();
@@ -15,8 +14,7 @@ export function ThemeToggle() {
 
   useEffect(() => {
     const root = window.document.documentElement;
-    
-    if (theme === 'dark' || (theme === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+    if (theme === 'dark') {
       root.classList.add('dark');
     } else {
       root.classList.remove('dark');
@@ -31,24 +29,10 @@ export function ThemeToggle() {
     );
   }
 
-  const getIcon = () => {
-    switch (theme) {
-      case 'light':
-        return <Sun className="w-4 h-4" />;
-      case 'dark':
-        return <Moon className="w-4 h-4" />;
-      case 'system':
-        return <Monitor className="w-4 h-4" />;
-      default:
-        return <Sun className="w-4 h-4" />;
-    }
-  };
+  const getIcon = () => (theme === 'dark' ? <Moon className="w-4 h-4" /> : <Sun className="w-4 h-4" />);
 
   const cycleTheme = () => {
-    const themes: Array<'light' | 'dark' | 'system'> = ['light', 'dark', 'system'];
-    const currentIndex = themes.indexOf(theme);
-    const nextIndex = (currentIndex + 1) % themes.length;
-    setTheme(themes[nextIndex]);
+    setTheme(theme === 'dark' ? 'light' : 'dark');
   };
 
   return (
