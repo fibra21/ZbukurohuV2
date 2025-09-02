@@ -27,6 +27,7 @@ export function Header() {
   const hoverTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const handleMouseEnter = useCallback((type: string) => {
+    console.log('Mouse enter:', type); // Debug log
     if (hoverTimeoutRef.current) {
       clearTimeout(hoverTimeoutRef.current);
     }
@@ -34,6 +35,7 @@ export function Header() {
   }, [setOpenMega]);
 
   const handleMouseLeave = useCallback(() => {
+    console.log('Mouse leave'); // Debug log
     hoverTimeoutRef.current = setTimeout(() => {
       setOpenMega(null);
     }, 100);
@@ -110,56 +112,26 @@ export function Header() {
     const data = megaMenuData[type as keyof typeof megaMenuData];
     if (!data) return null;
 
+    console.log('Rendering mega-menu for:', type, 'openMega:', openMega); // Debug log
+
     return (
       <div 
         ref={megaMenuRef}
-        className="absolute top-full left-0 right-0 bg-white rounded-b-2xl shadow-lg border border-gray-100 z-50"
+        className="absolute top-full left-0 bg-red-500 text-white p-4 rounded-lg shadow-lg z-50 min-w-[600px]"
         onMouseEnter={handleMegaMenuMouseEnter}
         onMouseLeave={handleMegaMenuMouseLeave}
-        role="menu"
-        aria-label={`${type} submenu`}
+        style={{ border: '2px solid blue' }} // Force visible border for debugging
       >
-        <div className="max-w-7xl mx-auto p-8">
-          {/* Header Section */}
-          <div className="mb-8">
-            <h3 className="text-3xl font-bold text-[#2E2E2E] mb-3">
-              {data.title}
-            </h3>
-            <p className="text-[#555555] text-lg max-w-2xl">
-              {data.description}
-            </p>
-          </div>
-          
-          {/* Horizontal Items Grid */}
-          <div className="grid grid-cols-6 gap-6">
-            {data.items.map((item: string) => (
-              <Link
-                key={item}
-                href={`/categories/${type}/${item.toLowerCase().replace(/\s+/g, '-')}`}
-                className="text-center group"
-                role="menuitem"
-                aria-label={`Browse ${item} in ${type}`}
-              >
-                <div className="p-4 rounded-xl hover:bg-[#F9E7E7] transition-all duration-300 border border-transparent hover:border-[#E5C6A8] focus:outline-none focus:ring-2 focus:ring-[#D4AF37] focus:ring-offset-2">
-                  <h4 className="font-semibold text-[#2E2E2E] text-sm group-hover:text-[#D4AF37] transition-colors duration-300">
-                    {item}
-                  </h4>
-                </div>
-              </Link>
-            ))}
-          </div>
-          
-          {/* Footer Link */}
-          <div className="mt-8 pt-6 border-t border-[#F9E7E7]">
-            <Link 
-              href={`/categories/${type}`}
-              className="inline-flex items-center space-x-2 text-[#D4AF37] hover:text-[#B8941F] font-medium transition-colors text-base focus:outline-none focus:ring-2 focus:ring-[#D4AF37] focus:ring-offset-2 rounded-lg px-2 py-1"
-              aria-label={`View all ${type} products`}
-            >
-              <span>View All {type}</span>
-              <ChevronDown className="w-4 h-4 rotate-[-90deg]" />
-            </Link>
-          </div>
+        <h3 className="text-xl font-bold mb-2">{data.title}</h3>
+        <p className="mb-4">{data.description}</p>
+        
+        {/* Simple horizontal layout */}
+        <div className="flex flex-wrap gap-2">
+          {data.items.map((item: string) => (
+            <div key={item} className="bg-white text-red-500 px-3 py-2 rounded border">
+              {item}
+            </div>
+          ))}
         </div>
       </div>
     );
