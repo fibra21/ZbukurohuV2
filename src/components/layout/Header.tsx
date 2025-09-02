@@ -117,20 +117,24 @@ export function Header() {
     return (
       <div 
         ref={megaMenuRef}
-        className="absolute top-full left-0 bg-red-500 text-white p-4 rounded-lg shadow-lg z-50 min-w-[600px]"
+        className="absolute top-full left-1/2 transform -translate-x-1/2 bg-red-500 text-white p-4 rounded-lg shadow-lg z-50 w-[90vw] max-w-[800px]"
         onMouseEnter={handleMegaMenuMouseEnter}
         onMouseLeave={handleMegaMenuMouseLeave}
         style={{ border: '2px solid blue' }} // Force visible border for debugging
       >
-        <h3 className="text-xl font-bold mb-2">{data.title}</h3>
-        <p className="mb-4">{data.description}</p>
+        <h3 className="text-xl font-bold mb-2 text-center">{data.title}</h3>
+        <p className="mb-4 text-center">{data.description}</p>
         
-        {/* Simple horizontal layout */}
-        <div className="flex flex-wrap gap-2">
+        {/* Clickable horizontal layout */}
+        <div className="flex flex-wrap gap-2 justify-center">
           {data.items.map((item: string) => (
-            <div key={item} className="bg-white text-red-500 px-3 py-2 rounded border">
+            <Link
+              key={item}
+              href={`/categories/${type}/${item.toLowerCase().replace(/\s+/g, '-')}`}
+              className="bg-white text-red-500 px-3 py-2 rounded border hover:bg-gray-100 transition-colors cursor-pointer"
+            >
               {item}
-            </div>
+            </Link>
           ))}
         </div>
       </div>
