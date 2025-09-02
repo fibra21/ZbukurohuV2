@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { ArrowRight, Eye, Star, Truck } from 'lucide-react';
+import { Star, Sparkles, Package, Heart } from 'lucide-react';
 
 export function HeroSection() {
   return (
@@ -42,7 +42,7 @@ export function HeroSection() {
               <div className="w-full h-96 bg-gradient-to-br from-brand-primary to-brand-secondary rounded-3xl shadow-2xl flex items-center justify-center">
                 <div className="text-center">
                   <div className="w-24 h-24 bg-brand-accent rounded-full mx-auto mb-4 flex items-center justify-center">
-                    <span className="text-4xl">✨</span>
+                    <Sparkles className="w-12 h-12 text-text-inverse" />
                   </div>
                   <p className="text-text-primary font-heading text-lg">Beauty & Wellness</p>
                   <p className="text-text-secondary font-body">Premium Collection</p>
@@ -51,8 +51,12 @@ export function HeroSection() {
             </div>
             
             {/* Floating Elements */}
-            <div className="absolute -top-4 -right-4 w-20 h-20 bg-brand-accent-light rounded-full opacity-80 animate-pulse"></div>
-            <div className="absolute -bottom-4 -left-4 w-16 h-16 bg-brand-primary-dark rounded-full opacity-60 animate-pulse delay-1000"></div>
+            <div className="absolute -top-4 -right-4 w-20 h-20 bg-brand-accent-light rounded-full opacity-80 animate-pulse">
+              <Package className="w-8 h-8 text-text-primary mx-auto mt-2" />
+            </div>
+            <div className="absolute -bottom-4 -left-4 w-16 h-16 bg-brand-primary-dark rounded-full opacity-60 animate-pulse delay-1000">
+              <Heart className="w-6 h-6 text-text-primary mx-auto mt-2" />
+            </div>
           </div>
         </div>
       </div>

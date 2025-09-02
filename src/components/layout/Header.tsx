@@ -12,7 +12,10 @@ import {
   X,
   ChevronDown,
   Gift,
-  Sparkles
+  Sparkles,
+  Palette,
+  Scissors,
+  Star
 } from 'lucide-react';
 import { MiniCartDrawer } from '@/components/cart/MiniCartDrawer';
 import { useAppStore } from '@/lib/store';
@@ -63,12 +66,12 @@ export function Header() {
   }, [setOpenMega]);
 
   const navigation = [
-    { name: 'Skincare', href: '/categories/skincare', icon: '✨' },
-    { name: 'Makeup', href: '/categories/makeup', icon: '💄' },
-    { name: 'Haircare', href: '/categories/haircare', icon: '💇‍♀️' },
-    { name: 'Brands', href: '/brands', icon: '🏷️' },
-    { name: 'Offers', href: '/offers', icon: '🎁' },
-    { name: 'Services', href: '/services', icon: '🎨' }
+    { name: 'Skincare', href: '/categories/skincare', icon: <Sparkles className="w-5 h-5" /> },
+    { name: 'Makeup', href: '/categories/makeup', icon: <Palette className="w-5 h-5" /> },
+    { name: 'Haircare', href: '/categories/haircare', icon: <Scissors className="w-5 h-5" /> },
+    { name: 'Fragrances', href: '/categories/fragrances', icon: <Heart className="w-5 h-5" /> },
+    { name: 'Services', href: '/services', icon: <Star className="w-5 h-5" /> },
+    { name: 'Offers', href: '/offers', icon: <Gift className="w-5 h-5" /> }
   ];
 
   const megaMenuData = {

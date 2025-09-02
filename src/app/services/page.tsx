@@ -1,22 +1,29 @@
-'use client';
+import { Metadata } from 'next';
+import { 
+  Palette, 
+  Scissors, 
+  Sparkles, 
+  Star,
+  Clock,
+  MapPin,
+  Phone,
+  Mail,
+  Calendar
+} from 'lucide-react';
 
-import { useState } from 'react';
-import Link from 'next/link';
-import { Search, Filter, MapPin, Star, Clock, Calendar, Heart, MessageCircle, Award, CheckCircle } from 'lucide-react';
+export const metadata: Metadata = {
+  title: 'Beauty Services - Zbukurohu',
+  description: 'Professional beauty services including makeup, nail art, skincare, and more.',
+};
 
 export default function ServicesPage() {
-  const [searchQuery, setSearchQuery] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState('all');
-  const [selectedLocation, setSelectedLocation] = useState('all');
-
-  // Mock data for services
-  const serviceCategories = [
-    { id: 'makeup', name: 'Makeup Artist', icon: '💄', count: 24 },
-    { id: 'nail-art', name: 'Nail Technician', icon: '💅', count: 18 },
-    { id: 'hair-styling', name: 'Hair Stylist', icon: '💇‍♀️', count: 22 },
-    { id: 'skincare', name: 'Facial Treatments', icon: '✨', count: 15 },
-    { id: 'massage', name: 'Massage Therapy', icon: '💆‍♀️', count: 12 },
-    { id: 'other', name: 'Other Services', icon: '🎨', count: 8 }
+  const services = [
+    { id: 'makeup', name: 'Makeup Artist', icon: <Palette className="w-8 h-8" />, count: 24 },
+    { id: 'nail-art', name: 'Nail Technician', icon: <Scissors className="w-8 h-8" />, count: 18 },
+    { id: 'hair-styling', name: 'Hair Styling', icon: <Scissors className="w-8 h-8" />, count: 22 },
+    { id: 'skincare', name: 'Facial Treatments', icon: <Sparkles className="w-8 h-8" />, count: 15 },
+    { id: 'massage', name: 'Massage Therapy', icon: <Sparkles className="w-8 h-8" />, count: 12 },
+    { id: 'other', name: 'Other Services', icon: <Star className="w-8 h-8" />, count: 8 }
   ];
 
   const locations = [

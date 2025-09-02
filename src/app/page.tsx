@@ -1,42 +1,25 @@
-import { Metadata } from 'next';
-import { getProducts, getCategories, getBrands } from '@/lib/data';
-import { ProductCard } from '@/components/product/ProductCard';
-import { CategoryCard } from '@/components/category/CategoryCard';
-import { BrandCard } from '@/components/brand/BrandCard';
+import Link from 'next/link';
+import { Star, Sparkles } from 'lucide-react';
 import { HeroSection } from '@/components/home/HeroSection';
 import { FeaturesSection } from '@/components/home/FeaturesSection';
-import { Sparkles, Star, Heart, Truck, Shield } from 'lucide-react';
-
-export const metadata: Metadata = {
-  title: 'Zbukurohu - Premium Beauty & Skincare Marketplace',
-  description: 'Discover authentic beauty and skincare products from top brands. Free delivery over €50, secure checkout, and expert beauty advice.',
-  openGraph: {
-    title: 'Zbukurohu - Premium Beauty & Skincare Marketplace',
-    description: 'Discover authentic beauty and skincare products from top brands. Free delivery over €50, secure checkout, and expert beauty advice.',
-  },
-};
+import { CategoryCard } from '@/components/category/CategoryCard';
+import { ProductCard } from '@/components/product/ProductCard';
+import { BrandCard } from '@/components/brand/BrandCard';
+import { getProducts, getCategories, getBrands } from '@/lib/data';
 
 export default async function HomePage() {
-  const [products, categories, brands] = await Promise.all([
-    getProducts(),
-    getCategories(),
-    getBrands()
-  ]);
+  const products = await getProducts();
+  const categories = await getCategories();
+  const brands = await getBrands();
 
   // Filter featured products
-  const featuredProducts = products.filter(product => 
-    product.isBestseller || product.isNew
-  ).slice(0, 8);
-
-  // Filter new arrivals
-  const newArrivals = products.filter(product => 
-    product.isNew
-  ).slice(0, 4);
-
-  // Filter bestsellers
-  const bestsellers = products.filter(product => 
-    product.isBestseller
-  ).slice(0, 4);
+  const featuredProducts = products.filter(product => product.featured).slice(0, 8);
+  
+  // Filter new arrivals (products added in last 30 days)
+  const newArrivals = products.slice(0, 8);
+  
+  // Filter bestsellers (products with highest ratings)
+  const bestsellers = products.sort((a, b) => (b.rating || 0) - (a.rating || 0)).slice(0, 8);
 
   // Filter featured categories
   const featuredCategories = categories.slice(0, 6);
@@ -134,37 +117,6 @@ export default async function HomePage() {
             {featuredBrands.map((brand) => (
               <BrandCard key={brand.id} brand={brand} />
             ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Trust Features */}
-      <section className="py-16">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="text-center">
-              <div className="w-16 h-16 bg-primary/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Truck className="w-8 h-8 text-primary" />
-              </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">Free Delivery</h3>
-              <p className="text-gray-600">Free shipping on orders over €50</p>
-            </div>
-            
-            <div className="text-center">
-              <div className="w-16 h-16 bg-accent/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Shield className="w-8 h-8 text-accent" />
-              </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">Secure Checkout</h3>
-              <p className="text-gray-600">100% secure payment processing</p>
-            </div>
-            
-            <div className="text-center">
-              <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Heart className="w-8 h-8 text-green-600" />
-              </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">Authentic Products</h3>
-              <p className="text-gray-600">Genuine products from authorized sellers</p>
-            </div>
           </div>
         </div>
       </section>

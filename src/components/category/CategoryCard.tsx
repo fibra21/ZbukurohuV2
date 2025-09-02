@@ -1,27 +1,42 @@
 import Link from 'next/link';
-import { Category } from '@/types';
-import { ArrowRight } from 'lucide-react';
+import { Sparkles } from 'lucide-react';
 
 interface CategoryCardProps {
-  category: Category;
+  category: {
+    id: string;
+    name: string;
+    description: string;
+    icon?: React.ReactNode;
+    productCount: number;
+    slug: string;
+  };
 }
 
 export function CategoryCard({ category }: CategoryCardProps) {
   return (
     <Link 
       href={`/categories/${category.slug}`}
-      className="group bg-white rounded-2xl p-6 shadow-soft hover:shadow-medium transition-all transform hover:-translate-y-1"
+      className="group block"
     >
-      <div className="text-4xl mb-4 group-hover:scale-110 transition-transform">
-        {category.icon || '✨'}
-      </div>
-      <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-primary transition-colors">
-        {category.name}
-      </h3>
-      <p className="text-gray-600 mb-3 text-sm">{category.description}</p>
-      <div className="flex items-center justify-between">
-        <span className="text-primary font-semibold text-sm">{category.productCount} products</span>
-        <ArrowRight className="w-4 h-5 text-gray-400 group-hover:text-primary group-hover:translate-x-1 transition-all" />
+      <div className="bg-surface-elevated rounded-xl p-6 shadow-md border border-neutral-200 hover:shadow-lg transition-all duration-base hover:border-brand-accent">
+        <div className="text-center">
+          <div className="w-16 h-16 bg-brand-primary rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-brand-secondary transition-colors duration-base">
+            {category.icon || <Sparkles className="w-8 h-8 text-text-primary" />}
+          </div>
+          <h3 className="text-xl font-bold text-text-primary mb-2 font-heading group-hover:text-brand-accent transition-colors duration-base">
+            {category.name}
+          </h3>
+          <p className="text-text-secondary text-sm mb-3 font-body">
+            {category.description}
+          </p>
+          <div className="flex items-center justify-center space-x-2 text-text-muted text-sm font-body">
+            <span>{category.productCount} products</span>
+            <span>•</span>
+            <span className="group-hover:text-brand-accent transition-colors duration-base">
+              Explore
+            </span>
+          </div>
+        </div>
       </div>
     </Link>
   );

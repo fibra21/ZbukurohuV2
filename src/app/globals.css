@@ -108,11 +108,13 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 500;
   box-shadow: var(--shadow-md);
   transition: all var(--duration-base);
+  border: 2px solid var(--color-brand-primary-dark);
 }
 
 .btn-primary:hover {
   background: var(--color-brand-primary-dark);
   box-shadow: var(--shadow-lg);
+  transform: translateY(-1px);
 }
 
 .btn-secondary {
@@ -123,11 +125,13 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 500;
   box-shadow: var(--shadow-md);
   transition: all var(--duration-base);
+  border: 2px solid var(--color-brand-secondary-dark);
 }
 
 .btn-secondary:hover {
   background: var(--color-brand-secondary-dark);
   box-shadow: var(--shadow-lg);
+  transform: translateY(-1px);
 }
 
 .btn-accent {
@@ -138,11 +142,13 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 500;
   box-shadow: var(--shadow-md);
   transition: all var(--duration-base);
+  border: 2px solid var(--color-brand-accent-dark);
 }
 
 .btn-accent:hover {
   background: var(--color-brand-accent-dark);
   box-shadow: var(--shadow-lg);
+  transform: translateY(-1px);
 }
 
 .card {
