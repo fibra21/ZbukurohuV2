@@ -8,6 +8,8 @@ import {
   Heart,
   ShoppingBag,
   User,
+  LogOut,
+  Settings,
   Menu,
   X,
   ChevronDown,
@@ -15,14 +17,14 @@ import {
   Sparkles
 } from 'lucide-react';
 import { MiniCartDrawer } from '@/components/cart/MiniCartDrawer';
-import { RoleBasedMenu } from '@/components/auth/RoleBasedMenu';
 import { useAppStore } from '@/lib/store';
 
 export function Header() {
-  const { user, isAuthenticated } = useAuth();
+  const { user, logout, isAuthenticated } = useAuth();
   const { cart, wishlist, openMega, setOpenMega } = useAppStore();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
+  const [activeMobileMenu, setActiveMobileMenu] = useState<string | null>(null);
   const megaMenuRef = useRef<HTMLDivElement>(null);
   const hoverTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -106,13 +108,37 @@ export function Header() {
     }
   };
 
-  const renderMegaMenu = (type: string) => {
+  const renderMegaMenu = (type: string, isMobile: boolean = false) => {
     if (!openMega || openMega !== type) return null;
 
     const data = megaMenuData[type as keyof typeof megaMenuData];
     if (!data) return null;
 
-    console.log('Rendering mega-menu for:', type, 'openMega:', openMega); // Debug log
+    console.log('Rendering mega-menu for:', type, 'openMega:', openMega, 'isMobile:', isMobile); // Debug log
+
+    if (isMobile) {
+      return (
+        <div className="mt-4 p-4 bg-[#F9E7E7] rounded-xl">
+          <h4 className="font-bold text-[#2E2E2E] mb-3">{data.title}</h4>
+          <p className="text-sm text-[#555555] mb-4">{data.description}</p>
+          <div className="grid grid-cols-2 gap-2">
+            {data.items.map((item: string) => (
+              <Link
+                key={item}
+                href={`/categories/${type}/${item.toLowerCase().replace(/\s+/g, '-')}`}
+                className="bg-white text-[#2E2E2E] px-3 py-2 rounded-lg text-sm text-center hover:bg-[#E5C6A8] transition-colors"
+                onClick={() => {
+                  setIsMobileMenuOpen(false);
+                  setActiveMobileMenu(null);
+                }}
+              >
+                {item}
+              </Link>
+            ))}
+          </div>
+        </div>
+      );
+    }
 
     return (
       <div 
@@ -141,6 +167,15 @@ export function Header() {
     );
   };
 
+  const toggleMobileMenu = (type: string) => {
+    if (activeMobileMenu === type) {
+      setActiveMobileMenu(null);
+    } else {
+      setActiveMobileMenu(type);
+      setOpenMega(type);
+    }
+  };
+
   return (
     <>
       {/* Top Bar with Trust Signals */}
@@ -148,15 +183,15 @@ export function Header() {
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-center space-x-6 py-2 text-sm">
             <div className="flex items-center space-x-2 text-[#2E2E2E]">
-              <Gift className="w-4 h-4 text-[#D4AF37]" aria-hidden="true" />
+              <Gift className="w-4 h-4 text-[#D4AF37]" />
               <span>Free Delivery Over €50</span>
             </div>
             <div className="flex items-center space-x-2 text-[#2E2E2E]">
-              <Sparkles className="w-4 h-4 text-[#D4AF37]" aria-hidden="true" />
+              <Sparkles className="w-4 h-4 text-[#D4AF37]" />
               <span>Authentic Products</span>
             </div>
             <div className="flex items-center space-x-2 text-[#2E2E2E]">
-              <Gift className="w-4 h-4 text-[#D4AF37]" aria-hidden="true" />
+              <Gift className="w-4 h-4 text-[#D4AF37]" />
               <span>Secure Checkout</span>
             </div>
           </div>
@@ -168,7 +203,7 @@ export function Header() {
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-20">
             {/* Logo */}
-            <Link href="/" className="flex items-center space-x-3" aria-label="Go to homepage">
+            <Link href="/" className="flex items-center space-x-3 flex-shrink-0">
               <div className="w-10 h-10 bg-gradient-to-br from-[#F9E7E7] to-[#D4AF37] rounded-xl flex items-center justify-center">
                 <span className="text-[#2E2E2E] font-bold text-xl">Z</span>
               </div>
@@ -179,7 +214,7 @@ export function Header() {
             </Link>
 
             {/* Desktop Navigation */}
-            <nav className="hidden lg:flex items-center space-x-1" role="navigation" aria-label="Main navigation">
+            <nav className="hidden lg:flex items-center space-x-1 flex-1 justify-center">
               {navigation.map((item) => (
                 <div
                   key={item.name}
@@ -189,38 +224,33 @@ export function Header() {
                 >
                   <Link
                     href={item.href}
-                    className="flex items-center space-x-2 py-2 px-3 rounded-lg hover:bg-[#F9E7E7] transition-colors duration-200 group focus:outline-none focus:ring-2 focus:ring-[#D4AF37] focus:ring-offset-2"
-                    aria-label={`Browse ${item.name} products`}
-                    aria-expanded={openMega === item.name.toLowerCase()}
-                    aria-haspopup="true"
+                    className="flex items-center space-x-2 py-2 px-3 rounded-lg hover:bg-[#F9E7E7] transition-colors duration-200 group"
                   >
-                    <span className="text-lg" aria-hidden="true">{item.icon}</span>
+                    <span className="text-lg">{item.icon}</span>
                     <span className="font-medium text-[#2E2E2E] group-hover:text-[#D4AF37]">{item.name}</span>
-                    <ChevronDown className="w-4 h-4 text-[#555555] group-hover:text-[#D4AF37] transition-colors duration-200" aria-hidden="true" />
+                    <ChevronDown className="w-4 h-4 text-[#555555] group-hover:text-[#D4AF37] transition-colors duration-200" />
                   </Link>
-                  {renderMegaMenu(item.name.toLowerCase())}
+                  {renderMegaMenu(item.name.toLowerCase(), false)}
                 </div>
               ))}
             </nav>
 
             {/* Right Side Actions */}
-            <div className="flex items-center space-x-2">
+            <div className="flex items-center space-x-2 flex-shrink-0">
               {/* Search */}
               <button
                 onClick={() => console.log('Search clicked')}
-                className="group p-3 text-[#555555] hover:text-[#D4AF37] transition-all duration-300 hover:scale-125 hover:bg-[#F9E7E7] rounded-full focus:outline-none focus:ring-2 focus:ring-[#D4AF37] focus:ring-offset-2"
-                aria-label="Open search"
+                className="group p-3 text-[#555555] hover:text-[#D4AF37] transition-all duration-300 hover:scale-125 hover:bg-[#F9E7E7] rounded-full"
               >
-                <Search className="w-5 h-5" aria-hidden="true" />
+                <Search className="w-5 h-5" />
               </button>
 
               {/* Wishlist */}
               <Link 
                 href="/wishlist"
-                className="p-3 text-[#555555] hover:text-[#D4AF37] hover:bg-[#F9E7E7] rounded-lg transition-colors relative focus:outline-none focus:ring-2 focus:ring-[#D4AF37] focus:ring-offset-2"
-                aria-label={`View wishlist (${wishlist.length} items)`}
+                className="p-3 text-[#555555] hover:text-[#D4AF37] hover:bg-[#F9E7E7] rounded-lg transition-colors relative"
               >
-                <Heart className="w-5 h-5" aria-hidden="true" />
+                <Heart className="w-5 h-5" />
                 {wishlist.length > 0 && (
                   <span className="absolute -top-1 -right-1 w-5 h-5 bg-[#D4AF37] text-white text-xs rounded-full flex items-center justify-center">
                     {wishlist.length}
@@ -231,10 +261,9 @@ export function Header() {
               {/* Cart */}
               <button 
                 onClick={() => useAppStore.getState().setIsCartOpen(true)}
-                className="p-3 text-[#555555] hover:text-[#D4AF37] hover:bg-[#F9E7E7] rounded-lg transition-colors relative focus:outline-none focus:ring-2 focus:ring-[#D4AF37] focus:ring-offset-2"
-                aria-label={`View shopping cart (${cart.length} items)`}
+                className="p-3 text-[#555555] hover:text-[#D4AF37] hover:bg-[#F9E7E7] rounded-lg transition-colors relative"
               >
-                <ShoppingBag className="w-5 h-5" aria-hidden="true" />
+                <ShoppingBag className="w-5 h-5" />
                 {cart.length > 0 && (
                   <span className="absolute -top-1 -right-1 w-5 h-5 bg-[#D4AF37] text-white text-xs rounded-full flex items-center justify-center">
                     {cart.length}
@@ -246,24 +275,51 @@ export function Header() {
               <div className="relative">
                 <button
                   onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
-                  className="flex items-center space-x-2 p-3 text-[#555555] hover:text-[#D4AF37] hover:bg-[#F9E7E7] rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-[#D4AF37] focus:ring-offset-2"
-                  aria-label={isUserMenuOpen ? "Close user menu" : "Open user menu"}
-                  aria-expanded={isUserMenuOpen}
-                  aria-haspopup="true"
+                  className="flex items-center space-x-2 p-3 text-[#555555] hover:text-[#D4AF37] hover:bg-[#F9E7E7] rounded-lg transition-colors"
                 >
                   <div className="w-8 h-8 bg-[#F9E7E7] rounded-full flex items-center justify-center">
-                    <User className="w-4 h-4 text-[#D4AF37]" aria-hidden="true" />
+                    <User className="w-4 h-4 text-[#D4AF37]" />
                   </div>
-                  <ChevronDown className="w-4 h-4 text-[#555555]" aria-hidden="true" />
+                  <ChevronDown className="w-4 h-4 text-[#555555]" />
                 </button>
 
                 {isUserMenuOpen && (
-                  <div 
-                    className="absolute right-0 mt-2 w-80 bg-white rounded-lg shadow-lg border border-gray-100 py-2 z-50"
-                    role="menu"
-                    aria-label="User account menu"
-                  >
-                    <RoleBasedMenu />
+                  <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-100 py-2 z-50">
+                    {isAuthenticated ? (
+                      <>
+                        <div className="px-4 py-2 border-b border-gray-100">
+                          <p className="text-sm font-medium text-[#2E2E2E]">{user?.name || 'User'}</p>
+                          <p className="text-xs text-[#555555]">{user?.email}</p>
+                        </div>
+                        <Link
+                          href="/account"
+                          className="block px-4 py-2 text-[#2E2E2E] hover:text-[#D4AF37] font-medium transition-colors"
+                        >
+                          Account Settings
+                        </Link>
+                        <button
+                          onClick={logout}
+                          className="block w-full text-left px-4 py-2 text-[#2E2E2E] hover:text-[#D4AF37] font-medium transition-colors"
+                        >
+                          Sign Out
+                        </button>
+                      </>
+                    ) : (
+                      <div className="px-4 py-2 space-y-2">
+                        <Link
+                          href="/auth/login"
+                          className="block px-4 py-2 text-[#2E2E2E] hover:text-[#D4AF37] font-medium transition-colors"
+                        >
+                          Sign In
+                        </Link>
+                        <Link
+                          href="/auth/register"
+                          className="px-4 py-2 bg-[#D4AF37] text-white rounded-lg font-medium hover:bg-[#B8941F] transition-colors"
+                        >
+                          Sign Up
+                        </Link>
+                      </div>
+                    )}
                   </div>
                 )}
               </div>
@@ -271,11 +327,9 @@ export function Header() {
               {/* Mobile Menu Button */}
               <button
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                className="lg:hidden p-3 text-[#555555] hover:text-[#D4AF37] hover:bg-[#F9E7E7] rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-[#D4AF37] focus:ring-offset-2"
-                aria-label={isMobileMenuOpen ? "Close mobile menu" : "Open mobile menu"}
-                aria-expanded={isMobileMenuOpen}
+                className="lg:hidden p-3 text-[#555555] hover:text-[#D4AF37] hover:bg-[#F9E7E7] rounded-lg transition-colors"
               >
-                {isMobileMenuOpen ? <X className="w-5 h-5" aria-hidden="true" /> : <Menu className="w-5 h-5" aria-hidden="true" />}
+                {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
               </button>
             </div>
           </div>
@@ -285,21 +339,31 @@ export function Header() {
         {isMobileMenuOpen && (
           <div className="lg:hidden py-6 max-h-[80vh] overflow-y-auto bg-white rounded-b-2xl shadow-lg border-t border-gray-100">
             <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-              <div className="grid grid-cols-2 gap-4">
+              <div className="space-y-4">
                 {navigation.map((item) => (
-                  <Link
-                    key={item.name}
-                    href={item.href}
-                    className="flex items-center space-x-3 p-4 bg-[#F9E7E7] rounded-xl hover:bg-[#E5C6A8] transition-colors focus:outline-none focus:ring-2 focus:ring-[#D4AF37] focus:ring-offset-2"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                    aria-label={`Browse ${item.name} products`}
-                  >
-                    <span className="text-2xl" aria-hidden="true">{item.icon}</span>
-                    <div>
-                      <p className="font-medium text-[#2E2E2E]">{item.name}</p>
-                      <p className="text-sm text-[#555555]">Browse collection</p>
-                    </div>
-                  </Link>
+                  <div key={item.name} className="space-y-2">
+                    <button
+                      onClick={() => toggleMobileMenu(item.name.toLowerCase())}
+                      className="w-full flex items-center justify-between p-4 bg-[#F9E7E7] rounded-xl hover:bg-[#E5C6A8] transition-colors"
+                    >
+                      <div className="flex items-center space-x-3">
+                        <span className="text-2xl">{item.icon}</span>
+                        <div className="text-left">
+                          <p className="font-medium text-[#2E2E2E]">{item.name}</p>
+                          <p className="text-sm text-[#555555]">Browse collection</p>
+                        </div>
+                      </div>
+                      <ChevronDown 
+                        className={`w-5 h-5 text-[#555555] transition-transform ${
+                          activeMobileMenu === item.name.toLowerCase() ? 'rotate-180' : ''
+                        }`} 
+                      />
+                    </button>
+                    
+                    {/* Mobile Mega Menu */}
+                    {activeMobileMenu === item.name.toLowerCase() && 
+                     renderMegaMenu(item.name.toLowerCase(), true)}
+                  </div>
                 ))}
               </div>
             </div>
