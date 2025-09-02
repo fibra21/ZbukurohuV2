@@ -3,12 +3,12 @@
 import { useState, useCallback, useRef, useEffect } from 'react';
 import Link from 'next/link';
 import { useAuth } from '@/contexts/AuthContext';
-import { 
-  Search, 
-  Heart, 
-  ShoppingBag, 
-  User, 
-  LogOut, 
+import {
+  Search,
+  Heart,
+  ShoppingBag,
+  User,
+  LogOut,
   Settings,
   Menu,
   X,
@@ -126,38 +126,38 @@ export function Header() {
 
     let categories: { title: string; items: string[] }[] = [];
     let title = '';
-    let color = '';
+    let description = '';
 
     switch (type) {
       case 'skincare':
         categories = skincareCategories;
         title = 'Skincare Collection';
-        color = 'from-blue-500 to-cyan-500';
+        description = 'Nourish and protect your skin with premium products';
         break;
       case 'makeup':
         categories = makeupCategories;
         title = 'Makeup Collection';
-        color = 'from-pink-500 to-rose-500';
+        description = 'Express your beauty with professional cosmetics';
         break;
       case 'haircare':
         categories = haircareCategories;
         title = 'Haircare Collection';
-        color = 'from-green-500 to-emerald-500';
+        description = 'Transform your hair with expert care products';
         break;
       case 'brands':
         categories = brandsCategories;
         title = 'Brand Collections';
-        color = 'from-purple-500 to-violet-500';
+        description = 'Discover premium beauty brands and their stories';
         break;
       case 'offers':
         categories = offersCategories;
         title = 'Special Offers';
-        color = 'from-orange-500 to-red-500';
+        description = 'Exclusive deals and seasonal collections';
         break;
       case 'services':
         categories = servicesCategories;
         title = 'Beauty Services';
-        color = 'from-indigo-500 to-blue-500';
+        description = 'Professional beauty services at your fingertips';
         break;
       default:
         return null;
@@ -166,26 +166,26 @@ export function Header() {
     return (
       <div 
         ref={megaMenuRef}
-        className="absolute top-full left-0 right-0 bg-white rounded-b-2xl shadow-xl border border-gray-100 z-50"
+        className="absolute top-full left-0 right-0 bg-white rounded-b-2xl shadow-lg border border-gray-100 z-50"
         onMouseEnter={handleMegaMenuMouseEnter}
         onMouseLeave={handleMegaMenuMouseLeave}
       >
-        <div className="max-w-6xl mx-auto p-6">
+        <div className="max-w-7xl mx-auto p-8">
           {/* Header Section */}
-          <div className="mb-6">
-            <h3 className={`text-2xl font-bold bg-gradient-to-r ${color} bg-clip-text text-transparent mb-2`}>
+          <div className="mb-8">
+            <h3 className="text-3xl font-bold text-[#2E2E2E] mb-3">
               {title}
             </h3>
-            <p className="text-gray-600 text-sm">
-              Discover our curated collection of premium beauty products and services
+            <p className="text-[#555555] text-lg max-w-2xl">
+              {description}
             </p>
           </div>
           
           {/* Categories Grid */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {categories.map((category) => (
-              <div key={category.title} className="space-y-3">
-                <h4 className="font-semibold text-gray-900 text-sm uppercase tracking-wide">
+              <div key={category.title} className="space-y-4">
+                <h4 className="font-semibold text-[#2E2E2E] text-base uppercase tracking-wide border-b border-[#F9E7E7] pb-2">
                   {category.title}
                 </h4>
                 <ul className="space-y-2">
@@ -193,7 +193,7 @@ export function Header() {
                     <li key={item}>
                       <Link 
                         href={`/categories/${type}/${item.toLowerCase().replace(/\s+/g, '-')}`}
-                        className="text-gray-600 hover:text-primary text-sm transition-colors duration-200 block py-1 hover:bg-gray-50 rounded px-2 -ml-2"
+                        className="text-[#555555] hover:text-[#D4AF37] text-sm transition-colors duration-300 block py-2 px-3 hover:bg-[#F9E7E7] rounded-lg -ml-3"
                       >
                         {item}
                       </Link>
@@ -205,10 +205,10 @@ export function Header() {
           </div>
           
           {/* Footer Link */}
-          <div className="mt-6 pt-4 border-t border-gray-100">
+          <div className="mt-8 pt-6 border-t border-[#F9E7E7]">
             <Link 
               href={`/categories/${type}`}
-              className="inline-flex items-center space-x-2 text-primary hover:text-primary/80 font-medium transition-colors text-sm"
+              className="inline-flex items-center space-x-2 text-[#D4AF37] hover:text-[#B8941F] font-medium transition-colors text-base"
             >
               <span>View All {type}</span>
               <ChevronDown className="w-4 h-4 rotate-[-90deg]" />
@@ -222,19 +222,19 @@ export function Header() {
   return (
     <>
       {/* Top Bar with Trust Signals */}
-      <div className="bg-gradient-to-r from-primary/10 to-secondary/10 border-b border-gray-100">
+      <div className="bg-gradient-to-r from-[#F9E7E7] to-[#E5C6A8] border-b border-[#E5C6A8]">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-center space-x-6 py-2 text-sm">
-            <div className="flex items-center space-x-2 text-gray-700">
-              <Gift className="w-4 h-4 text-primary" />
+            <div className="flex items-center space-x-2 text-[#2E2E2E]">
+              <Gift className="w-4 h-4 text-[#D4AF37]" />
               <span>Free Delivery Over €50</span>
             </div>
-            <div className="flex items-center space-x-2 text-gray-700">
-              <Sparkles className="w-4 h-4 text-primary" />
+            <div className="flex items-center space-x-2 text-[#2E2E2E]">
+              <Sparkles className="w-4 h-4 text-[#D4AF37]" />
               <span>Secure Checkout</span>
             </div>
-            <div className="flex items-center space-x-2 text-gray-700">
-              <Gift className="w-4 h-4 text-primary" />
+            <div className="flex items-center space-x-2 text-[#2E2E2E]">
+              <Gift className="w-4 h-4 text-[#D4AF37]" />
               <span>Customer Rating 4.9/5</span>
             </div>
           </div>
@@ -247,12 +247,12 @@ export function Header() {
           <div className="flex items-center justify-between h-20">
             {/* Logo */}
             <Link href="/" className="flex items-center space-x-3">
-              <div className="w-10 h-10 bg-gradient-to-br from-primary to-accent rounded-xl flex items-center justify-center">
-                <span className="text-white font-bold text-xl">Z</span>
+              <div className="w-10 h-10 bg-gradient-to-br from-[#F9E7E7] to-[#D4AF37] rounded-xl flex items-center justify-center">
+                <span className="text-[#2E2E2E] font-bold text-xl">Z</span>
               </div>
               <div>
-                <h1 className="text-2xl font-bold text-gray-900">Zbukurohu</h1>
-                <p className="text-xs text-gray-500 -mt-1">Beauty & Wellness</p>
+                <h1 className="text-2xl font-bold text-[#2E2E2E]">Zbukurohu</h1>
+                <p className="text-xs text-[#555555] -mt-1">Beauty & Wellness</p>
               </div>
             </Link>
 
@@ -267,11 +267,11 @@ export function Header() {
                 >
                   <Link
                     href={item.href}
-                    className="flex items-center space-x-2 py-2 px-3 rounded-lg hover:bg-gray-50 transition-colors duration-200 group"
+                    className="flex items-center space-x-2 py-2 px-3 rounded-lg hover:bg-[#F9E7E7] transition-colors duration-200 group"
                   >
                     <span className="text-lg">{item.icon}</span>
-                    <span className="font-medium text-gray-700 group-hover:text-primary">{item.name}</span>
-                    <ChevronDown className="w-4 h-4 text-gray-400 group-hover:text-primary transition-colors duration-200" />
+                    <span className="font-medium text-[#2E2E2E] group-hover:text-[#D4AF37]">{item.name}</span>
+                    <ChevronDown className="w-4 h-4 text-[#555555] group-hover:text-[#D4AF37] transition-colors duration-200" />
                   </Link>
                   {renderMegaMenu(item.name.toLowerCase())}
                 </div>
@@ -283,7 +283,7 @@ export function Header() {
               {/* Search */}
               <button
                 onClick={() => setIsSearchOpen(!isSearchOpen)}
-                className="group p-3 text-gray-600 hover:text-primary transition-all duration-300 hover:scale-125 hover:bg-gray-50 rounded-full"
+                className="group p-3 text-[#555555] hover:text-[#D4AF37] transition-all duration-300 hover:scale-125 hover:bg-[#F9E7E7] rounded-full"
               >
                 <Search className="w-5 h-5" />
               </button>
@@ -291,11 +291,11 @@ export function Header() {
               {/* Wishlist */}
               <Link 
                 href="/wishlist"
-                className="p-3 text-gray-600 hover:text-primary hover:bg-gray-50 rounded-lg transition-colors relative"
+                className="p-3 text-[#555555] hover:text-[#D4AF37] hover:bg-[#F9E7E7] rounded-lg transition-colors relative"
               >
                 <Heart className="w-5 h-5" />
                 {wishlist.length > 0 && (
-                  <span className="absolute -top-1 -right-1 w-5 h-5 bg-primary text-white text-xs rounded-full flex items-center justify-center">
+                  <span className="absolute -top-1 -right-1 w-5 h-5 bg-[#D4AF37] text-white text-xs rounded-full flex items-center justify-center">
                     {wishlist.length}
                   </span>
                 )}
@@ -319,13 +319,13 @@ export function Header() {
                 <div className="relative">
                   <button
                     onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
-                    className="flex items-center space-x-2 p-3 text-gray-600 hover:text-primary hover:bg-gray-50 rounded-lg transition-colors"
+                    className="flex items-center space-x-2 p-3 text-[#555555] hover:text-[#D4AF37] hover:bg-[#F9E7E7] rounded-lg transition-colors"
                   >
-                    <div className="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center">
-                      <User className="w-4 h-4 text-primary" />
+                    <div className="w-8 h-8 bg-[#F9E7E7] rounded-full flex items-center justify-center">
+                      <User className="w-4 h-4 text-[#D4AF37]" />
                     </div>
                     <span className="hidden sm:block font-medium">{user?.name}</span>
-                    <ChevronDown className="w-4 h-4 text-gray-400" />
+                    <ChevronDown className="w-4 h-4 text-[#555555]" />
                   </button>
 
                   {isUserMenuOpen && (
@@ -361,13 +361,13 @@ export function Header() {
                 <div className="flex items-center space-x-2">
                   <Link
                     href="/auth/login"
-                    className="px-4 py-2 text-gray-700 hover:text-primary font-medium transition-colors"
+                    className="px-4 py-2 text-[#2E2E2E] hover:text-[#D4AF37] font-medium transition-colors"
                   >
                     Sign In
                   </Link>
                   <Link
                     href="/auth/register"
-                    className="px-4 py-2 bg-primary text-white rounded-lg font-medium hover:bg-primary/90 transition-colors"
+                    className="px-4 py-2 bg-[#D4AF37] text-white rounded-lg font-medium hover:bg-[#B8941F] transition-colors"
                   >
                     Sign Up
                   </Link>
@@ -377,7 +377,7 @@ export function Header() {
               {/* Mobile Menu Button */}
               <button
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                className="lg:hidden p-3 text-gray-600 hover:text-primary hover:bg-gray-50 rounded-lg transition-colors"
+                className="lg:hidden p-3 text-[#555555] hover:text-[#D4AF37] hover:bg-[#F9E7E7] rounded-lg transition-colors"
               >
                 {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
               </button>
@@ -394,13 +394,13 @@ export function Header() {
                   <Link
                     key={item.name}
                     href={item.href}
-                    className="flex items-center space-x-3 p-4 bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors"
+                    className="flex items-center space-x-3 p-4 bg-[#F9E7E7] rounded-xl hover:bg-[#E5C6A8] transition-colors"
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
                     <span className="text-2xl">{item.icon}</span>
                     <div>
-                      <p className="font-medium text-gray-900">{item.name}</p>
-                      <p className="text-sm text-gray-600">Browse collection</p>
+                      <p className="font-medium text-[#2E2E2E]">{item.name}</p>
+                      <p className="text-sm text-[#555555]">Browse collection</p>
                     </div>
                   </Link>
                 ))}
