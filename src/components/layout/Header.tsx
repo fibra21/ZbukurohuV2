@@ -24,7 +24,6 @@ export function Header() {
   const { cart, wishlist, openMega, setOpenMega } = useAppStore();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
-  const [isSearchOpen, setIsSearchOpen] = useState(false);
   const megaMenuRef = useRef<HTMLDivElement>(null);
   const hoverTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -79,89 +78,44 @@ export function Header() {
     { name: 'Services', href: '/services', icon: '🎨' }
   ];
 
-  const skincareCategories = [
-    { title: 'Cleansers', items: ['Face Wash', 'Micellar Water', 'Cleansing Oil'] },
-    { title: 'Treatments', items: ['Serums', 'Toners', 'Essences'] },
-    { title: 'Moisturizers', items: ['Day Cream', 'Night Cream', 'Gel'] },
-    { title: 'Sun Protection', items: ['Sunscreen', 'SPF Cream', 'UV Protection'] }
-  ];
-
-  const makeupCategories = [
-    { title: 'Face', items: ['Foundation', 'Concealer', 'Powder', 'Blush'] },
-    { title: 'Eyes', items: ['Eyeshadow', 'Eyeliner', 'Mascara', 'Brows'] },
-    { title: 'Lips', items: ['Lipstick', 'Lip Gloss', 'Lip Liner'] },
-    { title: 'Tools', items: ['Brushes', 'Sponges', 'Mirrors'] }
-  ];
-
-  const haircareCategories = [
-    { title: 'Hair Care', items: ['Shampoo', 'Conditioner', 'Hair Masks', 'Hair Oils'] },
-    { title: 'Styling', items: ['Hair Spray', 'Hair Gel', 'Texturizing Sprays'] },
-    { title: 'Hair Tools', items: ['Hair Dryers', 'Straighteners', 'Curling Irons'] },
-    { title: 'Hair Accessories', items: ['Hair Clips', 'Headbands', 'Hair Ties'] }
-  ];
-
-  const brandsCategories = [
-    { title: 'Luxury', items: ['MAC', 'Urban Decay', 'Too Faced', 'Anastasia Beverly Hills'] },
-    { title: 'Drugstore', items: ['L\'Oréal', 'Maybelline', 'CoverGirl', 'Revlon'] },
-    { title: 'Skincare', items: ['The Ordinary', 'CeraVe', 'Neutrogena', 'Clinique'] },
-    { title: 'Indie', items: ['Glossier', 'Fenty Beauty', 'Huda Beauty', 'Pat McGrath'] }
-  ];
-
-  const offersCategories = [
-    { title: 'Seasonal', items: ['Autumn Essentials', 'Holiday Collections', 'Summer Must-Haves'] },
-    { title: 'Deals', items: ['Flash Sales', 'Bundle Offers', 'Clearance Items'] },
-    { title: 'Membership', items: ['VIP Benefits', 'Loyalty Rewards', 'Early Access'] },
-    { title: 'New Arrivals', items: ['Latest Products', 'Trending Items', 'Limited Edition'] }
-  ];
-
-  const servicesCategories = [
-    { title: 'Beauty Services', items: ['Makeup Artist', 'Nail Technician', 'Hair Stylist'] },
-    { title: 'Wellness', items: ['Facial Treatments', 'Massage Therapy', 'Spa Services'] },
-    { title: 'Consultations', items: ['Skin Analysis', 'Color Matching', 'Product Recommendations'] },
-    { title: 'Events', items: ['Wedding Makeup', 'Party Looks', 'Special Occasions'] }
-  ];
+  const megaMenuData = {
+    skincare: {
+      title: 'Skincare Collection',
+      description: 'Nourish and protect your skin with premium products',
+      items: ['Cleansers', 'Moisturizers', 'Serums', 'Sunscreen', 'Masks', 'Toners']
+    },
+    makeup: {
+      title: 'Makeup Collection',
+      description: 'Express your beauty with professional cosmetics',
+      items: ['Foundation', 'Lipstick', 'Eyeshadow', 'Mascara', 'Blush', 'Brushes']
+    },
+    haircare: {
+      title: 'Haircare Collection',
+      description: 'Transform your hair with expert care products',
+      items: ['Shampoo', 'Conditioner', 'Hair Masks', 'Styling', 'Hair Oils', 'Tools']
+    },
+    brands: {
+      title: 'Brand Collections',
+      description: 'Discover premium beauty brands and their stories',
+      items: ['MAC', 'L\'Oréal', 'The Ordinary', 'Urban Decay', 'CeraVe', 'Fenty Beauty']
+    },
+    offers: {
+      title: 'Special Offers',
+      description: 'Exclusive deals and seasonal collections',
+      items: ['Autumn Essentials', 'Holiday Collections', 'Flash Sales', 'VIP Benefits', 'New Arrivals', 'Limited Edition']
+    },
+    services: {
+      title: 'Beauty Services',
+      description: 'Professional beauty services at your fingertips',
+      items: ['Makeup Artist', 'Nail Technician', 'Hair Stylist', 'Facial Treatments', 'Wedding Makeup', 'Consultations']
+    }
+  };
 
   const renderMegaMenu = (type: string) => {
     if (!openMega || openMega !== type) return null;
 
-    let categories: { title: string; items: string[] }[] = [];
-    let title = '';
-    let description = '';
-
-    switch (type) {
-      case 'skincare':
-        categories = skincareCategories;
-        title = 'Skincare Collection';
-        description = 'Nourish and protect your skin with premium products';
-        break;
-      case 'makeup':
-        categories = makeupCategories;
-        title = 'Makeup Collection';
-        description = 'Express your beauty with professional cosmetics';
-        break;
-      case 'haircare':
-        categories = haircareCategories;
-        title = 'Haircare Collection';
-        description = 'Transform your hair with expert care products';
-        break;
-      case 'brands':
-        categories = brandsCategories;
-        title = 'Brand Collections';
-        description = 'Discover premium beauty brands and their stories';
-        break;
-      case 'offers':
-        categories = offersCategories;
-        title = 'Special Offers';
-        description = 'Exclusive deals and seasonal collections';
-        break;
-      case 'services':
-        categories = servicesCategories;
-        title = 'Beauty Services';
-        description = 'Professional beauty services at your fingertips';
-        break;
-      default:
-        return null;
-    }
+    const data = megaMenuData[type as keyof typeof megaMenuData];
+    if (!data) return null;
 
     return (
       <div 
@@ -174,33 +128,27 @@ export function Header() {
           {/* Header Section */}
           <div className="mb-8">
             <h3 className="text-3xl font-bold text-[#2E2E2E] mb-3">
-              {title}
+              {data.title}
             </h3>
             <p className="text-[#555555] text-lg max-w-2xl">
-              {description}
+              {data.description}
             </p>
           </div>
           
-          {/* Categories Grid */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            {categories.map((category) => (
-              <div key={category.title} className="space-y-4">
-                <h4 className="font-semibold text-[#2E2E2E] text-base uppercase tracking-wide border-b border-[#F9E7E7] pb-2">
-                  {category.title}
-                </h4>
-                <ul className="space-y-2">
-                  {category.items.map((item: string) => (
-                    <li key={item}>
-                      <Link 
-                        href={`/categories/${type}/${item.toLowerCase().replace(/\s+/g, '-')}`}
-                        className="text-[#555555] hover:text-[#D4AF37] text-sm transition-colors duration-300 block py-2 px-3 hover:bg-[#F9E7E7] rounded-lg -ml-3"
-                      >
-                        {item}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
+          {/* Horizontal Items Grid */}
+          <div className="grid grid-cols-6 gap-6">
+            {data.items.map((item: string) => (
+              <Link
+                key={item}
+                href={`/categories/${type}/${item.toLowerCase().replace(/\s+/g, '-')}`}
+                className="text-center group"
+              >
+                <div className="p-4 rounded-xl hover:bg-[#F9E7E7] transition-all duration-300 border border-transparent hover:border-[#E5C6A8]">
+                  <h4 className="font-semibold text-[#2E2E2E] text-sm group-hover:text-[#D4AF37] transition-colors duration-300">
+                    {item}
+                  </h4>
+                </div>
+              </Link>
             ))}
           </div>
           
@@ -282,7 +230,7 @@ export function Header() {
             <div className="flex items-center space-x-2">
               {/* Search */}
               <button
-                onClick={() => setIsSearchOpen(!isSearchOpen)}
+                onClick={() => console.log('Search clicked')}
                 className="group p-3 text-[#555555] hover:text-[#D4AF37] transition-all duration-300 hover:scale-125 hover:bg-[#F9E7E7] rounded-full"
               >
                 <Search className="w-5 h-5" />
@@ -304,11 +252,11 @@ export function Header() {
               {/* Cart */}
               <button 
                 onClick={() => useAppStore.getState().setIsCartOpen(true)}
-                className="p-3 text-gray-600 hover:text-primary hover:bg-gray-50 rounded-lg transition-colors relative"
+                className="p-3 text-[#555555] hover:text-[#D4AF37] hover:bg-[#F9E7E7] rounded-lg transition-colors relative"
               >
                 <ShoppingBag className="w-5 h-5" />
                 {cart.length > 0 && (
-                  <span className="absolute -top-1 -right-1 w-5 h-5 bg-primary text-white text-xs rounded-full flex items-center justify-center">
+                  <span className="absolute -top-1 -right-1 w-5 h-5 bg-[#D4AF37] text-white text-xs rounded-full flex items-center justify-center">
                     {cart.length}
                   </span>
                 )}
