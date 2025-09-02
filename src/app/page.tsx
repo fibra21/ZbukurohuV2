@@ -45,7 +45,7 @@ export default async function HomePage() {
   const featuredBrands = brands.slice(0, 8);
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen w-full overflow-x-hidden">
       {/* Hero Section */}
       <HeroSection />
 
@@ -53,8 +53,8 @@ export default async function HomePage() {
       <FeaturesSection />
 
       {/* Featured Categories */}
-      <section className="py-16 bg-gray-50">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="py-16 bg-gray-50 w-full">
+        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-gray-900 mb-4">Shop by Category</h2>
             <p className="text-lg text-gray-600">Explore our curated collection of beauty essentials</p>
@@ -69,8 +69,8 @@ export default async function HomePage() {
       </section>
 
       {/* Featured Products */}
-      <section className="py-16">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="py-16 w-full">
+        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-gray-900 mb-4">Featured Products</h2>
             <p className="text-lg text-gray-600">Discover our most popular and trending items</p>
@@ -85,8 +85,8 @@ export default async function HomePage() {
       </section>
 
       {/* New Arrivals */}
-      <section className="py-16 bg-gray-50">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="py-16 bg-gray-50 w-full">
+        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <div className="flex items-center justify-center space-x-3 mb-4">
               <Sparkles className="w-8 h-8 text-primary" />
@@ -104,8 +104,8 @@ export default async function HomePage() {
       </section>
 
       {/* Bestsellers */}
-      <section className="py-16">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="py-16 w-full">
+        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <div className="flex items-center justify-center space-x-3 mb-4">
               <Star className="w-8 h-8 text-yellow-500" />
@@ -123,8 +123,8 @@ export default async function HomePage() {
       </section>
 
       {/* Featured Brands */}
-      <section className="py-16 bg-gray-50">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="py-16 bg-gray-50 w-full">
+        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-gray-900 mb-4">Top Brands</h2>
             <p className="text-lg text-gray-600">Shop from the world&apos;s most trusted beauty brands</p>

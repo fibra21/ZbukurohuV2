@@ -8,8 +8,6 @@ import {
   Heart,
   ShoppingBag,
   User,
-  LogOut,
-  Settings,
   Menu,
   X,
   ChevronDown,
@@ -29,7 +27,6 @@ export function Header() {
   const hoverTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const handleMouseEnter = useCallback((type: string) => {
-    console.log('Mouse enter:', type); // Debug log
     if (hoverTimeoutRef.current) {
       clearTimeout(hoverTimeoutRef.current);
     }
@@ -37,7 +34,6 @@ export function Header() {
   }, [setOpenMega]);
 
   const handleMouseLeave = useCallback(() => {
-    console.log('Mouse leave'); // Debug log
     hoverTimeoutRef.current = setTimeout(() => {
       setOpenMega(null);
     }, 100);
@@ -114,8 +110,6 @@ export function Header() {
     const data = megaMenuData[type as keyof typeof megaMenuData];
     if (!data) return null;
 
-    console.log('Rendering mega-menu for:', type, 'openMega:', openMega, 'isMobile:', isMobile); // Debug log
-
     if (isMobile) {
       return (
         <div className="mt-4 p-4 bg-[#F9E7E7] rounded-xl">
@@ -143,21 +137,20 @@ export function Header() {
     return (
       <div 
         ref={megaMenuRef}
-        className="absolute top-full left-1/2 transform -translate-x-1/2 bg-red-500 text-white p-4 rounded-lg shadow-lg z-50 w-[90vw] max-w-[800px]"
+        className="absolute top-full left-1/2 transform -translate-x-1/2 bg-white text-[#2E2E2E] p-6 rounded-xl shadow-xl border border-gray-200 z-50 w-[500px] max-w-[calc(100vw-2rem)]"
         onMouseEnter={handleMegaMenuMouseEnter}
         onMouseLeave={handleMegaMenuMouseLeave}
-        style={{ border: '2px solid blue' }} // Force visible border for debugging
       >
-        <h3 className="text-xl font-bold mb-2 text-center">{data.title}</h3>
-        <p className="mb-4 text-center">{data.description}</p>
+        <h3 className="text-xl font-bold mb-3 text-center text-[#2E2E2E]">{data.title}</h3>
+        <p className="mb-4 text-center text-[#555555] text-sm">{data.description}</p>
         
         {/* Clickable horizontal layout */}
-        <div className="flex flex-wrap gap-2 justify-center">
+        <div className="grid grid-cols-3 gap-3">
           {data.items.map((item: string) => (
             <Link
               key={item}
               href={`/categories/${type}/${item.toLowerCase().replace(/\s+/g, '-')}`}
-              className="bg-white text-red-500 px-3 py-2 rounded border hover:bg-gray-100 transition-colors cursor-pointer"
+              className="bg-[#F9E7E7] text-[#2E2E2E] px-3 py-2 rounded-lg text-sm text-center hover:bg-[#E5C6A8] transition-colors border border-transparent hover:border-[#D4AF37]"
             >
               {item}
             </Link>
