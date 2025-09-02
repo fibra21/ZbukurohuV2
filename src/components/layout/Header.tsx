@@ -81,9 +81,22 @@ export function Header() {
       items: ['Cleansers', 'Moisturizers', 'Serums', 'Sunscreen', 'Masks', 'Toners']
     },
     makeup: {
-      title: 'Makeup Collection',
-      description: 'Express your beauty with professional cosmetics',
-      items: ['Foundation', 'Lipstick', 'Eyeshadow', 'Mascara', 'Blush', 'Brushes']
+      title: 'Makeup by Face Parts',
+      description: 'Complete makeup collection organized by face areas',
+      sections: [
+        {
+          title: 'Eyes',
+          items: ['Eyeshadow', 'Mascara', 'Eyeliner', 'Eyebrows']
+        },
+        {
+          title: 'Face',
+          items: ['Foundation', 'Concealer', 'Blush', 'Powder']
+        },
+        {
+          title: 'Lips',
+          items: ['Lipstick', 'Lip Gloss', 'Lip Liner', 'Lip Balm']
+        }
+      ]
     },
     haircare: {
       title: 'Haircare Collection',
@@ -113,13 +126,80 @@ export function Header() {
     const data = megaMenuData[type as keyof typeof megaMenuData];
     if (!data) return null;
 
+    // Special handling for makeup with sections
+    if (type === 'makeup' && 'sections' in data) {
+      if (isMobile) {
+        return (
+          <div className="mt-4 p-4 bg-[#F9E7E7] rounded-xl">
+            <h4 className="font-bold text-[#2E2E2E] mb-3">{data.title}</h4>
+            <p className="text-sm text-[#555555] mb-4">{data.description}</p>
+            <div className="space-y-4">
+              {data.sections.map((section: { title: string; items: string[] }) => (
+                <div key={section.title}>
+                  <h5 className="font-semibold text-[#2E2E2E] mb-2 text-sm">{section.title}</h5>
+                  <div className="grid grid-cols-2 gap-2">
+                    {section.items.map((item: string) => (
+                      <Link
+                        key={item}
+                        href={`/categories/${item.toLowerCase().replace(/\s+/g, '-')}`}
+                        className="bg-white text-[#2E2E2E] px-3 py-2 rounded-lg text-sm text-center hover:bg-[#E5C6A8] transition-colors"
+                        onClick={() => {
+                          setIsMobileMenuOpen(false);
+                          setActiveMobileMenu(null);
+                        }}
+                      >
+                        {item}
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        );
+      }
+
+      return (
+        <div 
+          ref={megaMenuRef}
+          className="absolute top-full left-1/2 transform -translate-x-1/2 bg-surface-elevated text-text-primary p-6 rounded-xl shadow-xl border border-neutral-200 z-50 w-[600px] max-w-[calc(100vw-2rem)] mt-2 mega-menu"
+          onMouseEnter={handleMegaMenuMouseEnter}
+          onMouseLeave={handleMegaMenuMouseLeave}
+        >
+          <h3 className="text-xl font-bold mb-3 text-center text-text-primary font-heading">{data.title}</h3>
+          <p className="mb-6 text-center text-text-secondary text-sm font-body">{data.description}</p>
+          
+          {/* Face parts layout */}
+          <div className="grid grid-cols-3 gap-4">
+            {data.sections.map((section: { title: string; items: string[] }) => (
+              <div key={section.title} className="space-y-2">
+                <h4 className="font-bold text-brand-accent text-center mb-3 font-heading">{section.title}</h4>
+                <div className="space-y-2">
+                  {section.items.map((item: string) => (
+                    <Link
+                      key={item}
+                      href={`/categories/${item.toLowerCase().replace(/\s+/g, '-')}`}
+                      className="block bg-brand-primary text-text-primary px-3 py-2 rounded-lg text-sm text-center hover:bg-brand-secondary transition-colors duration-base border border-transparent hover:border-brand-accent font-body"
+                    >
+                      {item}
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      );
+    }
+
+    // Default handling for other categories
     if (isMobile) {
       return (
         <div className="mt-4 p-4 bg-[#F9E7E7] rounded-xl">
           <h4 className="font-bold text-[#2E2E2E] mb-3">{data.title}</h4>
           <p className="text-sm text-[#555555] mb-4">{data.description}</p>
           <div className="grid grid-cols-2 gap-2">
-            {data.items.map((item: string) => (
+            {(data as { items: string[] }).items.map((item: string) => (
               <Link
                 key={item}
                 href={`/categories/${type}/${item.toLowerCase().replace(/\s+/g, '-')}`}
@@ -149,7 +229,7 @@ export function Header() {
         
         {/* Clickable horizontal layout */}
         <div className="grid grid-cols-3 gap-3">
-          {data.items.map((item: string) => (
+          {(data as { items: string[] }).items.map((item: string) => (
             <Link
               key={item}
               href={`/categories/${type}/${item.toLowerCase().replace(/\s+/g, '-')}`}

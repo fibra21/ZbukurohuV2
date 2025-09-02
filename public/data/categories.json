@@ -1,33 +1,123 @@
 [
   {
-    "id": "1",
-    "slug": "foundation",
-    "name": "Foundation",
+    "id": "makeup",
+    "slug": "makeup",
+    "name": "Makeup",
     "parentId": null,
-    "icon": "Foundation",
-    "description": "Base makeup products for flawless coverage",
-    "productCount": 24
+    "icon": "Palette",
+    "description": "Complete makeup collection for every look",
+    "productCount": 150
   },
   {
-    "id": "2",
+    "id": "eyes",
+    "slug": "eyes",
+    "name": "Eyes",
+    "parentId": "makeup",
+    "icon": "Eye",
+    "description": "Eye makeup products for stunning looks",
+    "productCount": 65
+  },
+  {
+    "id": "face",
+    "slug": "face",
+    "name": "Face",
+    "parentId": "makeup",
+    "icon": "Sparkles",
+    "description": "Face makeup for flawless complexion",
+    "productCount": 55
+  },
+  {
+    "id": "lips",
+    "slug": "lips",
+    "name": "Lips",
+    "parentId": "makeup",
+    "icon": "Heart",
+    "description": "Lip products for perfect pout",
+    "productCount": 30
+  },
+  {
+    "id": "eyeshadow",
+    "slug": "eyeshadow",
+    "name": "Eyeshadow",
+    "parentId": "eyes",
+    "icon": "Palette",
+    "description": "Beautiful eyeshadows for stunning looks",
+    "productCount": 26
+  },
+  {
+    "id": "mascara",
     "slug": "mascara",
     "name": "Mascara",
-    "parentId": null,
+    "parentId": "eyes",
     "icon": "Eye",
     "description": "Eye-enhancing mascaras for dramatic lashes",
     "productCount": 18
   },
   {
-    "id": "3",
-    "slug": "lipstick",
-    "name": "Lipstick",
-    "parentId": null,
-    "icon": "Lips",
-    "description": "Beautiful lip colors for every occasion",
-    "productCount": 32
+    "id": "eyeliner",
+    "slug": "eyeliner",
+    "name": "Eyeliner",
+    "parentId": "eyes",
+    "icon": "Pen",
+    "description": "Precise eyeliners for defined eyes",
+    "productCount": 12
   },
   {
-    "id": "4",
+    "id": "eyebrows",
+    "slug": "eyebrows",
+    "name": "Eyebrows",
+    "parentId": "eyes",
+    "icon": "Minus",
+    "description": "Eyebrow products for perfect arches",
+    "productCount": 9
+  },
+  {
+    "id": "foundation",
+    "slug": "foundation",
+    "name": "Foundation",
+    "parentId": "face",
+    "icon": "Circle",
+    "description": "Base makeup products for flawless coverage",
+    "productCount": 24
+  },
+  {
+    "id": "concealer",
+    "slug": "concealer",
+    "name": "Concealer",
+    "parentId": "face",
+    "icon": "CircleDot",
+    "description": "Coverage for imperfections and dark circles",
+    "productCount": 16
+  },
+  {
+    "id": "blush",
+    "slug": "blush",
+    "name": "Blush",
+    "parentId": "face",
+    "icon": "Heart",
+    "description": "Natural-looking blush for healthy glow",
+    "productCount": 15
+  },
+  {
+    "id": "lipstick",
+    "slug": "lipstick",
+    "name": "Lipstick",
+    "parentId": "lips",
+    "icon": "Heart",
+    "description": "Beautiful lip colors for every occasion",
+    "productCount": 20
+  },
+  {
+    "id": "lipgloss",
+    "slug": "lipgloss",
+    "name": "Lip Gloss",
+    "parentId": "lips",
+    "icon": "Sparkles",
+    "description": "Glossy lip products for shine and color",
+    "productCount": 10
+  },
+  {
+    "id": "moisturizer",
     "slug": "moisturizer",
     "name": "Moisturizer",
     "parentId": null,
@@ -36,7 +126,7 @@
     "productCount": 28
   },
   {
-    "id": "5",
+    "id": "serum",
     "slug": "serum",
     "name": "Serum",
     "parentId": null,
@@ -45,30 +135,12 @@
     "productCount": 22
   },
   {
-    "id": "6",
+    "id": "cleanser",
     "slug": "cleanser",
     "name": "Cleanser",
     "parentId": null,
     "icon": "Sparkles",
     "description": "Gentle cleansers for fresh, clean skin",
     "productCount": 19
-  },
-  {
-    "id": "7",
-    "slug": "blush",
-    "name": "Blush",
-    "parentId": null,
-    "icon": "Heart",
-    "description": "Natural-looking blush for healthy glow",
-    "productCount": 15
-  },
-  {
-    "id": "8",
-    "slug": "eyeshadow",
-    "name": "Eyeshadow",
-    "parentId": null,
-    "icon": "Eye",
-    "description": "Beautiful eyeshadows for stunning looks",
-    "productCount": 26
   }
 ]
