@@ -73,12 +73,12 @@ export function Header() {
   }, [setOpenMega]);
 
   const navigation = [
-    { name: 'Makeup', href: '/categories/makeup', icon: <Palette className="w-5 h-5" /> },
-    { name: 'Skincare', href: '/categories/skincare', icon: <Sparkles className="w-5 h-5" /> },
-    { name: 'Haircare', href: '/categories/haircare', icon: <Scissors className="w-5 h-5" /> },
-    { name: 'Fragrances', href: '/categories/fragrances', icon: <Flower className="w-5 h-5" /> },
-    { name: 'Services', href: '/services', icon: <Headphones className="w-5 h-5" /> },
-    { name: 'Offers', href: '/offers', icon: <Gift className="w-5 h-5" /> }
+    { name: 'Makeup', href: '/categories/makeup', icon: <Palette className="w-5 h-5" />, key: 'makeup' },
+    { name: 'Skincare', href: '/categories/skincare', icon: <Sparkles className="w-5 h-5" />, key: 'skincare' },
+    { name: 'Haircare', href: '/categories/haircare', icon: <Scissors className="w-5 h-5" />, key: 'haircare' },
+    { name: 'Fragrances', href: '/categories/fragrances', icon: <Flower className="w-5 h-5" />, key: 'fragrances' },
+    { name: 'Services', href: '/services', icon: <Headphones className="w-5 h-5" />, key: 'services' },
+    { name: 'Offers', href: '/offers', icon: <Gift className="w-5 h-5" />, key: 'offers' }
   ];
 
   const megaMenuData = {
@@ -400,7 +400,7 @@ export function Header() {
                 <div
                   key={item.name}
                   className="relative nav-item"
-                  onMouseEnter={() => handleMouseEnter(item.name.toLowerCase())}
+                  onMouseEnter={() => handleMouseEnter(item.key)}
                   onMouseLeave={handleMouseLeave}
                 >
                   <Link
@@ -411,7 +411,7 @@ export function Header() {
                     <span className="font-medium text-text-primary group-hover:text-brand-accent font-body nav-text">{item.name}</span>
                     <ChevronDown className="w-4 h-4 text-text-secondary group-hover:text-brand-accent transition-colors duration-base" />
                   </Link>
-                  {renderMegaMenu(item.name.toLowerCase(), false)}
+                  {renderMegaMenu(item.key, false)}
                 </div>
               ))}
             </nav>
@@ -538,7 +538,7 @@ export function Header() {
                 {navigation.map((item) => (
                   <div key={item.name} className="border-b border-neutral-100 pb-3 last:border-b-0">
                     <button
-                      onClick={() => toggleMobileMenu(item.name.toLowerCase())}
+                      onClick={() => toggleMobileMenu(item.key)}
                       className="w-full flex items-center justify-between p-4 bg-brand-primary rounded-xl hover:bg-brand-secondary transition-colors"
                     >
                       <div className="flex items-center space-x-4">
@@ -552,14 +552,14 @@ export function Header() {
                       </div>
                       <ChevronDown 
                         className={`w-5 h-5 text-text-secondary transition-transform ${
-                          activeMobileMenu === item.name.toLowerCase() ? 'rotate-180' : ''
+                          activeMobileMenu === item.key ? 'rotate-180' : ''
                         }`} 
                       />
                     </button>
                     
                     {/* Mobile Mega Menu */}
-                    {activeMobileMenu === item.name.toLowerCase() && 
-                     renderMegaMenu(item.name.toLowerCase(), true)}
+                    {activeMobileMenu === item.key && 
+                     renderMegaMenu(item.key, true)}
                   </div>
                 ))}
               </div>
