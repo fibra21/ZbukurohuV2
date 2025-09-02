@@ -29,7 +29,7 @@ export function ProductCard({ product }: ProductCardProps) {
     if (isInWishlist(product.id)) {
       removeFromWishlist(product.id);
     } else {
-      addToWishlist(product.id);
+      addToWishlist(product);
     }
   };
 
