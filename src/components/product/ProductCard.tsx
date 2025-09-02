@@ -19,7 +19,7 @@ export function ProductCard({ product }: ProductCardProps) {
   const handleAddToCart = async () => {
     setIsAddingToCart(true);
     try {
-      addToCart({ productId: product.id, quantity: 1 });
+      addToCart(product, 1);
     } finally {
       setIsAddingToCart(false);
     }
