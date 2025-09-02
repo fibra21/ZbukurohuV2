@@ -137,12 +137,12 @@ export function Header() {
     return (
       <div 
         ref={megaMenuRef}
-        className="absolute top-full left-1/2 transform -translate-x-1/2 bg-white text-[#2E2E2E] p-6 rounded-xl shadow-xl border border-gray-200 z-50 w-[500px] max-w-[calc(100vw-2rem)]"
+        className="absolute top-full left-1/2 transform -translate-x-1/2 bg-surface-elevated text-text-primary p-6 rounded-xl shadow-xl border border-neutral-200 z-50 w-[500px] max-w-[calc(100vw-2rem)]"
         onMouseEnter={handleMegaMenuMouseEnter}
         onMouseLeave={handleMegaMenuMouseLeave}
       >
-        <h3 className="text-xl font-bold mb-3 text-center text-[#2E2E2E]">{data.title}</h3>
-        <p className="mb-4 text-center text-[#555555] text-sm">{data.description}</p>
+        <h3 className="text-xl font-bold mb-3 text-center text-text-primary font-heading">{data.title}</h3>
+        <p className="mb-4 text-center text-text-secondary text-sm font-body">{data.description}</p>
         
         {/* Clickable horizontal layout */}
         <div className="grid grid-cols-3 gap-3">
@@ -150,7 +150,7 @@ export function Header() {
             <Link
               key={item}
               href={`/categories/${type}/${item.toLowerCase().replace(/\s+/g, '-')}`}
-              className="bg-[#F9E7E7] text-[#2E2E2E] px-3 py-2 rounded-lg text-sm text-center hover:bg-[#E5C6A8] transition-colors border border-transparent hover:border-[#D4AF37]"
+              className="bg-brand-primary text-text-primary px-3 py-2 rounded-lg text-sm text-center hover:bg-brand-secondary transition-colors duration-base border border-transparent hover:border-brand-accent font-body"
             >
               {item}
             </Link>
@@ -192,22 +192,22 @@ export function Header() {
       </div>
 
       {/* Main Header */}
-      <header className="sticky top-0 z-40 bg-white border-b border-gray-100 shadow-sm">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <header className="sticky top-0 z-40 bg-surface-elevated border-b border-neutral-200 shadow-md w-full">
+        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-20">
             {/* Logo */}
             <Link href="/" className="flex items-center space-x-3 flex-shrink-0">
-              <div className="w-10 h-10 bg-gradient-to-br from-[#F9E7E7] to-[#D4AF37] rounded-xl flex items-center justify-center">
-                <span className="text-[#2E2E2E] font-bold text-xl">Z</span>
+              <div className="w-10 h-10 bg-gradient-to-br from-brand-primary to-brand-accent rounded-xl flex items-center justify-center">
+                <span className="text-text-primary font-bold text-xl font-heading">Z</span>
               </div>
               <div>
-                <h1 className="text-2xl font-bold text-[#2E2E2E]">Zbukurohu</h1>
-                <p className="text-xs text-[#555555] -mt-1">Beauty & Wellness</p>
+                <h1 className="text-2xl font-bold text-text-primary font-heading">Zbukurohu</h1>
+                <p className="text-xs text-text-secondary -mt-1 font-body">Beauty & Wellness</p>
               </div>
             </Link>
 
             {/* Desktop Navigation */}
-            <nav className="hidden lg:flex items-center space-x-1 flex-1 justify-center">
+            <nav className="hidden lg:flex items-center space-x-1 flex-1 justify-center max-w-2xl">
               {navigation.map((item) => (
                 <div
                   key={item.name}
@@ -217,11 +217,11 @@ export function Header() {
                 >
                   <Link
                     href={item.href}
-                    className="flex items-center space-x-2 py-2 px-3 rounded-lg hover:bg-[#F9E7E7] transition-colors duration-200 group"
+                    className="flex items-center space-x-2 py-2 px-3 rounded-lg hover:bg-brand-primary transition-colors duration-base group"
                   >
                     <span className="text-lg">{item.icon}</span>
-                    <span className="font-medium text-[#2E2E2E] group-hover:text-[#D4AF37]">{item.name}</span>
-                    <ChevronDown className="w-4 h-4 text-[#555555] group-hover:text-[#D4AF37] transition-colors duration-200" />
+                    <span className="font-medium text-text-primary group-hover:text-brand-accent font-body">{item.name}</span>
+                    <ChevronDown className="w-4 h-4 text-text-secondary group-hover:text-brand-accent transition-colors duration-base" />
                   </Link>
                   {renderMegaMenu(item.name.toLowerCase(), false)}
                 </div>

@@ -53,11 +53,11 @@ export default async function HomePage() {
       <FeaturesSection />
 
       {/* Featured Categories */}
-      <section className="py-16 bg-gray-50 w-full">
+      <section className="py-16 bg-surface-muted w-full">
         <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">Shop by Category</h2>
-            <p className="text-lg text-gray-600">Explore our curated collection of beauty essentials</p>
+            <h2 className="text-4xl font-bold text-text-primary mb-4 font-heading">Shop by Category</h2>
+            <p className="text-lg text-text-secondary font-body">Explore our curated collection of beauty essentials</p>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -72,8 +72,8 @@ export default async function HomePage() {
       <section className="py-16 w-full">
         <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">Featured Products</h2>
-            <p className="text-lg text-gray-600">Discover our most popular and trending items</p>
+            <h2 className="text-4xl font-bold text-text-primary mb-4 font-heading">Featured Products</h2>
+            <p className="text-lg text-text-secondary font-body">Discover our most popular and trending items</p>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -85,14 +85,14 @@ export default async function HomePage() {
       </section>
 
       {/* New Arrivals */}
-      <section className="py-16 bg-gray-50 w-full">
+      <section className="py-16 bg-surface-muted w-full">
         <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <div className="flex items-center justify-center space-x-3 mb-4">
-              <Sparkles className="w-8 h-8 text-primary" />
-              <h2 className="text-3xl font-bold text-gray-900">New Arrivals</h2>
+              <Sparkles className="w-8 h-8 text-brand-accent" />
+              <h2 className="text-4xl font-bold text-text-primary font-heading">New Arrivals</h2>
             </div>
-            <p className="text-lg text-gray-600">Be the first to try our latest products</p>
+            <p className="text-lg text-text-secondary font-body">Be the first to try our latest products</p>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -108,10 +108,10 @@ export default async function HomePage() {
         <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <div className="flex items-center justify-center space-x-3 mb-4">
-              <Star className="w-8 h-8 text-yellow-500" />
-              <h2 className="text-3xl font-bold text-gray-900">Bestsellers</h2>
+              <Star className="w-8 h-8 text-semantic-warning" />
+              <h2 className="text-4xl font-bold text-text-primary font-heading">Bestsellers</h2>
             </div>
-            <p className="text-lg text-gray-600">Customer favorites that never disappoint</p>
+            <p className="text-lg text-text-secondary font-body">Customer favorites that never disappoint</p>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -123,11 +123,11 @@ export default async function HomePage() {
       </section>
 
       {/* Featured Brands */}
-      <section className="py-16 bg-gray-50 w-full">
+      <section className="py-16 bg-surface-muted w-full">
         <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">Top Brands</h2>
-            <p className="text-lg text-gray-600">Shop from the world&apos;s most trusted beauty brands</p>
+            <h2 className="text-4xl font-bold text-text-primary mb-4 font-heading">Top Brands</h2>
+            <p className="text-lg text-text-secondary font-body">Shop from the world&apos;s most trusted beauty brands</p>
           </div>
           
           <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-6">
