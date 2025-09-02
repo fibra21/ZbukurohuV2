@@ -288,39 +288,39 @@ export function Header() {
 
       // Desktop mega menu with enhanced design
       const isWideMenu = type === 'makeup' || type === 'skincare' || type === 'haircare';
-      const menuWidth = isWideMenu ? 'w-[800px]' : 'w-[600px]';
-      const gridCols = isWideMenu && data.sections.length > 2 ? 'grid-cols-4' : data.sections.length === 2 ? 'grid-cols-2' : 'grid-cols-3';
+      const menuWidth = isWideMenu ? 'w-[650px]' : 'w-[500px]';
+      const gridCols = isWideMenu && data.sections.length > 2 ? 'grid-cols-3' : data.sections.length === 2 ? 'grid-cols-2' : 'grid-cols-2';
 
       return (
         <div 
           ref={megaMenuRef}
-          className={`absolute top-full left-1/2 transform -translate-x-1/2 bg-surface-elevated text-text-primary p-8 rounded-2xl shadow-2xl border border-neutral-200 z-50 ${menuWidth} max-w-[calc(100vw-2rem)] mt-3 mega-menu`}
+          className={`absolute top-full left-1/2 transform -translate-x-1/2 bg-surface-elevated text-text-primary p-5 rounded-xl shadow-lg border border-neutral-200 z-40 ${menuWidth} max-w-[85vw] mt-2 mega-menu`}
           onMouseEnter={handleMegaMenuMouseEnter}
           onMouseLeave={handleMegaMenuMouseLeave}
         >
-          <div className="text-center mb-6">
-            <h3 className="text-2xl font-bold text-text-primary font-heading mb-2">{data.title}</h3>
-            <p className="text-text-secondary text-sm font-body">{data.description}</p>
+          <div className="text-center mb-4">
+            <h3 className="text-lg font-bold text-text-primary font-heading mb-1">{data.title}</h3>
+            <p className="text-text-secondary text-xs font-body">{data.description}</p>
           </div>
           
           {/* Enhanced sections layout */}
-          <div className={`grid ${gridCols} gap-6`}>
+          <div className={`grid ${gridCols} gap-4`}>
             {data.sections.map((section: { title: string; icon: React.ReactNode; items: { name: string; href: string }[] }) => (
-              <div key={section.title} className="space-y-3">
-                <div className="flex items-center space-x-2 mb-4 pb-2 border-b border-brand-primary/20">
-                  <div className="w-8 h-8 bg-brand-accent/10 rounded-lg flex items-center justify-center text-brand-accent">
+              <div key={section.title} className="space-y-2">
+                <div className="flex items-center space-x-2 mb-3 pb-2 border-b border-brand-primary/20">
+                  <div className="w-6 h-6 bg-brand-accent/10 rounded-lg flex items-center justify-center text-brand-accent">
                     {section.icon}
                   </div>
-                  <h4 className="font-bold text-brand-accent font-heading text-lg">{section.title}</h4>
+                  <h4 className="font-bold text-brand-accent font-heading text-sm">{section.title}</h4>
                 </div>
-                <div className="space-y-2">
+                <div className="space-y-1.5">
                   {section.items.map((item: { name: string; href: string }) => (
                     <Link
                       key={item.name}
                       href={item.href}
-                      className="group flex items-center space-x-2 bg-brand-primary/30 text-text-primary px-4 py-3 rounded-xl text-sm hover:bg-brand-secondary transition-all duration-200 border border-transparent hover:border-brand-accent hover:shadow-md font-body"
+                      className="group flex items-center space-x-2 bg-brand-primary/20 text-text-primary px-3 py-2 rounded-lg text-xs hover:bg-brand-secondary transition-all duration-200 border border-transparent hover:border-brand-accent hover:shadow-sm font-body"
                     >
-                      <span className="w-2 h-2 bg-brand-accent/60 rounded-full group-hover:bg-brand-accent transition-colors"></span>
+                      <span className="w-1.5 h-1.5 bg-brand-accent/60 rounded-full group-hover:bg-brand-accent transition-colors"></span>
                       <span className="group-hover:text-brand-accent-dark transition-colors font-medium">
                         {item.name}
                       </span>
@@ -332,13 +332,13 @@ export function Header() {
           </div>
 
           {/* View All Link */}
-          <div className="text-center mt-6 pt-4 border-t border-neutral-200">
+          <div className="text-center mt-4 pt-3 border-t border-neutral-200">
             <Link
               href={`/categories/${type}`}
-              className="inline-flex items-center space-x-2 text-brand-accent hover:text-brand-accent-dark font-semibold text-sm transition-colors"
+              className="inline-flex items-center space-x-2 text-brand-accent hover:text-brand-accent-dark font-semibold text-xs transition-colors"
             >
               <span>View All {data.title}</span>
-              <ChevronDown className="w-4 h-4 rotate-[-90deg]" />
+              <ChevronDown className="w-3 h-3 rotate-[-90deg]" />
             </Link>
           </div>
         </div>

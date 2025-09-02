@@ -89,24 +89,57 @@ h1, h2, h3, h4, h5, h6 {
   color: var(--color-text-primary);
 }
 
-/* Mega-menu responsive fixes */
+/* Mega-Menu Positioning & Responsiveness */
+.mega-menu {
+  position: absolute;
+  z-index: 1000;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+/* Ensure mega-menu doesn't cover critical content */
+.mega-menu + * {
+  margin-top: 1rem;
+}
+
+/* Responsive mega-menu adjustments */
 @media (max-width: 1024px) {
   .mega-menu {
-    width: 95vw !important;
-    max-width: none !important;
-    left: 2.5vw !important;
+    max-width: 95vw !important;
+    left: 1rem !important;
+    right: 1rem !important;
     transform: none !important;
   }
 }
 
-/* Header navigation fixes */
+@media (max-width: 768px) {
+  .mega-menu {
+    max-width: 98vw !important;
+    left: 0.5rem !important;
+    right: 0.5rem !important;
+  }
+}
+
+/* Prevent horizontal overflow */
+body {
+  overflow-x: hidden;
+}
+
+/* Ensure main content is visible */
+main {
+  position: relative;
+  z-index: 1;
+}
+
+/* Header navigation positioning */
 .header-nav {
   position: relative;
+  z-index: 1001;
 }
 
 .nav-item {
   position: relative;
-  margin: 0 0.5rem;
 }
 
 .nav-text {
