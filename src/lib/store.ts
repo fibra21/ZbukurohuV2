@@ -1,35 +1,39 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-import { CartItem, WishlistItem } from '@/types';
+import { Product, CartItem, WishlistItem } from '@/types';
 
 interface AppState {
   // Cart
   cart: CartItem[];
-  addToCart: (item: CartItem) => void;
+  addToCart: (product: Product, quantity?: number, shade?: string) => void;
   removeFromCart: (productId: string) => void;
   updateCartItemQuantity: (productId: string, quantity: number) => void;
   clearCart: () => void;
-  getCartTotal: () => number;
   getCartItemCount: () => number;
+  getCartTotal: () => number;
 
   // Wishlist
   wishlist: WishlistItem[];
-  addToWishlist: (productId: string) => void;
+  addToWishlist: (product: Product) => void;
   removeFromWishlist: (productId: string) => void;
   isInWishlist: (productId: string) => boolean;
   getWishlistCount: () => number;
 
-  // Recently Viewed
-  recentlyViewed: string[];
-  addToRecentlyViewed: (productId: string) => void;
+  // Cart Drawer
+  isCartOpen: boolean;
+  setIsCartOpen: (open: boolean) => void;
+
+  // Mega Menu
+  openMega: string | null;
+  setOpenMega: (type: string | null) => void;
 
   // Locale
-  locale: string;
-  setLocale: (locale: string) => void;
+  locale: 'sq-AL' | 'en';
+  setLocale: (locale: 'sq-AL' | 'en') => void;
 
   // Theme
-  theme: 'light' | 'dark' | 'system';
-  setTheme: (theme: 'light' | 'dark' | 'system') => void;
+  theme: 'light' | 'dark';
+  setTheme: (theme: 'light' | 'dark') => void;
 
   // Search
   searchQuery: string;
@@ -41,30 +45,34 @@ export const useAppStore = create<AppState>()(
     (set, get) => ({
       // Cart
       cart: [],
-      addToCart: (item) => {
+      addToCart: (product: Product, quantity = 1, shade?: string) => {
         const { cart } = get();
-        const existingItem = cart.find(cartItem => cartItem.productId === item.productId);
-        
+        const existingItem = cart.find(item => 
+          item.productId === product.id && item.selectedShade === shade
+        );
+
         if (existingItem) {
           set({
-            cart: cart.map(cartItem =>
-              cartItem.productId === item.productId
-                ? { ...cartItem, quantity: cartItem.quantity + item.quantity }
-                : cartItem
+            cart: cart.map(item =>
+              item.productId === product.id && item.selectedShade === shade
+                ? { ...item, quantity: item.quantity + quantity }
+                : item
             )
           });
         } else {
-          set({ cart: [...cart, item] });
+          set({
+            cart: [...cart, { productId: product.id, quantity, selectedShade: shade }]
+          });
         }
       },
-      removeFromCart: (productId) => {
+      removeFromCart: (productId: string) => {
         const { cart } = get();
         set({ cart: cart.filter(item => item.productId !== productId) });
       },
-      updateCartItemQuantity: (productId, quantity) => {
+      updateCartItemQuantity: (productId: string, quantity: number) => {
         const { cart } = get();
         if (quantity <= 0) {
-          get().removeFromCart(productId);
+          set({ cart: cart.filter(item => item.productId !== productId) });
         } else {
           set({
             cart: cart.map(item =>
@@ -74,31 +82,31 @@ export const useAppStore = create<AppState>()(
         }
       },
       clearCart: () => set({ cart: [] }),
-      getCartTotal: () => {
-        const { cart } = get();
-        // This would need to be calculated with actual product prices
-        return cart.reduce((total, item) => total + (item.quantity * 25), 0);
-      },
       getCartItemCount: () => {
         const { cart } = get();
-        return cart.reduce((count, item) => count + item.quantity, 0);
+        return cart.reduce((total, item) => total + item.quantity, 0);
+      },
+      getCartTotal: () => {
+        const { cart } = get();
+        // This would need products data to calculate actual total
+        return cart.reduce((total, item) => total + item.quantity, 0);
       },
 
       // Wishlist
       wishlist: [],
-      addToWishlist: (productId) => {
+      addToWishlist: (product: Product) => {
         const { wishlist } = get();
-        if (!get().isInWishlist(productId)) {
+        if (!get().isInWishlist(product.id)) {
           set({
-            wishlist: [...wishlist, { productId, addedAt: new Date().toISOString() }]
+            wishlist: [...wishlist, { productId: product.id, addedAt: new Date().toISOString() }]
           });
         }
       },
-      removeFromWishlist: (productId) => {
+      removeFromWishlist: (productId: string) => {
         const { wishlist } = get();
         set({ wishlist: wishlist.filter(item => item.productId !== productId) });
       },
-      isInWishlist: (productId) => {
+      isInWishlist: (productId: string) => {
         const { wishlist } = get();
         return wishlist.some(item => item.productId === productId);
       },
@@ -107,33 +115,31 @@ export const useAppStore = create<AppState>()(
         return wishlist.length;
       },
 
-      // Recently Viewed
-      recentlyViewed: [],
-      addToRecentlyViewed: (productId) => {
-        const { recentlyViewed } = get();
-        const filtered = recentlyViewed.filter(id => id !== productId);
-        const updated = [productId, ...filtered].slice(0, 10); // Keep last 10
-        set({ recentlyViewed: updated });
-      },
+      // Cart Drawer
+      isCartOpen: false,
+      setIsCartOpen: (open: boolean) => set({ isCartOpen: open }),
+
+      // Mega Menu
+      openMega: null,
+      setOpenMega: (type: string | null) => set({ openMega: type }),
 
       // Locale
       locale: 'sq-AL',
-      setLocale: (locale) => set({ locale }),
+      setLocale: (locale: 'sq-AL' | 'en') => set({ locale }),
 
       // Theme
-      theme: 'system',
-      setTheme: (theme) => set({ theme }),
+      theme: 'light',
+      setTheme: (theme: 'light' | 'dark') => set({ theme }),
 
       // Search
       searchQuery: '',
-      setSearchQuery: (query) => set({ searchQuery: query }),
+      setSearchQuery: (query: string) => set({ searchQuery: query }),
     }),
     {
       name: 'zbukurohu-store',
       partialize: (state) => ({
         cart: state.cart,
         wishlist: state.wishlist,
-        recentlyViewed: state.recentlyViewed,
         locale: state.locale,
         theme: state.theme,
       }),

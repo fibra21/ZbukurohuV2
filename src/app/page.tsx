@@ -1,4 +1,4 @@
-import { Suspense } from 'react';
+// import { Suspense } from 'react';
 import { Metadata } from 'next';
 import { 
   ArrowRight, 
@@ -6,13 +6,13 @@ import {
   Truck, 
   Shield, 
   Clock, 
-  Heart,
+  // Heart,
   Sparkles,
   TrendingUp,
   Gift,
-  Zap,
+  // Zap,
   Eye,
-  ShoppingCart
+  // ShoppingCart
 } from 'lucide-react';
 import Link from 'next/link';
 import { ProductCard } from '@/components/product/ProductCard';

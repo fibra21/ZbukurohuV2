@@ -1,16 +1,16 @@
-import { Suspense } from 'react';
+// import { Suspense } from 'react';
 import { Metadata } from 'next';
 import { 
   Gift, 
   Clock, 
-  Star, 
+  // Star, 
   Truck, 
   Shield, 
   Sparkles,
   TrendingUp,
   Zap,
   Heart,
-  ShoppingBag
+  // ShoppingBag
 } from 'lucide-react';
 import { ProductCard } from '@/components/product/ProductCard';
 import { getProducts, getCategories } from '@/lib/data';
