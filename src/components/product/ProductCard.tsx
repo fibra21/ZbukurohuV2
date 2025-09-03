@@ -70,8 +70,8 @@ export function ProductCard({ product, showActions = true }: ProductCardProps) {
       <div className="relative aspect-square overflow-hidden bg-neutral-100">
         <Link href={`/products/${product.slug}`} className="block">
           <Image
-            src={product.image}
-            alt={`${product.name} - ${product.brand} ${product.category} product`}
+            src={product.imageUrl}
+            alt={`${product.name} - ${product.brandId} product`}
             fill
             className="object-cover group-hover:scale-105 transition-transform duration-300"
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
@@ -111,7 +111,7 @@ export function ProductCard({ product, showActions = true }: ProductCardProps) {
         {/* Brand & Category */}
         <div className="flex items-center justify-between mb-2">
           <span className="text-xs text-neutral-500 font-medium uppercase tracking-wide">
-            {product.brand}
+            {product.brandId}
           </span>
           <span className="text-xs text-neutral-400">
             {product.categoryId}
