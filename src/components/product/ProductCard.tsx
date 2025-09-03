@@ -1,172 +1,202 @@
 'use client';
 
 import { useState } from 'react';
-import { useAppStore } from '@/lib/store';
-import { useAuth } from '@/contexts/AuthContext';
-import { t } from '@/lib/i18n';
-import { Heart, Star, Sparkles, AlertCircle } from 'lucide-react';
+import Link from 'next/link';
+import Image from 'next/image';
+import { Heart, ShoppingCart, Star, Eye } from 'lucide-react';
 import { Product } from '@/types';
+import { useAppStore } from '@/lib/store';
+import { useToast } from '@/components/ui/Toast';
 
 interface ProductCardProps {
   product: Product;
+  showActions?: boolean;
 }
 
-export function ProductCard({ product }: ProductCardProps) {
-  const { locale, addToCart, addToWishlist, removeFromWishlist, isInWishlist } = useAppStore();
-  const { canAccessBusinessFeatures } = useAuth();
-  const [isAddingToCart, setIsAddingToCart] = useState(false);
-  
-  const effectiveLocale: 'sq-AL' | 'en' = locale === 'en' ? 'en' : 'sq-AL';
-
-  // Get pricing based on user role
-  const getDisplayPrice = () => {
-    if (canAccessBusinessFeatures && product.wholesalePrice) {
-      return product.wholesalePrice;
-    }
-    return product.price;
-  };
-
-  const getPriceLabel = () => {
-    if (canAccessBusinessFeatures && product.wholesalePrice) {
-      return 'Wholesale Price';
-    }
-    return 'Price';
-  };
+export function ProductCard({ product, showActions = true }: ProductCardProps) {
+  const { addToCart, addToWishlist, removeFromWishlist, isInWishlist } = useAppStore();
+  const { addToast } = useToast();
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleAddToCart = async () => {
-    setIsAddingToCart(true);
+    setIsLoading(true);
     try {
       addToCart(product, 1);
+      addToast({
+        type: 'success',
+        title: 'Added to Cart!',
+        message: `${product.name} has been added to your cart.`
+      });
+    } catch (error) {
+      addToast({
+        type: 'error',
+        title: 'Error',
+        message: 'Failed to add product to cart. Please try again.'
+      });
     } finally {
-      setIsAddingToCart(false);
+      setIsLoading(false);
     }
   };
 
-  const handleWishlistToggle = () => {
-    if (isInWishlist(product.id)) {
-      removeFromWishlist(product.id);
-    } else {
-      addToWishlist(product);
+  const handleWishlistToggle = async () => {
+    try {
+      if (isInWishlist(product.id)) {
+        removeFromWishlist(product.id);
+        addToast({
+          type: 'info',
+          title: 'Removed from Wishlist',
+          message: `${product.name} has been removed from your wishlist.`
+        });
+      } else {
+        addToWishlist(product);
+        addToast({
+          type: 'success',
+          title: 'Added to Wishlist!',
+          message: `${product.name} has been added to your wishlist.`
+        });
+      }
+    } catch (error) {
+      addToast({
+        type: 'error',
+        title: 'Error',
+        message: 'Failed to update wishlist. Please try again.'
+      });
     }
   };
-
-  const displayPrice = getDisplayPrice();
-  const priceLabel = getPriceLabel();
-  const isWholesale = canAccessBusinessFeatures && product.wholesalePrice;
 
   return (
-    <div className="bg-white rounded-2xl shadow-soft hover:shadow-medium transition-shadow overflow-hidden group focus-within:ring-2 focus-within:ring-primary focus-within:ring-offset-2">
-      {/* Image Container */}
-      <div className="relative aspect-square overflow-hidden">
-        <img
-          src={product.imageUrl || '/placeholder-product.jpg'}
-          alt={`${product.name} - ${product.brandId} product image`}
-          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-          loading="lazy"
-        />
+    <div className="group bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 border border-neutral-200 overflow-hidden">
+      {/* Product Image */}
+      <div className="relative aspect-square overflow-hidden bg-neutral-100">
+        <Link href={`/products/${product.slug}`} className="block">
+          <Image
+            src={product.image}
+            alt={`${product.name} - ${product.brand} ${product.category} product`}
+            fill
+            className="object-cover group-hover:scale-105 transition-transform duration-300"
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            priority={false}
+            loading="lazy"
+            placeholder="blur"
+            blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkqGx0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R//2Q=="
+          />
+        </Link>
         
-        {/* Badges */}
-        <div className="absolute top-2 left-2 flex flex-col gap-1">
-          {product.isNew && (
-            <span className="bg-primary text-white text-xs px-2 py-1 rounded-lg font-medium">
-              {t(effectiveLocale, 'new')}
-            </span>
-          )}
-          {product.isBestseller && (
-            <span className="bg-accent text-white text-xs px-2 py-1 rounded-lg font-medium">
-              {t(effectiveLocale, 'bestseller')}
-            </span>
-          )}
-        </div>
-
-        {/* Wishlist Button */}
-        <button
-          onClick={handleWishlistToggle}
-          className={`absolute top-2 right-2 p-2 rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 ${
-            isInWishlist(product.id)
-              ? 'bg-red-500 text-white' 
-              : 'bg-white/80 text-gray-600 hover:bg-white'
-          }`}
-          aria-label={isInWishlist(product.id) ? `Remove ${product.name} from wishlist` : `Add ${product.name} to wishlist`}
+        {/* Quick View Button */}
+        <Link
+          href={`/products/${product.slug}`}
+          className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100"
+          aria-label={`Quick view ${product.name}`}
         >
-          <Heart className={`w-4 h-4 ${isInWishlist(product.id) ? 'fill-current' : ''}`} aria-hidden="true" />
-        </button>
+          <Eye className="w-8 h-8 text-white" />
+        </Link>
+
+        {/* Discount Badge */}
+        {product.discount && (
+          <div className="absolute top-2 left-2 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded-full">
+            -{product.discount}%
+          </div>
+        )}
+
+        {/* New Badge */}
+        {product.isNew && (
+          <div className="absolute top-2 right-2 bg-green-500 text-white text-xs font-bold px-2 py-1 rounded-full">
+            NEW
+          </div>
+        )}
       </div>
 
-      {/* Content */}
-      <div className="p-3 md:p-4">
-        {/* Brand ID */}
-        <div className="text-xs text-gray-500 mb-1 truncate">
-          Brand ID: {product.brandId}
+      {/* Product Info */}
+      <div className="p-4">
+        {/* Brand & Category */}
+        <div className="flex items-center justify-between mb-2">
+          <span className="text-xs text-neutral-500 font-medium uppercase tracking-wide">
+            {product.brand}
+          </span>
+          <span className="text-xs text-neutral-400">
+            {product.category}
+          </span>
         </div>
 
         {/* Product Name */}
-        <h3 className="font-medium text-gray-900 mb-2 line-clamp-2 text-sm md:text-base leading-tight">
-          {product.name}
-        </h3>
+        <Link href={`/products/${product.slug}`} className="block">
+          <h3 className="font-semibold text-neutral-900 text-sm leading-tight mb-2 group-hover:text-brand-primary transition-colors line-clamp-2">
+            {product.name}
+          </h3>
+        </Link>
 
         {/* Rating */}
-        <div className="flex items-center gap-1 mb-2">
+        <div className="flex items-center mb-3">
           <div className="flex items-center" role="img" aria-label={`Rating: ${product.rating} out of 5 stars`}>
             {[...Array(5)].map((_, i) => (
               <Star
                 key={i}
-                className={`w-3 h-3 md:w-4 md:h-4 ${
+                className={`w-4 h-4 ${
                   i < Math.floor(product.rating)
                     ? 'text-yellow-400 fill-current'
-                    : 'text-gray-300'
+                    : 'text-neutral-300'
                 }`}
-                aria-hidden="true"
               />
             ))}
           </div>
-          <span className="text-xs text-gray-500">
-            ({product.reviewsCount} reviews)
+          <span className="text-xs text-neutral-500 ml-1">
+            ({product.reviewCount})
           </span>
         </div>
 
         {/* Price */}
         <div className="flex items-center justify-between mb-3">
-          <div className="flex items-center gap-2">
-            <span className={`text-lg md:text-xl font-bold ${isWholesale ? 'text-green-600' : 'text-primary'}`}>
-              {displayPrice} {product.currency}
-            </span>
-            {isWholesale && (
-              <span className="text-xs bg-green-100 text-green-700 px-2 py-1 rounded-full">
-                {priceLabel}
+          <div className="flex items-center space-x-2">
+            {product.discount ? (
+              <>
+                <span className="text-lg font-bold text-neutral-900">
+                  €{((product.price * (100 - product.discount)) / 100).toFixed(2)}
+                </span>
+                <span className="text-sm text-neutral-500 line-through">
+                  €{product.price.toFixed(2)}
+                </span>
+              </>
+            ) : (
+              <span className="text-lg font-bold text-neutral-900">
+                €{product.price.toFixed(2)}
               </span>
             )}
           </div>
         </div>
 
-        {/* Wholesale Notice */}
-        {isWholesale && product.minimumOrderQuantity && (
-          <div className="flex items-center space-x-1 text-orange-600 mb-3 text-xs">
-            <AlertCircle className="w-3 h-3" aria-hidden="true" />
-            <span>Min order: {product.minimumOrderQuantity}</span>
+        {/* Actions */}
+        {showActions && (
+          <div className="flex items-center space-x-2">
+            <button
+              onClick={handleWishlistToggle}
+              className={`flex-1 flex items-center justify-center py-2 px-3 rounded-lg border transition-all duration-200 ${
+                isInWishlist(product.id)
+                  ? 'bg-red-50 border-red-200 text-red-600 hover:bg-red-100'
+                  : 'bg-neutral-50 border-neutral-200 text-neutral-600 hover:bg-neutral-100'
+              }`}
+              aria-label={isInWishlist(product.id) ? `Remove ${product.name} from wishlist` : `Add ${product.name} to wishlist`}
+            >
+              <Heart
+                className={`w-4 h-4 ${
+                  isInWishlist(product.id) ? 'fill-current' : ''
+                }`}
+              />
+            </button>
+            
+            <button
+              onClick={handleAddToCart}
+              disabled={isLoading}
+              className="flex-1 flex items-center justify-center py-2 px-3 bg-brand-primary text-white rounded-lg hover:bg-brand-primary-dark transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+              aria-label={`Add ${product.name} to cart`}
+            >
+              {isLoading ? (
+                <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+              ) : (
+                <ShoppingCart className="w-4 h-4" />
+              )}
+            </button>
           </div>
         )}
-
-        {/* Add to Cart Button */}
-        <button
-          onClick={handleAddToCart}
-          disabled={isAddingToCart}
-          className={`w-full py-2 md:py-3 px-4 rounded-xl font-medium transition-colors text-sm md:text-base focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed ${
-            isAddingToCart
-              ? 'bg-green-500 text-white hover:bg-green-600 active:scale-95'
-              : 'bg-primary text-white hover:bg-primary/90 active:scale-95'
-          }`}
-          aria-label={`Add ${product.name} to cart`}
-        >
-          {isAddingToCart ? (
-            <div className="flex items-center space-x-1">
-              <Sparkles className="w-4 h-4 animate-spin" aria-hidden="true" />
-              <span>Shtuar</span>
-            </div>
-          ) : (
-            t(effectiveLocale, 'addToCart')
-          )}
-        </button>
       </div>
     </div>
   );

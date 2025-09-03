@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { User, Package, Heart, Clock, Star, ShoppingBag, Calendar, MapPin } from 'lucide-react';
+import Image from 'next/image';
 
 interface CustomerDashboardProps {
   user: {
@@ -101,7 +102,7 @@ export function CustomerDashboard({ user }: CustomerDashboardProps) {
             <User className="w-8 h-8" />
           </div>
           <div>
-            <h2 className="text-2xl font-bold">Welcome back, {user.name}! 👋</h2>
+            <h2 className="text-2xl font-bold">Welcome back, {user.name}! ��</h2>
             <p className="text-white/90">Here&apos;s what&apos;s happening with your beauty journey</p>
           </div>
         </div>
@@ -273,11 +274,16 @@ export function CustomerDashboard({ user }: CustomerDashboardProps) {
             {mockWishlist.map((item) => (
               <div key={item.id} className="border border-gray-200 rounded-xl p-4">
                 <div className="flex items-start space-x-4">
-                  <img 
-                    src={item.image} 
-                    alt={item.name}
-                    className="w-20 h-20 object-cover rounded-lg"
-                  />
+                  <div className="w-16 h-16 bg-brand-primary/10 rounded-full flex items-center justify-center">
+                    <Image
+                      src={item.image}
+                      alt={`${item.name} product image`}
+                      width={48}
+                      height={48}
+                      className="w-12 h-12 h-auto object-cover rounded-lg"
+                      loading="lazy"
+                    />
+                  </div>
                   <div className="flex-1">
                     <h4 className="font-semibold text-gray-900 mb-2">{item.name}</h4>
                     <div className="flex items-center space-x-2 mb-2">

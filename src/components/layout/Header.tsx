@@ -1,7 +1,8 @@
 'use client';
 
-import { useState, useCallback, useRef, useEffect } from 'react';
+import { useState, useCallback, useRef, useEffect, Suspense } from 'react';
 import Link from 'next/link';
+import dynamic from 'next/dynamic';
 import { useAuth } from '@/contexts/AuthContext';
 import {
   Search,
@@ -24,8 +25,18 @@ import {
   Flower,
   Headphones
 } from 'lucide-react';
-import { MiniCartDrawer } from '@/components/cart/MiniCartDrawer';
 import { useAppStore } from '@/lib/store';
+
+// Dynamic imports for performance optimization
+const MiniCartDrawer = dynamic(() => import('@/components/cart/MiniCartDrawer').then(mod => ({ default: mod.MiniCartDrawer })), {
+  loading: () => <div className="w-8 h-8 bg-neutral-200 rounded-lg animate-pulse" />,
+  ssr: false
+});
+
+const RoleBasedMenu = dynamic(() => import('@/components/auth/RoleBasedMenu').then(mod => ({ default: mod.RoleBasedMenu })), {
+  loading: () => <div className="w-8 h-8 bg-neutral-200 rounded-lg animate-pulse" />,
+  ssr: false
+});
 
 export function Header() {
   const { user, logout, isAuthenticated } = useAuth();
@@ -288,39 +299,39 @@ export function Header() {
 
       // Desktop mega menu with enhanced design
       const isWideMenu = type === 'makeup' || type === 'skincare' || type === 'haircare';
-      const menuWidth = isWideMenu ? 'w-[650px]' : 'w-[500px]';
+      const menuWidth = isWideMenu ? 'w-[600px]' : 'w-[450px]';
       const gridCols = isWideMenu && data.sections.length > 2 ? 'grid-cols-3' : data.sections.length === 2 ? 'grid-cols-2' : 'grid-cols-2';
 
       return (
         <div 
           ref={megaMenuRef}
-          className={`absolute top-full left-1/2 transform -translate-x-1/2 bg-surface-elevated text-text-primary p-5 rounded-xl shadow-lg border border-neutral-200 z-40 ${menuWidth} max-w-[85vw] mt-2 mega-menu`}
+          className={`absolute top-full left-1/2 transform -translate-x-1/2 bg-surface-elevated text-text-primary p-4 rounded-lg shadow-lg border border-neutral-200 z-40 ${menuWidth} max-w-[80vw] mt-1 mega-menu`}
           onMouseEnter={handleMegaMenuMouseEnter}
           onMouseLeave={handleMegaMenuMouseLeave}
         >
-          <div className="text-center mb-4">
-            <h3 className="text-lg font-bold text-text-primary font-heading mb-1">{data.title}</h3>
+          <div className="text-center mb-3">
+            <h3 className="text-base font-bold text-text-primary font-heading mb-1">{data.title}</h3>
             <p className="text-text-secondary text-xs font-body">{data.description}</p>
           </div>
           
           {/* Enhanced sections layout */}
-          <div className={`grid ${gridCols} gap-4`}>
+          <div className={`grid ${gridCols} gap-3`}>
             {data.sections.map((section: { title: string; icon: React.ReactNode; items: { name: string; href: string }[] }) => (
-              <div key={section.title} className="space-y-2">
-                <div className="flex items-center space-x-2 mb-3 pb-2 border-b border-brand-primary/20">
-                  <div className="w-6 h-6 bg-brand-accent/10 rounded-lg flex items-center justify-center text-brand-accent">
+              <div key={section.title} className="space-y-1.5">
+                <div className="flex items-center space-x-2 mb-2 pb-1 border-b border-brand-primary/20">
+                  <div className="w-5 h-5 bg-brand-accent/10 rounded-md flex items-center justify-center text-brand-accent">
                     {section.icon}
                   </div>
-                  <h4 className="font-bold text-brand-accent font-heading text-sm">{section.title}</h4>
+                  <h4 className="font-bold text-brand-accent font-heading text-xs">{section.title}</h4>
                 </div>
-                <div className="space-y-1.5">
+                <div className="space-y-1">
                   {section.items.map((item: { name: string; href: string }) => (
                     <Link
                       key={item.name}
                       href={item.href}
-                      className="group flex items-center space-x-2 bg-brand-primary/20 text-text-primary px-3 py-2 rounded-lg text-xs hover:bg-brand-secondary transition-all duration-200 border border-transparent hover:border-brand-accent hover:shadow-sm font-body"
+                      className="group flex items-center space-x-2 bg-brand-primary/15 text-text-primary px-2 py-1.5 rounded-md text-xs hover:bg-brand-secondary transition-all duration-200 border border-transparent hover:border-brand-accent hover:shadow-sm font-body"
                     >
-                      <span className="w-1.5 h-1.5 bg-brand-accent/60 rounded-full group-hover:bg-brand-accent transition-colors"></span>
+                      <span className="w-1 h-1 bg-brand-accent/60 rounded-full group-hover:bg-brand-accent transition-colors"></span>
                       <span className="group-hover:text-brand-accent-dark transition-colors font-medium">
                         {item.name}
                       </span>
@@ -332,7 +343,7 @@ export function Header() {
           </div>
 
           {/* View All Link */}
-          <div className="text-center mt-4 pt-3 border-t border-neutral-200">
+          <div className="text-center mt-3 pt-2 border-t border-neutral-200">
             <Link
               href={`/categories/${type}`}
               className="inline-flex items-center space-x-2 text-brand-accent hover:text-brand-accent-dark font-semibold text-xs transition-colors"
@@ -431,6 +442,7 @@ export function Header() {
               <button
                 onClick={() => console.log('Search clicked')}
                 className="hidden sm:block p-2 text-[#555555] hover:text-[#D4AF37] hover:bg-[#F9E7E7] rounded-lg transition-colors"
+                aria-label="Open search"
               >
                 <Search className="w-5 h-5" />
               </button>
@@ -439,6 +451,7 @@ export function Header() {
               <button 
                 onClick={() => useAppStore.getState().setIsCartOpen(true)}
                 className="p-2 text-[#555555] hover:text-[#D4AF37] hover:bg-[#F9E7E7] rounded-lg transition-colors relative"
+                aria-label="Open shopping cart"
               >
                 <ShoppingBag className="w-5 h-5" />
                 {cart.length > 0 && (
@@ -452,6 +465,7 @@ export function Header() {
               <Link 
                 href="/wishlist"
                 className="hidden md:block p-2 text-[#555555] hover:text-[#D4AF37] hover:bg-[#F9E7E7] rounded-lg transition-colors relative"
+                aria-label="View wishlist"
               >
                 <Heart className="w-5 h-5" />
                 {wishlist.length > 0 && (

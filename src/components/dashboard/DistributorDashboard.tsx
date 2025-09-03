@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { Package, TrendingUp, Users, DollarSign, Plus, Edit, Eye, BarChart3 } from 'lucide-react';
+import Image from 'next/image';
 
 interface DistributorDashboardProps {
   user: {
@@ -256,11 +257,16 @@ export function DistributorDashboard({ user }: DistributorDashboardProps) {
           <div className="space-y-4">
             {mockProducts.map((product) => (
               <div key={product.id} className="flex items-center space-x-4 p-4 border border-gray-200 rounded-xl">
-                <img 
-                  src={product.image} 
-                  alt={product.name}
-                  className="w-16 h-16 object-cover rounded-lg"
-                />
+                <div className="w-16 h-16 bg-brand-primary/10 rounded-full flex items-center justify-center">
+                  <Image
+                    src={product.image}
+                    alt={`${product.name} product image`}
+                    width={48}
+                    height={48}
+                    className="w-12 h-12 h-auto object-cover rounded-lg"
+                    loading="lazy"
+                  />
+                </div>
                 <div className="flex-1">
                   <h4 className="font-semibold text-gray-900 mb-1">{product.name}</h4>
                   <div className="flex items-center space-x-4 text-sm text-gray-600">

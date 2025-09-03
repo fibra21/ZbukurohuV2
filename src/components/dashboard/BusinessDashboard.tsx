@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { Building2, TrendingUp, Users, DollarSign, Package, FileText, ShoppingCart, BarChart3, Download } from 'lucide-react';
+import Image from 'next/image';
 
 interface BusinessDashboardProps {
   user: {
@@ -345,11 +346,16 @@ export function BusinessDashboard({ user }: BusinessDashboardProps) {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {mockWholesaleProducts.map((product) => (
               <div key={product.id} className="border border-gray-200 rounded-xl p-4">
-                <img 
-                  src={product.image} 
-                  alt={product.name}
-                  className="w-full h-32 object-cover rounded-lg mb-4"
-                />
+                <div className="w-16 h-16 bg-brand-primary/10 rounded-full flex items-center justify-center">
+                  <Image
+                    src={product.image}
+                    alt={`${product.name} product image`}
+                    width={48}
+                    height={48}
+                    className="w-12 h-12 h-auto object-cover rounded-lg"
+                    loading="lazy"
+                  />
+                </div>
                 <h4 className="font-semibold text-gray-900 mb-2">{product.name}</h4>
                 
                 <div className="space-y-2 mb-4">
