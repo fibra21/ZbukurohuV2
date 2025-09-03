@@ -372,7 +372,7 @@ export function Header() {
     <>
       {/* Top Bar with Trust Signals */}
       <div className="bg-gradient-to-r from-[#F9E7E7] to-[#E5C6A8] border-b border-[#E5C6A8]">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-center space-x-6 py-2 text-sm">
             <div className="flex items-center space-x-2 text-[#2E2E2E]">
               <Gift className="w-4 h-4 text-[#D4AF37]" />
@@ -392,7 +392,7 @@ export function Header() {
 
       {/* Main Header */}
       <header className="sticky top-0 z-40 bg-surface-elevated border-b border-neutral-200 shadow-md w-full">
-        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="w-full max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-20 gap-4">
             {/* Logo */}
             <Link href="/" className="flex items-center space-x-4 flex-shrink-0">
@@ -406,7 +406,7 @@ export function Header() {
             </Link>
 
             {/* Desktop Navigation */}
-            <nav className="hidden lg:flex items-center space-x-4 flex-1 justify-center max-w-5xl mx-10">
+            <nav className="hidden lg:flex items-center space-x-4 flex-1 justify-center max-w-4xl mx-8">
               {navigation.map((item) => (
                 <div
                   key={item.name}

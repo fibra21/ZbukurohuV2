@@ -135,6 +135,52 @@ main {
   margin-top: 0.5rem;
 }
 
+/* Fix header layout for ultra-wide screens */
+header {
+  width: 100%;
+  overflow: visible;
+}
+
+header > div {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+@media (min-width: 640px) {
+  header > div {
+    padding: 0 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  header > div {
+    padding: 0 2rem;
+  }
+}
+
+@media (min-width: 1400px) {
+  header > div {
+    max-width: 1400px;
+  }
+}
+
+@media (min-width: 1920px) {
+  header > div {
+    max-width: 1600px;
+  }
+}
+
+/* Ensure header content is always visible */
+header nav {
+  overflow: visible;
+}
+
+header .flex {
+  overflow: visible;
+}
+
 /* Header navigation positioning */
 .header-nav {
   position: relative;
