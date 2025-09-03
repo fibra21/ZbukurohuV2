@@ -140,7 +140,7 @@ export function ProductCard({ product, showActions = true }: ProductCardProps) {
             ))}
           </div>
           <span className="text-xs text-neutral-500 ml-1">
-            ({product.reviewCount})
+            ({product.reviewsCount})
           </span>
         </div>
 
