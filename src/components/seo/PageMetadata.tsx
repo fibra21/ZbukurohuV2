@@ -6,7 +6,7 @@ interface PageMetadataProps {
   keywords?: string[];
   image?: string;
   url?: string;
-  type?: 'website' | 'article' | 'product';
+  type?: 'website' | 'article';
   publishedTime?: string;
   modifiedTime?: string;
   author?: string;
@@ -181,7 +181,7 @@ export function generateProductMetadata(product: {
     keywords: [product.name, product.brand, product.category, 'beauty', 'wellness'],
     image: product.image,
     url: `/products/${product.slug}`,
-    type: 'product',
+    type: 'website',
     section: product.category,
     tags: [product.brand, product.category],
   });

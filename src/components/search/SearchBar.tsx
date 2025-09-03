@@ -124,9 +124,9 @@ export function SearchBar() {
                   aria-label={`View ${product.name} product details`}
                 >
                   <div className="w-12 h-12 md:w-12 md:h-12 bg-gray-200 rounded-lg flex-shrink-0 relative overflow-hidden">
-                    {product.image && (
+                    {product.imageUrl && (
                       <Image
-                        src={product.image}
+                        src={product.imageUrl}
                         alt={`${product.name} product image`}
                         fill
                         className="object-cover rounded-lg"
