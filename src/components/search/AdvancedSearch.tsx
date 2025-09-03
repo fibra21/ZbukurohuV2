@@ -241,7 +241,7 @@ export function AdvancedSearch() {
                 className="w-full px-3 py-2 border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-primary"
               >
                 <option value="">All Brands</option>
-                <option value="loreal">L'Oréal</option>
+                <option value="loreal">L&apos;Oréal</option>
                 <option value="maybelline">Maybelline</option>
                 <option value="neutrogena">Neutrogena</option>
                 <option value="nivea">Nivea</option>
@@ -336,8 +336,8 @@ export function AdvancedSearch() {
               <div key={product.id} className="bg-white rounded-xl shadow-md border border-neutral-200 overflow-hidden hover:shadow-lg transition-shadow">
                 <div className="relative aspect-square overflow-hidden">
                   <Image
-                    src={product.image}
-                    alt={`${product.name} - ${product.brand} product`}
+                    src={product.imageUrl}
+                    alt={`${product.name} - ${product.brandId} product`}
                     fill
                     className="object-cover hover:scale-105 transition-transform duration-300"
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
@@ -353,7 +353,7 @@ export function AdvancedSearch() {
                   <h3 className="font-semibold text-neutral-900 text-sm mb-2 line-clamp-2">
                     {product.name}
                   </h3>
-                  <p className="text-xs text-neutral-500 mb-2">{product.brand}</p>
+                  <p className="text-xs text-neutral-500 mb-2">{product.brandId}</p>
                   <div className="flex items-center justify-between">
                     <span className="font-bold text-neutral-900">
                       €{product.price.toFixed(2)}
@@ -411,7 +411,7 @@ export function AdvancedSearch() {
           <Search className="w-16 h-16 text-neutral-300 mx-auto mb-4" />
           <h3 className="text-xl font-semibold text-neutral-700 mb-2">No results found</h3>
           <p className="text-neutral-500 mb-4">
-            Try adjusting your search terms or filters to find what you're looking for.
+            Try adjusting your search terms or filters to find what you&apos;re looking for.
           </p>
           <button
             onClick={clearFilters}

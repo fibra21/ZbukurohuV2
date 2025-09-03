@@ -114,7 +114,7 @@ export function ProductCard({ product, showActions = true }: ProductCardProps) {
             {product.brand}
           </span>
           <span className="text-xs text-neutral-400">
-            {product.category}
+            {product.categoryId}
           </span>
         </div>
 
