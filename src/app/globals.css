@@ -107,9 +107,9 @@ h1, h2, h3, h4, h5, h6 {
   overflow: visible;
   /* Ensure proper layering */
   isolation: isolate;
-  /* Prevent horizontal overflow */
-  max-width: 90vw !important;
-  width: 90vw !important;
+  /* Prevent horizontal overflow - more conservative */
+  max-width: 85vw !important;
+  width: 85vw !important;
 }
 
 /* Ensure mega-menu doesn't cover critical content */
