@@ -91,12 +91,13 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Mega-Menu Positioning & Responsiveness */
 .mega-menu {
-  position: absolute;
+  position: fixed;
   z-index: 9999;
   box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-  /* Ensure proper centering and viewport constraints */
+  /* Center on screen */
+  top: 50% !important;
   left: 50% !important;
-  transform: translateX(-50%) !important;
+  transform: translate(-50%, -50%) !important;
   /* Prevent content overlap */
   pointer-events: auto;
   /* Smooth animations */

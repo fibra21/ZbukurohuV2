@@ -304,13 +304,11 @@ export function Header() {
       return (
         <div 
           ref={megaMenuRef}
-          className={`absolute top-full bg-white text-gray-900 p-4 rounded-xl shadow-xl border border-gray-200 z-50 ${menuWidth} max-w-[33vw] mega-menu`}
+          className={`fixed top-1/2 left-1/2 bg-white text-gray-900 p-4 rounded-xl shadow-xl border border-gray-200 z-50 ${menuWidth} max-w-[33vw] mega-menu`}
           style={{
-            left: '50%',
-            transform: 'translateX(-50%)',
+            transform: 'translate(-50%, -50%)',
             maxWidth: 'min(400px, 33vw)',
-            width: 'min(400px, 33vw)',
-            marginTop: '12px'
+            width: 'min(400px, 33vw)'
           }}
           onMouseEnter={handleMegaMenuMouseEnter}
           onMouseLeave={handleMegaMenuMouseLeave}
