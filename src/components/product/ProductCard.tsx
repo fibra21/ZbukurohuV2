@@ -21,7 +21,7 @@ export function ProductCard({ product, variant = 'default' }: ProductCardProps) 
 
   const isInWishlist = wishlist.some(item => item.productId === product.id);
   const hasDiscount = product.originalPrice && product.originalPrice > product.price;
-  const discountPercentage = hasDiscount ? Math.round(((product.originalPrice! - product.price) / product.originalPrice!) * 100) : 0;
+  const discountPercentage = hasDiscount && product.originalPrice ? Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100) : 0;
 
   const handleAddToCart = async () => {
     setIsLoading(true);
@@ -245,13 +245,13 @@ export function ProductCard({ product, variant = 'default' }: ProductCardProps) 
         {/* Price */}
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center space-x-2">
-            {hasDiscount ? (
+            {hasDiscount && product.originalPrice ? (
               <>
                 <span className="text-lg font-bold text-gray-900">
                   €{product.price.toFixed(2)}
                 </span>
                 <span className="text-sm text-gray-500 line-through">
-                  €{product.originalPrice!.toFixed(2)}
+                  €{product.originalPrice.toFixed(2)}
                 </span>
               </>
             ) : (
