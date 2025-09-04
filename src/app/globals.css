@@ -94,7 +94,7 @@ h1, h2, h3, h4, h5, h6 {
   position: fixed;
   z-index: 9999;
   box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-  /* Center on screen */
+  /* Center on screen with viewport constraints */
   top: 50% !important;
   left: 50% !important;
   transform: translate(-50%, -50%) !important;
@@ -108,14 +108,56 @@ h1, h2, h3, h4, h5, h6 {
   overflow: visible;
   /* Ensure proper layering */
   isolation: isolate;
-  /* Prevent horizontal overflow - 1/3 of screen */
-  max-width: 33vw !important;
-  width: 33vw !important;
+  /* Viewport constraints - ensure it fits on screen */
+  max-width: min(400px, 90vw) !important;
+  max-height: min(600px, 80vh) !important;
+  width: min(400px, 90vw) !important;
+  /* Ensure it doesn't go off screen */
+  min-width: 300px;
 }
 
 /* Ensure mega-menu doesn't cover critical content */
 .mega-menu + * {
   margin-top: 0.5rem;
+}
+
+/* Header responsiveness and viewport constraints */
+header {
+  /* Ensure header doesn't overflow */
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
+/* Navigation items stay within bounds */
+.nav-item {
+  /* Prevent navigation items from going off screen */
+  max-width: 100%;
+  overflow: hidden;
+}
+
+/* Mobile menu constraints */
+@media (max-width: 1024px) {
+  .mega-menu {
+    /* On mobile, make it smaller and ensure it fits */
+    max-width: 95vw !important;
+    width: 95vw !important;
+    max-height: 70vh !important;
+  }
+}
+
+/* Ensure all elements stay within viewport */
+* {
+  /* Prevent horizontal overflow */
+  box-sizing: border-box;
+}
+
+/* Shopping cart drawer positioning */
+[data-radix-dialog-content] {
+  /* Ensure cart drawer is properly centered */
+  position: fixed !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
 }
 
 /* Responsive mega-menu adjustments */

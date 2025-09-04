@@ -425,6 +425,12 @@ export function Header() {
                   <Link
                     href={item.href}
                     className="flex items-center space-x-2 py-3 px-4 rounded-lg hover:bg-brand-primary transition-colors duration-base group whitespace-nowrap"
+                    onClick={(e) => {
+                      // Prevent navigation if mega-menu should open
+                      if (item.key === 'fragrances' || item.key === 'makeup' || item.key === 'skincare' || item.key === 'haircare' || item.key === 'services' || item.key === 'offers') {
+                        e.preventDefault();
+                      }
+                    }}
                   >
                     <span className="text-lg">{item.icon}</span>
                     <span className="font-medium text-text-primary group-hover:text-brand-accent font-body nav-text">{item.name}</span>

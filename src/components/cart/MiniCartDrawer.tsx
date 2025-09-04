@@ -71,7 +71,7 @@ export function MiniCartDrawer({ open, onOpenChange }: MiniCartDrawerProps) {
     <Dialog.Root open={open} onOpenChange={onOpenChange}>
       <Dialog.Portal>
         <Dialog.Overlay className="fixed inset-0 bg-black/40" />
-        <Dialog.Content className="fixed right-0 top-0 h-full w-full sm:w-[420px] bg-white shadow-medium p-4 sm:p-6 overflow-y-auto focus:outline-none">
+        <Dialog.Content className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 h-[80vh] w-full max-w-[420px] bg-white shadow-medium p-4 sm:p-6 overflow-y-auto focus:outline-none rounded-xl border border-gray-200">
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center space-x-2">
               <ShoppingCart className="w-5 h-5 text-primary" aria-hidden="true" />

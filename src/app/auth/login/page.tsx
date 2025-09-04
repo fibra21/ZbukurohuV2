@@ -131,11 +131,11 @@ export default function LoginPage() {
               <button
                 type="submit"
                 disabled={isLoading}
-                className="btn-accent w-full text-center"
+                className="group relative w-full flex justify-center py-3 px-4 border border-transparent text-sm font-semibold rounded-lg text-white bg-gradient-to-r from-[#D4AF37] to-[#B8941F] hover:from-[#B8941F] hover:to-[#A0851A] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#D4AF37] disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-xl transition-all duration-200 transform hover:scale-105 disabled:transform-none"
               >
                 {isLoading ? (
-                  <div className="flex items-center justify-center">
-                    <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-text-inverse mr-2" />
+                  <div className="flex items-center">
+                    <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2" />
                     Signing in...
                   </div>
                 ) : (
@@ -158,7 +158,7 @@ export default function LoginPage() {
             <div className="mt-6">
               <Link
                 href="/auth/register"
-                className="btn-secondary w-full text-center"
+                className="w-full flex justify-center py-3 px-4 border-2 border-[#D4AF37] rounded-lg shadow-md text-sm font-semibold text-[#D4AF37] bg-white hover:bg-[#F9E7E7] hover:border-[#B8941F] hover:text-[#B8941F] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#D4AF37] transition-all duration-200 transform hover:scale-105"
               >
                 Create new account
               </Link>
