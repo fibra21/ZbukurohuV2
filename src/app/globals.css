@@ -93,16 +93,18 @@ h1, h2, h3, h4, h5, h6 {
 .mega-menu {
   position: absolute;
   z-index: 1000;
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-  max-height: 70vh;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  max-height: 80vh;
   overflow-y: auto;
   /* Ensure proper centering and viewport constraints */
   left: 50% !important;
   transform: translateX(-50%) !important;
-  max-width: min(600px, 90vw) !important;
-  width: min(600px, 90vw) !important;
-  /* Prevent horizontal overflow */
-  overflow-x: hidden;
+  /* Prevent content overlap */
+  pointer-events: auto;
+  /* Smooth animations */
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  /* Ensure it's above all content */
+  z-index: 9999;
 }
 
 /* Ensure mega-menu doesn't cover critical content */
