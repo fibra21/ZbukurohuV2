@@ -299,17 +299,17 @@ export function Header() {
 
       // Desktop mega menu with enhanced design
       const isWideMenu = type === 'makeup' || type === 'skincare' || type === 'haircare';
-      const menuWidth = isWideMenu ? 'w-[900px]' : 'w-[700px]';
+      const menuWidth = isWideMenu ? 'w-[800px]' : 'w-[600px]';
 
       return (
         <div 
           ref={megaMenuRef}
-          className={`absolute top-full bg-white text-gray-900 p-8 rounded-2xl shadow-2xl border border-gray-200 z-50 ${menuWidth} max-w-[95vw] mega-menu`}
+          className={`absolute top-full bg-white text-gray-900 p-8 rounded-2xl shadow-2xl border border-gray-200 z-50 ${menuWidth} max-w-[90vw] mega-menu`}
           style={{
             left: '50%',
             transform: 'translateX(-50%)',
-            maxWidth: 'min(900px, 95vw)',
-            width: 'min(900px, 95vw)',
+            maxWidth: 'min(800px, 90vw)',
+            width: 'min(800px, 90vw)',
             marginTop: '12px'
           }}
           onMouseEnter={handleMegaMenuMouseEnter}
