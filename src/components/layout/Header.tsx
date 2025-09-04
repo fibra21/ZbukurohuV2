@@ -4,12 +4,12 @@ import { useState, useCallback, useRef, useEffect, Suspense } from 'react';
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
 import { useAuth } from '@/contexts/AuthContext';
-import {
-  Search,
+import { 
+  Search, 
   Heart,
   ShoppingBag,
-  User,
-  Menu,
+  User, 
+  Menu, 
   X,
   ChevronDown,
   Gift,
@@ -262,7 +262,7 @@ export function Header() {
     // All categories now use sections structure
     if ('sections' in data) {
       if (isMobile) {
-        return (
+  return (
           <div className="mt-4 p-4 bg-surface-muted rounded-xl border border-neutral-200 shadow-sm">
             <h4 className="font-bold text-text-primary mb-3 font-heading">{data.title}</h4>
             <p className="text-sm text-text-secondary mb-4 font-body">{data.description}</p>
@@ -299,53 +299,53 @@ export function Header() {
 
       // Desktop mega menu with enhanced design
       const isWideMenu = type === 'makeup' || type === 'skincare' || type === 'haircare';
-      const menuWidth = isWideMenu ? 'w-[700px]' : 'w-[500px]';
+      const menuWidth = isWideMenu ? 'w-[400px]' : 'w-[350px]';
 
       return (
         <div 
           ref={megaMenuRef}
-          className={`absolute top-full bg-white text-gray-900 p-6 rounded-2xl shadow-2xl border border-gray-200 z-50 ${menuWidth} max-w-[85vw] mega-menu`}
+          className={`absolute top-full bg-white text-gray-900 p-4 rounded-xl shadow-xl border border-gray-200 z-50 ${menuWidth} max-w-[33vw] mega-menu`}
           style={{
             left: '50%',
             transform: 'translateX(-50%)',
-            maxWidth: 'min(700px, 85vw)',
-            width: 'min(700px, 85vw)',
+            maxWidth: 'min(400px, 33vw)',
+            width: 'min(400px, 33vw)',
             marginTop: '12px'
           }}
           onMouseEnter={handleMegaMenuMouseEnter}
           onMouseLeave={handleMegaMenuMouseLeave}
         >
           {/* Header */}
-          <div className="text-center mb-4">
-            <h3 className="text-lg font-bold text-gray-900 mb-1">{data.title}</h3>
+          <div className="text-center mb-3">
+            <h3 className="text-base font-bold text-gray-900 mb-1">{data.title}</h3>
             <p className="text-gray-600 text-xs">{data.description}</p>
           </div>
           
           {/* Horizontal sections layout - NO VERTICAL STACKING */}
-          <div className="grid grid-cols-2 gap-6">
+          <div className="grid grid-cols-2 gap-4">
             {data.sections.map((section: { title: string; icon: React.ReactNode; items: { name: string; href: string }[] }) => (
-              <div key={section.title} className="space-y-2">
+              <div key={section.title} className="space-y-1.5">
                 {/* Section Header */}
-                <div className="flex items-center space-x-2 mb-3 pb-2 border-b border-gray-200">
-                  <div className="w-6 h-6 bg-[#D4AF37]/10 rounded-lg flex items-center justify-center text-[#D4AF37]">
+                <div className="flex items-center space-x-2 mb-2 pb-1 border-b border-gray-200">
+                  <div className="w-5 h-5 bg-[#D4AF37]/10 rounded-md flex items-center justify-center text-[#D4AF37]">
                     {section.icon}
                   </div>
-                  <h4 className="font-bold text-[#D4AF37] text-sm">{section.title}</h4>
+                  <h4 className="font-bold text-[#D4AF37] text-xs">{section.title}</h4>
                 </div>
                 
                 {/* Items in horizontal rows - NO VERTICAL STACKING */}
-                <div className="grid grid-cols-1 gap-1.5">
+                <div className="grid grid-cols-1 gap-1">
                   {section.items.map((item: { name: string; href: string }) => (
-                    <Link
-                      key={item.name}
-                      href={item.href}
-                      className="group flex items-center space-x-2 bg-gray-50 text-gray-700 px-3 py-2 rounded-lg text-xs hover:bg-[#F9E7E7] hover:text-[#D4AF37] transition-all duration-200 border border-transparent hover:border-[#D4AF37]/20 hover:shadow-sm font-medium"
-                    >
-                      <span className="w-1.5 h-1.5 bg-[#D4AF37]/60 rounded-full group-hover:bg-[#D4AF37] transition-colors"></span>
+              <Link
+                key={item.name}
+                href={item.href}
+                      className="group flex items-center space-x-2 bg-gray-50 text-gray-700 px-2 py-1.5 rounded-md text-xs hover:bg-[#F9E7E7] hover:text-[#D4AF37] transition-all duration-200 border border-transparent hover:border-[#D4AF37]/20 hover:shadow-sm font-medium"
+              >
+                      <span className="w-1 h-1 bg-[#D4AF37]/60 rounded-full group-hover:bg-[#D4AF37] transition-colors"></span>
                       <span className="group-hover:text-[#D4AF37] transition-colors">
-                        {item.name}
+                {item.name}
                       </span>
-                    </Link>
+              </Link>
                   ))}
                 </div>
               </div>
@@ -353,10 +353,10 @@ export function Header() {
           </div>
 
           {/* Footer with View All */}
-          <div className="text-center mt-4 pt-3 border-t border-gray-200">
+          <div className="text-center mt-3 pt-2 border-t border-gray-200">
             <Link
               href={`/categories/${type}`}
-              className="inline-flex items-center space-x-2 text-[#D4AF37] hover:text-[#B8941F] font-semibold text-xs transition-colors"
+              className="inline-flex items-center space-x-1 text-[#D4AF37] hover:text-[#B8941F] font-semibold text-xs transition-colors"
             >
               <span>View All {data.title}</span>
               <ChevronDown className="w-3 h-3 rotate-[-90deg]" />
@@ -472,7 +472,7 @@ export function Header() {
               </button>
 
               {/* Wishlist - Hidden on mobile, shown on larger screens */}
-              <Link 
+            <Link
                 href="/wishlist"
                 className="hidden md:block p-2 text-[#555555] hover:text-[#D4AF37] hover:bg-[#F9E7E7] rounded-lg transition-colors relative"
                 aria-label="View wishlist"
@@ -481,9 +481,9 @@ export function Header() {
                 {wishlist.length > 0 && (
                   <span className="absolute -top-1 -right-1 w-5 h-5 bg-[#D4AF37] text-white text-xs rounded-full flex items-center justify-center">
                     {wishlist.length}
-                  </span>
-                )}
-              </Link>
+                </span>
+              )}
+            </Link>
 
               {/* User Menu - Simplified on mobile */}
               <div className="relative">
@@ -505,18 +505,18 @@ export function Header() {
                           <p className="text-sm font-medium text-[#2E2E2E]">{user?.name || 'User'}</p>
                           <p className="text-xs text-[#555555]">{user?.email}</p>
                         </div>
-                        <Link
-                          href="/account"
+            <Link
+              href="/account"
                           className="block px-4 py-2 text-[#2E2E2E] hover:text-[#D4AF37] font-medium transition-colors"
-                        >
+            >
                           Account Settings
-                        </Link>
-                        <button
+            </Link>
+            <button
                           onClick={logout}
                           className="block w-full text-left px-4 py-2 text-[#2E2E2E] hover:text-[#D4AF37] font-medium transition-colors"
-                        >
+            >
                           Sign Out
-                        </button>
+            </button>
                       </>
                     ) : (
                       <div className="px-4 py-2 space-y-2">
@@ -559,7 +559,7 @@ export function Header() {
 
               {/* Navigation Items */}
               <div className="space-y-3">
-                {navigation.map((item) => (
+              {navigation.map((item) => (
                   <div key={item.name} className="border-b border-neutral-100 pb-3 last:border-b-0">
                     <button
                       onClick={() => toggleMobileMenu(item.key)}
@@ -605,20 +605,20 @@ export function Header() {
                     )}
                   </Link>
                   
-                  <Link
+                <Link
                     href="/account"
                     className="flex items-center space-x-3 p-3 bg-surface-muted rounded-lg hover:bg-brand-primary transition-colors"
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
                     <User className="w-5 h-5 text-brand-accent" />
                     <span className="font-medium text-text-primary">Account</span>
-                  </Link>
+                </Link>
                 </div>
               </div>
             </div>
           </div>
         )}
-      </header>
+    </header>
 
       {/* Mini Cart Drawer */}
       <MiniCartDrawer open={useAppStore.getState().isCartOpen} onOpenChange={useAppStore.getState().setIsCartOpen} />
