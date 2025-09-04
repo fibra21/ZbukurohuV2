@@ -299,47 +299,50 @@ export function Header() {
 
       // Desktop mega menu with enhanced design
       const isWideMenu = type === 'makeup' || type === 'skincare' || type === 'haircare';
-      const menuWidth = isWideMenu ? 'w-[800px]' : 'w-[600px]';
-      const gridCols = isWideMenu && data.sections.length > 2 ? 'grid-cols-4' : data.sections.length === 2 ? 'grid-cols-2' : 'grid-cols-2';
+      const menuWidth = isWideMenu ? 'w-[900px]' : 'w-[700px]';
 
       return (
         <div 
           ref={megaMenuRef}
-          className={`absolute top-full bg-surface-elevated text-text-primary p-6 rounded-xl shadow-xl border border-neutral-200 z-50 ${menuWidth} max-w-[95vw] mega-menu`}
+          className={`absolute top-full bg-white text-gray-900 p-8 rounded-2xl shadow-2xl border border-gray-200 z-50 ${menuWidth} max-w-[95vw] mega-menu`}
           style={{
             left: '50%',
             transform: 'translateX(-50%)',
-            maxWidth: 'min(800px, 95vw)',
-            width: 'min(800px, 95vw)',
-            marginTop: '8px'
+            maxWidth: 'min(900px, 95vw)',
+            width: 'min(900px, 95vw)',
+            marginTop: '12px'
           }}
           onMouseEnter={handleMegaMenuMouseEnter}
           onMouseLeave={handleMegaMenuMouseLeave}
         >
-          <div className="text-center mb-4">
-            <h3 className="text-lg font-bold text-text-primary font-heading mb-2">{data.title}</h3>
-            <p className="text-text-secondary text-sm font-body">{data.description}</p>
+          {/* Header */}
+          <div className="text-center mb-6">
+            <h3 className="text-xl font-bold text-gray-900 mb-2">{data.title}</h3>
+            <p className="text-gray-600 text-sm">{data.description}</p>
           </div>
           
-          {/* Horizontal sections layout */}
-          <div className={`grid ${gridCols} gap-6`}>
+          {/* Horizontal sections layout - NO VERTICAL STACKING */}
+          <div className="grid grid-cols-2 gap-8">
             {data.sections.map((section: { title: string; icon: React.ReactNode; items: { name: string; href: string }[] }) => (
-              <div key={section.title} className="space-y-2">
-                <div className="flex items-center space-x-2 mb-3 pb-2 border-b border-brand-primary/20">
-                  <div className="w-6 h-6 bg-brand-accent/10 rounded-lg flex items-center justify-center text-brand-accent">
+              <div key={section.title} className="space-y-3">
+                {/* Section Header */}
+                <div className="flex items-center space-x-3 mb-4 pb-3 border-b border-gray-200">
+                  <div className="w-8 h-8 bg-[#D4AF37]/10 rounded-xl flex items-center justify-center text-[#D4AF37]">
                     {section.icon}
                   </div>
-                  <h4 className="font-bold text-brand-accent font-heading text-sm">{section.title}</h4>
+                  <h4 className="font-bold text-[#D4AF37] text-base">{section.title}</h4>
                 </div>
-                <div className="space-y-2">
+                
+                {/* Items in horizontal rows - NO VERTICAL STACKING */}
+                <div className="grid grid-cols-1 gap-2">
                   {section.items.map((item: { name: string; href: string }) => (
                     <Link
                       key={item.name}
                       href={item.href}
-                      className="group flex items-center space-x-2 bg-brand-primary/10 text-text-primary px-3 py-2 rounded-lg text-sm hover:bg-brand-secondary/20 transition-all duration-200 border border-transparent hover:border-brand-accent hover:shadow-sm font-body"
+                      className="group flex items-center space-x-3 bg-gray-50 text-gray-700 px-4 py-3 rounded-xl text-sm hover:bg-[#F9E7E7] hover:text-[#D4AF37] transition-all duration-200 border border-transparent hover:border-[#D4AF37]/20 hover:shadow-md font-medium"
                     >
-                      <span className="w-1.5 h-1.5 bg-brand-accent/60 rounded-full group-hover:bg-brand-accent transition-colors"></span>
-                      <span className="group-hover:text-brand-accent-dark transition-colors font-medium">
+                      <span className="w-2 h-2 bg-[#D4AF37]/60 rounded-full group-hover:bg-[#D4AF37] transition-colors"></span>
+                      <span className="group-hover:text-[#D4AF37] transition-colors">
                         {item.name}
                       </span>
                     </Link>
@@ -349,11 +352,11 @@ export function Header() {
             ))}
           </div>
 
-          {/* View All Link */}
-          <div className="text-center mt-4 pt-3 border-t border-neutral-200">
+          {/* Footer with View All */}
+          <div className="text-center mt-6 pt-4 border-t border-gray-200">
             <Link
               href={`/categories/${type}`}
-              className="inline-flex items-center space-x-2 text-brand-accent hover:text-brand-accent-dark font-semibold text-sm transition-colors"
+              className="inline-flex items-center space-x-2 text-[#D4AF37] hover:text-[#B8941F] font-semibold text-sm transition-colors"
             >
               <span>View All {data.title}</span>
               <ChevronDown className="w-4 h-4 rotate-[-90deg]" />

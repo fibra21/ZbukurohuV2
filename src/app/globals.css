@@ -92,10 +92,8 @@ h1, h2, h3, h4, h5, h6 {
 /* Mega-Menu Positioning & Responsiveness */
 .mega-menu {
   position: absolute;
-  z-index: 1000;
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-  max-height: 80vh;
-  overflow-y: auto;
+  z-index: 9999;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
   /* Ensure proper centering and viewport constraints */
   left: 50% !important;
   transform: translateX(-50%) !important;
@@ -105,6 +103,10 @@ h1, h2, h3, h4, h5, h6 {
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   /* Ensure it's above all content */
   z-index: 9999;
+  /* Prevent any overflow issues */
+  overflow: visible;
+  /* Ensure proper layering */
+  isolation: isolate;
 }
 
 /* Ensure mega-menu doesn't cover critical content */
