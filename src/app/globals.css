@@ -91,8 +91,8 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Mega-Menu Positioning & Responsiveness */
 .mega-menu {
-  position: fixed;
-  z-index: 9999;
+  position: fixed !important;
+  z-index: 9999 !important;
   box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
   /* Center on screen with viewport constraints */
   top: 50% !important;
@@ -102,8 +102,6 @@ h1, h2, h3, h4, h5, h6 {
   pointer-events: auto;
   /* Smooth animations */
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  /* Ensure it's above all content */
-  z-index: 9999;
   /* Prevent any overflow issues */
   overflow: visible;
   /* Ensure proper layering */
@@ -160,22 +158,11 @@ header {
   transform: translate(-50%, -50%) !important;
 }
 
-/* Responsive mega-menu adjustments */
+/* Responsive mega-menu adjustments - SIMPLIFIED */
 @media (max-width: 1024px) {
-  .mega-menu {
-    max-width: 90vw !important;
-    width: 90vw !important;
-    left: 50% !important;
-    transform: translateX(-50%) !important;
-  }
-}
-
-@media (max-width: 768px) {
   .mega-menu {
     max-width: 95vw !important;
     width: 95vw !important;
-    left: 50% !important;
-    transform: translateX(-50%) !important;
   }
 }
 
@@ -183,8 +170,6 @@ header {
   .mega-menu {
     max-width: 98vw !important;
     width: 98vw !important;
-    left: 50% !important;
-    transform: translateX(-50%) !important;
   }
 }
 
@@ -262,14 +247,7 @@ header .flex {
   text-overflow: ellipsis;
 }
 
-/* Ensure mega-menu doesn't overlap */
-.mega-menu {
-  position: absolute;
-  z-index: 1000;
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-  animation: megaMenuFadeIn 0.2s ease-out forwards;
-  transform-origin: top center;
-}
+/* Ensure mega-menu doesn't overlap - REMOVED CONFLICTING RULES */
 
 @keyframes megaMenuFadeIn {
   from {
@@ -399,19 +377,7 @@ header .flex {
   }
 }
 
-/* Ensure mega menu doesn't overflow on small screens */
-.mega-menu {
-  max-width: calc(100vw - 2rem) !important;
-}
-
-@media (max-width: 640px) {
-  .mega-menu {
-    left: 1rem !important;
-    right: 1rem !important;
-    transform: none !important;
-    width: calc(100vw - 2rem) !important;
-  }
-}
+/* Ensure mega menu doesn't overflow on small screens - REMOVED CONFLICTING RULES */
 
 .btn-secondary {
   background: var(--color-brand-secondary);
