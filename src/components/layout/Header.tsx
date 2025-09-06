@@ -302,17 +302,25 @@ export function Header() {
       const menuWidth = isWideMenu ? 'w-[400px]' : 'w-[350px]';
 
       return (
-        <div 
-          ref={megaMenuRef}
-          className={`fixed top-1/2 left-1/2 bg-white text-gray-900 p-4 rounded-xl shadow-xl border border-gray-200 z-50 ${menuWidth} max-w-[33vw] mega-menu`}
-          style={{
-            transform: 'translate(-50%, -50%)',
-            maxWidth: 'min(400px, 33vw)',
-            width: 'min(400px, 33vw)'
-          }}
-          onMouseEnter={handleMegaMenuMouseEnter}
-          onMouseLeave={handleMegaMenuMouseLeave}
-        >
+        <>
+          {/* Backdrop */}
+          <div 
+            className="fixed inset-0 bg-black/20 backdrop-blur-sm z-[9998]"
+            onMouseEnter={handleMegaMenuMouseEnter}
+            onMouseLeave={handleMegaMenuMouseLeave}
+          />
+          {/* Mega Menu */}
+          <div 
+            ref={megaMenuRef}
+            className={`fixed top-1/2 left-1/2 bg-white text-gray-900 p-4 rounded-xl shadow-2xl border border-gray-200 z-[9999] ${menuWidth} max-w-[33vw] mega-menu`}
+            style={{
+              transform: 'translate(-50%, -50%)',
+              maxWidth: 'min(400px, 33vw)',
+              width: 'min(400px, 33vw)'
+            }}
+            onMouseEnter={handleMegaMenuMouseEnter}
+            onMouseLeave={handleMegaMenuMouseLeave}
+          >
           {/* Header */}
           <div className="text-center mb-3">
             <h3 className="text-base font-bold text-gray-900 mb-1">{data.title}</h3>
@@ -361,6 +369,7 @@ export function Header() {
             </Link>
           </div>
         </div>
+        </>
       );
     }
 
