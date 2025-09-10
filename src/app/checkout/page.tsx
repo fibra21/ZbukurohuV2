@@ -6,10 +6,8 @@ import { useAppStore } from '@/lib/store';
 import { getProducts } from '@/lib/data';
 import { Product } from '@/types';
 import { 
-  ShoppingCart, 
   CreditCard, 
   MapPin, 
-  Calendar,
   Lock,
   Shield,
   CheckCircle,

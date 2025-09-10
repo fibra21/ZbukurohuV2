@@ -10,7 +10,6 @@ import {
   Heart, 
   Settings, 
   LogOut,
-  Crown,
   Shield,
   TrendingUp
 } from 'lucide-react';

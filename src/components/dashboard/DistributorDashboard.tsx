@@ -74,14 +74,14 @@ export function DistributorDashboard({ user }: DistributorDashboardProps) {
     }
   ];
 
-  const mockMonthlyRevenue = [
-    { month: 'Jan', revenue: 8500 },
-    { month: 'Feb', revenue: 9200 },
-    { month: 'Mar', revenue: 7800 },
-    { month: 'Apr', revenue: 10200 },
-    { month: 'May', revenue: 12450 },
-    { month: 'Jun', revenue: 11800 }
-  ];
+  // const mockMonthlyRevenue = [
+  //   { month: 'Jan', revenue: 8500 },
+  //   { month: 'Feb', revenue: 9200 },
+  //   { month: 'Mar', revenue: 7800 },
+  //   { month: 'Apr', revenue: 10200 },
+  //   { month: 'May', revenue: 12450 },
+  //   { month: 'Jun', revenue: 11800 }
+  // ];
 
   const tabs = [
     { id: 'overview', label: 'Overview', icon: BarChart3 },

@@ -1,8 +1,6 @@
 'use client';
 
 import Link from 'next/link';
-import { useAppStore } from '@/lib/store';
-import { t } from '@/lib/i18n';
 import { 
   Shield, 
   Truck, 
@@ -15,7 +13,6 @@ import {
 } from 'lucide-react';
 
 export function Footer() {
-  const { locale } = useAppStore();
 
   const trustFeatures = [
     {

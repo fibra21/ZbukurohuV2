@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { Search, X } from 'lucide-react';
@@ -30,16 +30,7 @@ export function SearchBar() {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
-  useEffect(() => {
-    if (searchQuery.trim().length >= 2) {
-      performSearch();
-    } else {
-      setResults([]);
-      setIsOpen(false);
-    }
-  }, [searchQuery]);
-
-  const performSearch = async () => {
+  const performSearch = useCallback(async () => {
     if (searchQuery.trim().length < 2) return;
 
     setIsLoading(true);
@@ -51,13 +42,22 @@ export function SearchBar() {
         setResults(data.products || []);
         setIsOpen(true);
       }
-    } catch (error) {
-      console.error('Search error:', error);
+    } catch {
+      console.error('Search error');
       setResults([]);
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [searchQuery]);
+
+  useEffect(() => {
+    if (searchQuery.trim().length >= 2) {
+      performSearch();
+    } else {
+      setResults([]);
+      setIsOpen(false);
+    }
+  }, [searchQuery, performSearch]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();

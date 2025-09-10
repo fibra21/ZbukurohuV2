@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { User, Package, Heart, Clock, Star, ShoppingBag, Calendar, MapPin } from 'lucide-react';
+import { User, Package, Heart, Star } from 'lucide-react';
 import Image from 'next/image';
 
 interface CustomerDashboardProps {

@@ -128,7 +128,7 @@ export function BusinessApplicationForm() {
       });
       setErrors({});
       
-    } catch (error) {
+    } catch {
       addToast({
         type: 'error',
         title: 'Submission Failed',

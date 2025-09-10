@@ -1,11 +1,10 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { Search, Filter, X, ChevronDown, Star } from 'lucide-react';
+import { Search, Filter, ChevronDown, Star } from 'lucide-react';
 import Image from 'next/image';
 import { Product } from '@/types';
-import { useAppStore } from '@/lib/store';
 import { useToast } from '@/components/ui/Toast';
 import { Skeleton } from '@/components/ui/Skeleton';
 
@@ -51,22 +50,7 @@ export function AdvancedSearch() {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
-  useEffect(() => {
-    if (searchQuery.trim().length >= 2) {
-      fetchSuggestions();
-    } else {
-      setSuggestions([]);
-      setShowSuggestions(false);
-    }
-  }, [searchQuery]);
-
-  useEffect(() => {
-    if (searchQuery.trim()) {
-      performSearch();
-    }
-  }, [searchQuery, filters, currentPage]);
-
-  const fetchSuggestions = async () => {
+  const fetchSuggestions = useCallback(async () => {
     try {
       // Simulate API call for suggestions
       const response = await fetch(`/api/search/suggestions?q=${encodeURIComponent(searchQuery)}`);
@@ -75,12 +59,12 @@ export function AdvancedSearch() {
         setSuggestions(data.suggestions || []);
         setShowSuggestions(true);
       }
-    } catch (error) {
-      console.error('Failed to fetch suggestions:', error);
+    } catch {
+      console.error('Failed to fetch suggestions');
     }
-  };
+  }, [searchQuery]);
 
-  const performSearch = async () => {
+  const performSearch = useCallback(async () => {
     if (!searchQuery.trim()) return;
 
     setIsLoading(true);
@@ -105,7 +89,7 @@ export function AdvancedSearch() {
         setResults(data.products || []);
         setTotalPages(Math.ceil((data.total || 0) / ITEMS_PER_PAGE));
       }
-    } catch (error) {
+    } catch {
       addToast({
         type: 'error',
         title: 'Search Error',
@@ -114,7 +98,22 @@ export function AdvancedSearch() {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [searchQuery, filters, currentPage, addToast]);
+
+  useEffect(() => {
+    if (searchQuery.trim().length >= 2) {
+      fetchSuggestions();
+    } else {
+      setSuggestions([]);
+      setShowSuggestions(false);
+    }
+  }, [searchQuery, fetchSuggestions]);
+
+  useEffect(() => {
+    if (searchQuery.trim()) {
+      performSearch();
+    }
+  }, [searchQuery, filters, currentPage, performSearch]);
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();

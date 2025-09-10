@@ -1,7 +1,6 @@
 import { Metadata } from 'next';
 import { getProducts } from '@/lib/data';
 import { ProductCard } from '@/components/product/ProductCard';
-import Image from 'next/image';
 import Link from 'next/link';
 import { Sparkles, Star, Heart, ShoppingCart } from 'lucide-react';
 

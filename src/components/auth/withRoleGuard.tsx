@@ -39,7 +39,7 @@ export function withRoleGuard<P extends object>(
           }
         }
       }
-    }, [isLoading, isAuthenticated, user, router, redirectTo]);
+    }, [isLoading, isAuthenticated, user, router]);
 
     if (isLoading) {
       return <LoadingSpinner />;
@@ -73,7 +73,7 @@ export function RoleGuard({ allowedRoles, redirectTo = '/auth/login', children }
         }
       }
     }
-  }, [isLoading, isAuthenticated, user, router, redirectTo]);
+  }, [isLoading, isAuthenticated, user, router, allowedRoles, redirectTo]);
 
   if (isLoading) {
     return <LoadingSpinner />;

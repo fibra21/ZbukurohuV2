@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useCallback, useRef, useEffect, Suspense } from 'react';
+import { useState, useCallback, useRef, useEffect } from 'react';
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
 import { useAuth } from '@/contexts/AuthContext';
@@ -33,10 +33,10 @@ const MiniCartDrawer = dynamic(() => import('@/components/cart/MiniCartDrawer').
   ssr: false
 });
 
-const RoleBasedMenu = dynamic(() => import('@/components/auth/RoleBasedMenu').then(mod => ({ default: mod.RoleBasedMenu })), {
-  loading: () => <div className="w-8 h-8 bg-neutral-200 rounded-lg animate-pulse" />,
-  ssr: false
-});
+// const RoleBasedMenu = dynamic(() => import('@/components/auth/RoleBasedMenu').then(mod => ({ default: mod.RoleBasedMenu })), {
+//   loading: () => <div className="w-8 h-8 bg-neutral-200 rounded-lg animate-pulse" />,
+//   ssr: false
+// });
 
 export function Header() {
   const { user, logout, isAuthenticated } = useAuth();

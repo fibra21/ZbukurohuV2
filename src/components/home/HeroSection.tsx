@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { Star, Sparkles, Package, Heart } from 'lucide-react';
+import { Sparkles, Package, Heart } from 'lucide-react';
 
 export function HeroSection() {
   return (

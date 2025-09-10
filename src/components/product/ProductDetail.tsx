@@ -15,7 +15,7 @@ export function ProductDetail({ product }: ProductDetailProps) {
   const { addToCart, addToWishlist, removeFromWishlist, isInWishlist } = useAppStore();
   const { canAccessBusinessFeatures } = useAuth();
   const [quantity, setQuantity] = useState(1);
-  const [selectedShade, setSelectedShade] = useState<string | null>(null);
+  const [selectedShade] = useState<string | null>(null);
 
   const getDisplayPrice = () => {
     if (canAccessBusinessFeatures && product.wholesalePrice) {

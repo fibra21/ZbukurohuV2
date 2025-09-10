@@ -12,7 +12,7 @@ export class AuthService {
     return AuthService.instance;
   }
 
-  async login(email: string, password: string): Promise<User> {
+  async login(email: string): Promise<User> {
     // Mock login logic
     const mockUsers: User[] = [
       {

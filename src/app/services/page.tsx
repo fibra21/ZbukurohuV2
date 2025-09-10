@@ -5,18 +5,10 @@ import {
   Sparkles, 
   Star,
   Search,
-  Filter,
   MapPin,
-  Clock,
-  Phone,
-  Mail,
-  Calendar,
   Heart,
-  CheckCircle,
-  MessageCircle,
-  Award
+  CheckCircle
 } from 'lucide-react';
-import Link from 'next/link';
 
 export const metadata: Metadata = {
   title: 'Beauty Services - Zbukurohu',

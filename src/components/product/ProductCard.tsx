@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, memo } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Heart, ShoppingCart, Eye, Star, Tag, Zap } from 'lucide-react';
@@ -13,7 +13,7 @@ interface ProductCardProps {
   variant?: 'default' | 'compact' | 'featured';
 }
 
-export function ProductCard({ product, variant = 'default' }: ProductCardProps) {
+export const ProductCard = memo(function ProductCard({ product, variant = 'default' }: ProductCardProps) {
   const [isHovered, setIsHovered] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const { addToCart, addToWishlist, removeFromWishlist, wishlist } = useAppStore();
@@ -32,7 +32,7 @@ export function ProductCard({ product, variant = 'default' }: ProductCardProps) 
         title: 'Added to Cart!',
         message: `${product.name} has been added to your cart.`
       });
-    } catch (error) {
+    } catch {
       addToast({
         type: 'error',
         title: 'Error',
@@ -60,7 +60,7 @@ export function ProductCard({ product, variant = 'default' }: ProductCardProps) 
           message: `${product.name} has been added to your wishlist.`
         });
       }
-    } catch (error) {
+    } catch {
       addToast({
         type: 'error',
         title: 'Error',
@@ -293,4 +293,4 @@ export function ProductCard({ product, variant = 'default' }: ProductCardProps) 
       </div>
     </div>
   );
-} 
+}); 

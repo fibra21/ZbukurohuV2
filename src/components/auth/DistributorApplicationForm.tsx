@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import { useToast } from '@/components/ui/Toast';
 import { validateForm, distributorApplicationRules } from '@/utils/validation';
-import { Store, Upload, CheckCircle, AlertCircle } from 'lucide-react';
+import { Store, CheckCircle, AlertCircle } from 'lucide-react';
 
 interface DistributorApplicationData {
   businessName: string;
@@ -112,7 +112,7 @@ export function DistributorApplicationForm() {
       });
       setErrors({});
       
-    } catch (error) {
+    } catch {
       addToast({
         type: 'error',
         title: 'Submission Failed',

@@ -1,3 +1,4 @@
+import { Metadata } from 'next';
 import { Star, Sparkles } from 'lucide-react';
 import { HeroSection } from '@/components/home/HeroSection';
 import { FeaturesSection } from '@/components/home/FeaturesSection';
@@ -5,6 +6,17 @@ import { CategoryCard } from '@/components/category/CategoryCard';
 import { ProductCard } from '@/components/product/ProductCard';
 import { BrandCard } from '@/components/brand/BrandCard';
 import { getProducts, getCategories, getBrands } from '@/lib/data';
+
+export const metadata: Metadata = {
+  title: 'Premium Beauty & Skincare Marketplace',
+  description: 'Discover premium makeup, skincare, and beauty products from top brands. Shop authentic beauty essentials with fast delivery across the Balkans.',
+  keywords: ['beauty marketplace', 'makeup', 'skincare', 'cosmetics', 'premium brands', 'Balkans'],
+  openGraph: {
+    title: 'Zbukurohu - Premium Beauty & Skincare Marketplace',
+    description: 'Discover premium makeup, skincare, and beauty products from top brands. Shop authentic beauty essentials with fast delivery across the Balkans.',
+    type: 'website',
+  },
+};
 
 export default async function HomePage() {
   const products = await getProducts();

@@ -17,7 +17,7 @@ interface MiniCartDrawerProps {
 
 export function MiniCartDrawer({ open, onOpenChange }: MiniCartDrawerProps) {
   const { cart, updateCartItemQuantity, removeFromCart } = useAppStore();
-  const { user, canAccessBusinessFeatures } = useAuth();
+  const { canAccessBusinessFeatures } = useAuth();
   const [products, setProducts] = useState<Product[]>([]);
 
   useEffect(() => {
