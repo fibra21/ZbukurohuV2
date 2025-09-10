@@ -46,32 +46,16 @@ export function Header() {
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
   const [activeMobileMenu, setActiveMobileMenu] = useState<string | null>(null);
   const megaMenuRef = useRef<HTMLDivElement>(null);
-  const hoverTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  const handleMouseEnter = useCallback((type: string) => {
-    if (hoverTimeoutRef.current) {
-      clearTimeout(hoverTimeoutRef.current);
+  const handleCategoryClick = useCallback((type: string, e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (openMega === type) {
+      setOpenMega(null); // Close if already open
+    } else {
+      setOpenMega(type); // Open the clicked category
     }
-    setOpenMega(type);
-  }, [setOpenMega]);
-
-  const handleMouseLeave = useCallback(() => {
-    hoverTimeoutRef.current = setTimeout(() => {
-      setOpenMega(null);
-    }, 100);
-  }, [setOpenMega]);
-
-  const handleMegaMenuMouseEnter = useCallback(() => {
-    if (hoverTimeoutRef.current) {
-      clearTimeout(hoverTimeoutRef.current);
-    }
-  }, []);
-
-  const handleMegaMenuMouseLeave = useCallback(() => {
-    hoverTimeoutRef.current = setTimeout(() => {
-      setOpenMega(null);
-    }, 100);
-  }, [setOpenMega]);
+  }, [openMega, setOpenMega]);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -307,8 +291,7 @@ export function Header() {
           {/* Backdrop */}
           <div 
             className="fixed inset-0 bg-black/20 backdrop-blur-sm z-[9998]"
-            onMouseEnter={handleMegaMenuMouseEnter}
-            onMouseLeave={handleMegaMenuMouseLeave}
+            onClick={() => setOpenMega(null)}
           />
           {/* Mega Menu */}
           <div 
@@ -319,8 +302,6 @@ export function Header() {
               maxWidth: 'min(400px, 33vw)',
               width: 'min(400px, 33vw)'
             }}
-            onMouseEnter={handleMegaMenuMouseEnter}
-            onMouseLeave={handleMegaMenuMouseLeave}
           >
           {/* Header */}
           <div className="text-center mb-3">
@@ -347,7 +328,10 @@ export function Header() {
                 key={item.name}
                 href={item.href}
                       className="group flex items-center space-x-2 bg-gray-50 text-gray-700 px-2 py-1.5 rounded-md text-xs hover:bg-[#F9E7E7] hover:text-[#D4AF37] transition-all duration-200 border border-transparent hover:border-[#D4AF37]/20 hover:shadow-sm font-medium"
-                      onClick={() => setOpenMega(null)}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setOpenMega(null);
+                      }}
               >
                       <span className="w-1 h-1 bg-[#D4AF37]/60 rounded-full group-hover:bg-[#D4AF37] transition-colors"></span>
                       <span className="group-hover:text-[#D4AF37] transition-colors">
@@ -365,7 +349,10 @@ export function Header() {
             <Link
               href={`/categories/${type}`}
               className="inline-flex items-center space-x-1 text-[#D4AF37] hover:text-[#B8941F] font-semibold text-xs transition-colors"
-              onClick={() => setOpenMega(null)}
+              onClick={(e) => {
+                e.stopPropagation();
+                setOpenMega(null);
+              }}
             >
               <span>View All {data.title}</span>
               <ChevronDown className="w-3 h-3 rotate-[-90deg]" />
@@ -431,17 +418,16 @@ export function Header() {
                 <div
                   key={item.name}
                   className="relative nav-item"
-                  onMouseEnter={() => handleMouseEnter(item.key)}
-                  onMouseLeave={handleMouseLeave}
                 >
-                  <Link
-                    href={item.href}
+                  <button
+                    onClick={(e) => handleCategoryClick(item.key, e)}
                     className="flex items-center space-x-2 py-3 px-4 rounded-lg hover:bg-brand-primary transition-colors duration-base group whitespace-nowrap"
+                    type="button"
                   >
                     <span className="text-lg">{item.icon}</span>
                     <span className="font-medium text-text-primary group-hover:text-brand-accent font-body nav-text">{item.name}</span>
-                    <ChevronDown className="w-4 h-4 text-text-secondary group-hover:text-brand-accent transition-colors duration-base" />
-                  </Link>
+                    <ChevronDown className={`w-4 h-4 text-text-secondary group-hover:text-brand-accent transition-colors duration-base ${openMega === item.key ? 'rotate-180' : ''}`} />
+                  </button>
                   {renderMegaMenu(item.key, false)}
                 </div>
               ))}
