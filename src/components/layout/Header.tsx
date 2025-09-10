@@ -4,6 +4,7 @@ import { useState, useCallback, useRef, useEffect } from 'react';
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
 import { useAuth } from '@/contexts/AuthContext';
+import { ThemeToggle } from '@/components/ui/ThemeToggle';
 import { 
   Search, 
   Heart,
@@ -346,6 +347,7 @@ export function Header() {
                 key={item.name}
                 href={item.href}
                       className="group flex items-center space-x-2 bg-gray-50 text-gray-700 px-2 py-1.5 rounded-md text-xs hover:bg-[#F9E7E7] hover:text-[#D4AF37] transition-all duration-200 border border-transparent hover:border-[#D4AF37]/20 hover:shadow-sm font-medium"
+                      onClick={() => setOpenMega(null)}
               >
                       <span className="w-1 h-1 bg-[#D4AF37]/60 rounded-full group-hover:bg-[#D4AF37] transition-colors"></span>
                       <span className="group-hover:text-[#D4AF37] transition-colors">
@@ -363,6 +365,7 @@ export function Header() {
             <Link
               href={`/categories/${type}`}
               className="inline-flex items-center space-x-1 text-[#D4AF37] hover:text-[#B8941F] font-semibold text-xs transition-colors"
+              onClick={() => setOpenMega(null)}
             >
               <span>View All {data.title}</span>
               <ChevronDown className="w-3 h-3 rotate-[-90deg]" />
@@ -463,6 +466,9 @@ export function Header() {
               >
                 <Search className="w-5 h-5" />
               </button>
+
+              {/* Theme Toggle */}
+              <ThemeToggle />
 
               {/* Cart - Always visible */}
               <button 
@@ -620,6 +626,14 @@ export function Header() {
                     <User className="w-5 h-5 text-brand-accent" />
                     <span className="font-medium text-text-primary">Account</span>
                 </Link>
+                </div>
+                
+                {/* Theme Toggle in Mobile Menu */}
+                <div className="mt-4 flex justify-center">
+                  <div className="flex items-center space-x-3 p-3 bg-surface-muted rounded-lg">
+                    <span className="font-medium text-text-primary">Theme:</span>
+                    <ThemeToggle />
+                  </div>
                 </div>
               </div>
             </div>
