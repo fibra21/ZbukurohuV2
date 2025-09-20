@@ -38,7 +38,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     initAuth();
   }, []);
 
-  const login = async (email: string, _password: string) => {
+  const login = async (email: string) => {
     try {
       const user = await authService.login(email);
       setUser(user);

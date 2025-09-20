@@ -47,32 +47,54 @@ export default async function HomePage() {
       <FeaturesSection />
 
       {/* Featured Categories */}
-      <section className="py-16 bg-surface-muted w-full">
+      <section className="py-16 sm:py-20 lg:py-24 bg-surface-muted w-full">
         <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold text-text-primary mb-4 font-heading">Shop by Category</h2>
-            <p className="text-lg text-text-secondary font-body">Explore our curated collection of beauty essentials</p>
+          <div className="text-center mb-16 animate-fade-in-up">
+            <div className="mb-4">
+              <span className="inline-block bg-brand-accent/10 text-brand-accent px-4 py-2 rounded-full text-sm font-medium">
+                🛍️ Kategoritë tona
+              </span>
+            </div>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-text-primary mb-6 font-heading gradient-text">
+              Shop by Category
+            </h2>
+            <p className="text-lg sm:text-xl text-text-secondary font-body max-w-3xl mx-auto">
+              Zbuloni koleksionin tonë të kujdesshëm të produkteve të bukurisë dhe mirëqenies
+            </p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {featuredCategories.map((category) => (
-              <CategoryCard key={category.id} category={category} />
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+            {featuredCategories.map((category, index) => (
+              <div key={category.id} className={`animate-fade-in-up delay-${index * 100}`}>
+                <CategoryCard category={category} />
+              </div>
             ))}
           </div>
         </div>
       </section>
 
       {/* Featured Products */}
-      <section className="py-16 w-full">
+      <section className="py-16 sm:py-20 lg:py-24 w-full bg-gradient-to-br from-white to-surface-muted">
         <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold text-text-primary mb-4 font-heading">Featured Products</h2>
-            <p className="text-lg text-text-secondary font-body">Discover our most popular and trending items</p>
+          <div className="text-center mb-16 animate-fade-in-up">
+            <div className="mb-4">
+              <span className="inline-block bg-brand-accent/10 text-brand-accent px-4 py-2 rounded-full text-sm font-medium">
+                ⭐ Produkte të veçanta
+              </span>
+            </div>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-text-primary mb-6 font-heading">
+              Featured Products
+            </h2>
+            <p className="text-lg sm:text-xl text-text-secondary font-body max-w-3xl mx-auto">
+              Zbuloni produktet tona më të popullarizuara dhe trendet e fundit në bukuri
+            </p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {featuredProducts.map((product) => (
-              <ProductCard key={product.id} product={product} />
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
+            {featuredProducts.map((product, index) => (
+              <div key={product.id} className={`animate-fade-in-up hover-lift delay-${(index % 4) * 100}`}>
+                <ProductCard product={product} />
+              </div>
             ))}
           </div>
         </div>
