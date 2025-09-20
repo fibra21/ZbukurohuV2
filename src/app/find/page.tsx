@@ -2,170 +2,262 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { FaceHotspot } from '@/types';
-import { MapPin, Sparkles, Star, Heart, ShoppingCart } from 'lucide-react';
+import { Sparkles, Eye, Smile } from 'lucide-react';
 
 export default function FindPage() {
   const router = useRouter();
-  const [hoveredHotspot, setHoveredHotspot] = useState<string | null>(null);
+  const [selectedArea, setSelectedArea] = useState<string | null>(null);
+  const [hoveredArea, setHoveredArea] = useState<string | null>(null);
 
-  const faceHotspots: FaceHotspot[] = [
+  const faceAreas = [
     {
       id: 'forehead',
       name: 'Forehead Care',
-      category: 'skincare',
-      x: 50,
-      y: 15,
-      width: 20,
-      height: 15
+      description: 'Anti-aging creams, serums for wrinkles',
+      products: ['Anti-aging serum', 'Forehead patches', 'Botox alternative'],
+      category: 'skincare'
     },
     {
       id: 'eyes',
       name: 'Eye Care',
-      category: 'skincare',
-      x: 35,
-      y: 30,
-      width: 30,
-      height: 20
-    },
-    {
-      id: 'cheeks',
-      name: 'Cheek Care',
-      category: 'skincare',
-      x: 25,
-      y: 45,
-      width: 50,
-      height: 25
+      description: 'Eye creams, dark circle treatments',
+      products: ['Eye cream', 'Under-eye patches', 'Lash serum'],
+      category: 'eyes'
     },
     {
       id: 'nose',
       name: 'Nose Care',
-      category: 'skincare',
-      x: 45,
-      y: 45,
-      width: 10,
-      height: 15
+      description: 'Pore strips, blackhead treatments',
+      products: ['Pore strips', 'Nose patches', 'Blackhead remover'],
+      category: 'skincare'
     },
     {
-      id: 'mouth',
+      id: 'cheeks',
+      name: 'Cheek Care',
+      description: 'Blush, highlighters, contouring',
+      products: ['Blush', 'Highlighter', 'Bronzer', 'Contour kit'],
+      category: 'makeup'
+    },
+    {
+      id: 'lips',
       name: 'Lip Care',
-      category: 'skincare',
-      x: 40,
-      y: 70,
-      width: 20,
-      height: 15
+      description: 'Lipsticks, glosses, lip care',
+      products: ['Lipstick', 'Lip gloss', 'Lip balm', 'Lip liner'],
+      category: 'lips'
     },
     {
       id: 'chin',
       name: 'Chin Care',
-      category: 'skincare',
-      x: 40,
-      y: 85,
-      width: 20,
-      height: 15
+      description: 'Contouring, firming treatments',
+      products: ['Chin firming cream', 'Contour stick', 'Face mask'],
+      category: 'skincare'
     }
   ];
 
-  const handleHotspotClick = (hotspot: FaceHotspot) => {
-    router.push(`/categories/${hotspot.category}/${hotspot.name.toLowerCase().replace(/\s+/g, '-')}`);
+  const handleAreaClick = (areaId: string) => {
+    setSelectedArea(areaId);
+    const area = faceAreas.find(a => a.id === areaId);
+    if (area) {
+      router.push(`/categories/${area.category}`);
+    }
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-primary/5 via-white to-accent/5 py-12">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gradient-to-br from-pink-50 via-white to-purple-50 py-8 sm:py-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <div className="text-center mb-12">
+        <div className="text-center mb-8 sm:mb-16">
           <div className="flex items-center justify-center space-x-3 mb-6">
-            <Sparkles className="w-10 h-10 text-primary" />
-            <h1 className="text-5xl font-bold text-gray-900">Find Your Perfect Products</h1>
+            <Sparkles className="w-8 h-8 sm:w-10 sm:h-10 text-brand-accent" />
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 font-heading">
+              Find Your Perfect Products
+            </h1>
           </div>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+          <p className="text-lg sm:text-xl text-gray-600 max-w-4xl mx-auto font-body">
             Click on different areas of the face to discover personalized beauty products for each part of your skin
           </p>
         </div>
 
-        {/* Interactive Face */}
-        <div className="flex justify-center mb-12">
-          <div className="relative w-96 h-96 bg-gradient-to-br from-primary/20 to-accent/20 rounded-full flex items-center justify-center">
-            {/* Face Outline */}
-            <div className="w-80 h-80 bg-white rounded-full shadow-2xl flex items-center justify-center relative">
-              {/* Face Features */}
-              <div className="absolute top-8 left-1/2 transform -translate-x-1/2 w-16 h-2 bg-gray-300 rounded-full"></div> {/* Forehead */}
-              <div className="absolute top-12 left-1/2 transform -translate-x-1/2 w-20 h-1 bg-gray-300 rounded-full"></div> {/* Eyebrows */}
-              <div className="absolute top-16 left-1/2 transform -translate-x-1/2 w-24 h-1 bg-gray-300 rounded-full"></div> {/* Eyes */}
-              <div className="absolute top-24 left-1/2 transform -translate-x-1/2 w-16 h-1 bg-gray-300 rounded-full"></div> {/* Nose */}
-              <div className="absolute top-32 left-1/2 transform -translate-x-1/2 w-32 h-1 bg-gray-300 rounded-full"></div> {/* Mouth */}
-              <div className="absolute top-40 left-1/2 transform -translate-x-1/2 w-20 h-1 bg-gray-300 rounded-full"></div> {/* Chin */}
+        {/* Interactive Face Map */}
+        <div className="flex flex-col lg:flex-row items-center justify-center gap-8 lg:gap-16">
+          {/* Face Illustration */}
+          <div className="relative">
+            <div className="w-80 h-80 sm:w-96 sm:h-96 lg:w-[500px] lg:h-[600px] relative bg-gradient-to-br from-pink-100 to-purple-100 rounded-[50%] shadow-2xl overflow-hidden">
+              {/* Face SVG */}
+              <svg
+                viewBox="0 0 400 500"
+                className="w-full h-full"
+                style={{ filter: 'drop-shadow(0 10px 25px rgba(0,0,0,0.1))' }}
+              >
+                {/* Face shape */}
+                <ellipse cx="200" cy="250" rx="160" ry="200" fill="#F5E6D3" stroke="#E0C4A0" strokeWidth="2"/>
+                
+                {/* Forehead area */}
+                <ellipse cx="200" cy="150" rx="80" ry="40" fill="#F8EAD8" opacity="0.8"/>
+                
+                {/* Eye areas */}
+                <ellipse cx="160" cy="200" rx="25" ry="15" fill="#FFF" stroke="#D0B8A8" strokeWidth="1"/>
+                <ellipse cx="240" cy="200" rx="25" ry="15" fill="#FFF" stroke="#D0B8A8" strokeWidth="1"/>
+                <circle cx="160" cy="200" r="8" fill="#4A4A4A"/>
+                <circle cx="240" cy="200" r="8" fill="#4A4A4A"/>
+                
+                {/* Eyebrows */}
+                <path d="M135 185 Q160 180 185 185" stroke="#8B4513" strokeWidth="3" fill="none" strokeLinecap="round"/>
+                <path d="M215 185 Q240 180 265 185" stroke="#8B4513" strokeWidth="3" fill="none" strokeLinecap="round"/>
+                
+                {/* Nose */}
+                <ellipse cx="200" cy="240" rx="15" ry="25" fill="#F0D5C0" stroke="#E0C4A0" strokeWidth="1"/>
+                <ellipse cx="195" cy="255" rx="3" ry="2" fill="#D0B8A8"/>
+                <ellipse cx="205" cy="255" rx="3" ry="2" fill="#D0B8A8"/>
+                
+                {/* Cheek areas */}
+                <ellipse cx="140" cy="280" rx="35" ry="25" fill="#F5D5E0" opacity="0.6"/>
+                <ellipse cx="260" cy="280" rx="35" ry="25" fill="#F5D5E0" opacity="0.6"/>
+                
+                {/* Lips */}
+                <ellipse cx="200" cy="320" rx="25" ry="12" fill="#E8A4C4" stroke="#D089A8" strokeWidth="1"/>
+                <path d="M175 320 Q200 315 225 320" stroke="#D089A8" strokeWidth="1" fill="none"/>
+                
+                {/* Chin area */}
+                <ellipse cx="200" cy="380" rx="50" ry="30" fill="#F8EAD8" opacity="0.7"/>
 
-              {/* Interactive Hotspots */}
-              {faceHotspots.map((hotspot) => (
-                <button
-                  key={hotspot.id}
-                  className={`absolute transform -translate-x-1/2 -translate-y-1/2 rounded-full transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-primary/50 ${
-                    hoveredHotspot === hotspot.id
-                      ? 'bg-primary/80 text-white scale-110'
-                      : 'bg-white/80 text-gray-700 hover:bg-primary/60 hover:text-white hover:scale-105'
-                  }`}
-                  style={{
-                    left: `${hotspot.x}%`,
-                    top: `${hotspot.y}%`,
-                    width: `${hotspot.width}%`,
-                    height: `${hotspot.height}%`
-                  }}
-                  onMouseEnter={() => setHoveredHotspot(hotspot.id)}
-                  onMouseLeave={() => setHoveredHotspot(null)}
-                  onClick={() => handleHotspotClick(hotspot)}
-                  aria-label={`Explore ${hotspot.name} products`}
-                >
-                  <span className="text-xs font-medium">{hotspot.name}</span>
-                </button>
-              ))}
-            </div>
+                {/* Interactive Clickable Areas */}
+                {faceAreas.map((area) => {
+                  const getAreaCoordinates = (id: string) => {
+                    switch(id) {
+                      case 'forehead': return { x: 200, y: 150, rx: 80, ry: 40 };
+                      case 'eyes': return { x: 200, y: 200, rx: 80, ry: 25 };
+                      case 'nose': return { x: 200, y: 240, rx: 20, ry: 30 };
+                      case 'cheeks': return { x: 200, y: 280, rx: 120, ry: 35 };
+                      case 'lips': return { x: 200, y: 320, rx: 30, ry: 15 };
+                      case 'chin': return { x: 200, y: 380, rx: 50, ry: 30 };
+                      default: return { x: 200, y: 250, rx: 20, ry: 20 };
+                    }
+                  };
+                  
+                  const coords = getAreaCoordinates(area.id);
+                  const isHovered = hoveredArea === area.id;
+                  const isSelected = selectedArea === area.id;
+                  
+                  return (
+                    <ellipse
+                      key={area.id}
+                      cx={coords.x}
+                      cy={coords.y}
+                      rx={coords.rx}
+                      ry={coords.ry}
+                      fill={isSelected ? "rgba(212, 175, 55, 0.4)" : isHovered ? "rgba(212, 175, 55, 0.2)" : "transparent"}
+                      stroke={isSelected || isHovered ? "#D4AF37" : "transparent"}
+                      strokeWidth="3"
+                      className="cursor-pointer transition-all duration-300"
+                      onMouseEnter={() => setHoveredArea(area.id)}
+                      onMouseLeave={() => setHoveredArea(null)}
+                      onClick={() => handleAreaClick(area.id)}
+                    />
+                  );
+                })}
+              </svg>
+              
+              {/* Area Labels */}
+              {faceAreas.map((area) => {
+                const getLabelPosition = (id: string) => {
+                  switch(id) {
+                    case 'forehead': return { top: '20%', left: '50%', transform: 'translate(-50%, -50%)' };
+                    case 'eyes': return { top: '35%', left: '30%', transform: 'translate(-50%, -50%)' };
+                    case 'nose': return { top: '45%', left: '70%', transform: 'translate(-50%, -50%)' };
+                    case 'cheeks': return { top: '55%', left: '20%', transform: 'translate(-50%, -50%)' };
+                    case 'lips': return { top: '70%', left: '50%', transform: 'translate(-50%, -50%)' };
+                    case 'chin': return { top: '85%', left: '50%', transform: 'translate(-50%, -50%)' };
+                    default: return { top: '50%', left: '50%', transform: 'translate(-50%, -50%)' };
+                  }
+                };
+                
+                const position = getLabelPosition(area.id);
+                const isVisible = hoveredArea === area.id || selectedArea === area.id;
+                
+                return (
+                  <div
+                    key={`label-${area.id}`}
+                    className={`absolute pointer-events-none transition-all duration-300 ${
+                      isVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
+                    }`}
+                    style={position}
+                  >
+                    <div className="bg-white/95 backdrop-blur-sm px-3 py-2 rounded-lg shadow-lg border border-brand-accent/20">
+                      <p className="text-sm font-semibold text-gray-900 whitespace-nowrap">
+                        {area.name}
+                      </p>
+                    </div>
+                  </div>
+                );
+              })}
           </div>
         </div>
 
-        {/* Product Categories */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {faceHotspots.map((hotspot) => (
-            <div
-              key={hotspot.id}
-              className="bg-white rounded-2xl shadow-soft p-6 hover:shadow-medium transition-shadow cursor-pointer group"
-              onClick={() => handleHotspotClick(hotspot)}
-            >
-              <div className="flex items-center space-x-4 mb-4">
-                <div className="w-12 h-12 bg-gradient-to-br from-primary/20 to-accent/20 rounded-xl flex items-center justify-center">
-                  <MapPin className="w-6 h-6 text-primary" />
+          {/* Product Recommendations Sidebar */}
+          <div className="w-full lg:w-80">
+            {selectedArea ? (
+              <div className="bg-white rounded-3xl shadow-xl p-6 border border-brand-accent/20">
+                <div className="text-center mb-6">
+                  <div className="w-16 h-16 bg-brand-accent/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <Eye className="w-8 h-8 text-brand-accent" />
                 </div>
-                <div>
-                  <h3 className="text-lg font-semibold text-gray-900 group-hover:text-primary transition-colors">
-                    {hotspot.name}
+                  <h3 className="text-2xl font-bold text-gray-900 mb-2">
+                    {faceAreas.find(a => a.id === selectedArea)?.name}
                   </h3>
-                  <p className="text-sm text-gray-500 capitalize">{hotspot.category}</p>
-                </div>
+                  <p className="text-gray-600">
+                    {faceAreas.find(a => a.id === selectedArea)?.description}
+                  </p>
               </div>
               
-              <div className="space-y-3">
-                <div className="flex items-center space-x-2 text-sm text-gray-600">
-                  <Star className="w-4 h-4 text-yellow-400 fill-current" />
-                  <span>Premium products</span>
+                <div className="space-y-3 mb-6">
+                  <h4 className="font-semibold text-gray-900">Recommended Products:</h4>
+                  {faceAreas.find(a => a.id === selectedArea)?.products.map((product, index) => (
+                    <div key={index} className="flex items-center space-x-3 p-3 bg-gray-50 rounded-lg hover:bg-brand-accent/10 transition-colors cursor-pointer">
+                      <div className="w-2 h-2 bg-brand-accent rounded-full"></div>
+                      <span className="text-gray-700">{product}</span>
                 </div>
-                <div className="flex items-center space-x-2 text-sm text-gray-600">
-                  <Heart className="w-4 h-4 text-red-400 fill-current" />
-                  <span>Personalized care</span>
-                </div>
-                <div className="flex items-center space-x-2 text-sm text-gray-600">
-                  <ShoppingCart className="w-4 h-4 text-green-400 fill-current" />
-                  <span>Fast delivery</span>
-                </div>
+                  ))}
               </div>
               
-              <div className="mt-4 pt-4 border-t border-gray-100">
-                <button className="w-full bg-primary/10 text-primary py-2 rounded-lg font-medium hover:bg-primary hover:text-white transition-colors">
-                  Explore Products
+                <button 
+                  onClick={() => {
+                    const area = faceAreas.find(a => a.id === selectedArea);
+                    if (area) router.push(`/categories/${area.category}`);
+                  }}
+                  className="w-full bg-brand-accent text-white py-3 rounded-xl font-semibold hover:bg-brand-accent/90 transition-colors"
+                >
+                  Shop {faceAreas.find(a => a.id === selectedArea)?.name}
                 </button>
               </div>
+            ) : (
+              <div className="bg-white rounded-3xl shadow-xl p-6 border border-gray-200">
+                <div className="text-center">
+                  <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <Smile className="w-8 h-8 text-gray-400" />
             </div>
-          ))}
+                  <h3 className="text-xl font-bold text-gray-900 mb-2">
+                    Select a Face Area
+                  </h3>
+                  <p className="text-gray-600 mb-6">
+                    Click on any area of the face to discover personalized product recommendations
+                  </p>
+                  
+                  <div className="space-y-2">
+                    {faceAreas.map((area) => (
+                      <button
+                        key={area.id}
+                        onClick={() => handleAreaClick(area.id)}
+                        className="w-full text-left p-3 bg-gray-50 rounded-lg hover:bg-brand-accent/10 hover:text-brand-accent transition-colors"
+                      >
+                        <span className="font-medium">{area.name}</span>
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
         </div>
 
         {/* Call to Action */}
