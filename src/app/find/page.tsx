@@ -83,8 +83,46 @@ export default function FindPage() {
         <div className="flex flex-col lg:flex-row items-center justify-center gap-8 lg:gap-16">
           {/* Face Illustration */}
           <div className="relative">
-            <div className="w-80 h-80 sm:w-96 sm:h-96 lg:w-[500px] lg:h-[600px] relative bg-gradient-to-br from-pink-100 to-purple-100 rounded-[50%] shadow-2xl overflow-hidden">
+            <div className="w-80 h-80 sm:w-96 sm:h-96 lg:w-[500px] lg:h-[600px] relative">
               <FaceIllustration className="w-full h-full" />
+              {/* Clickable overlay matching the illustration viewBox */}
+              <svg
+                viewBox="0 0 398 425"
+                className="absolute inset-0 w-full h-full"
+              >
+                {faceAreas.map((area) => {
+                  const getAreaCoordinates = (id: string) => {
+                    switch(id) {
+                      case 'forehead': return { x: 199, y: 80, rx: 110, ry: 55 };
+                      case 'eyes': return { x: 199, y: 160, rx: 150, ry: 45 };
+                      case 'nose': return { x: 199, y: 215, rx: 22, ry: 65 };
+                      case 'cheeks': return { x: 199, y: 285, rx: 170, ry: 85 };
+                      case 'lips': return { x: 199, y: 340, rx: 65, ry: 25 };
+                      case 'chin': return { x: 199, y: 385, rx: 90, ry: 35 };
+                      default: return { x: 199, y: 212, rx: 20, ry: 20 };
+                    }
+                  };
+                  const coords = getAreaCoordinates(area.id);
+                  const isHovered = hoveredArea === area.id;
+                  const isSelected = selectedArea === area.id;
+                  return (
+                    <ellipse
+                      key={area.id}
+                      cx={coords.x}
+                      cy={coords.y}
+                      rx={coords.rx}
+                      ry={coords.ry}
+                      fill={isSelected ? 'rgba(212,175,55,0.35)' : isHovered ? 'rgba(212,175,55,0.2)' : 'transparent'}
+                      stroke={isSelected || isHovered ? '#D4AF37' : 'transparent'}
+                      strokeWidth={3}
+                      className="cursor-pointer transition-all duration-300"
+                      onMouseEnter={() => setHoveredArea(area.id)}
+                      onMouseLeave={() => setHoveredArea(null)}
+                      onClick={() => handleAreaClick(area.id)}
+                    />
+                  );
+                })}
+              </svg>
               
               {/* Area Labels */}
               {faceAreas.map((area) => {
