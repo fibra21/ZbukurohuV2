@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Sparkles, Eye, Smile } from 'lucide-react';
-import { FaceIllustration } from '@/components/find/FaceIllustration';
+import { ModularFace } from '@/components/find/ModularFace';
 
 export default function FindPage() {
   const router = useRouter();
@@ -84,8 +84,8 @@ export default function FindPage() {
           {/* Face Illustration */}
           <div className="relative">
             <div className="w-80 h-80 sm:w-96 sm:h-96 lg:w-[500px] lg:h-[600px] relative">
-              <FaceIllustration className="w-full h-full" />
-          </div>
+              <ModularFace className="w-full h-full" />
+            </div>
         </div>
 
           {/* Product Recommendations Sidebar */}
