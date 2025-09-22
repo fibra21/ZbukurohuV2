@@ -8,7 +8,7 @@ import { FaceIllustration } from '@/components/find/FaceIllustration';
 export default function FindPage() {
   const router = useRouter();
   const [selectedArea, setSelectedArea] = useState<string | null>(null);
-  const [hoveredArea, setHoveredArea] = useState<string | null>(null);
+  // Removed hover overlay layer
 
   const faceAreas = [
     {
@@ -85,79 +85,6 @@ export default function FindPage() {
           <div className="relative">
             <div className="w-80 h-80 sm:w-96 sm:h-96 lg:w-[500px] lg:h-[600px] relative">
               <FaceIllustration className="w-full h-full" />
-              {/* Clickable overlay matching the illustration viewBox */}
-              <svg
-                viewBox="0 0 398 425"
-                className="absolute inset-0 w-full h-full"
-              >
-                {faceAreas.map((area) => {
-                  const getAreaCoordinates = (id: string) => {
-                    // Tuned to match FTYRA.svg parts visually
-                    switch(id) {
-                      case 'forehead': return { x: 199, y: 70, rx: 120, ry: 50 };
-                      case 'eyes': return { x: 199, y: 150, rx: 155, ry: 40 };
-                      case 'nose': return { x: 199, y: 210, rx: 24, ry: 70 };
-                      case 'cheeks': return { x: 199, y: 280, rx: 175, ry: 90 };
-                      case 'lips': return { x: 199, y: 350, rx: 85, ry: 32 };
-                      case 'chin': return { x: 199, y: 392, rx: 95, ry: 30 };
-                      default: return { x: 199, y: 212, rx: 20, ry: 20 };
-                    }
-                  };
-                  const coords = getAreaCoordinates(area.id);
-                  const isHovered = hoveredArea === area.id;
-                  const isSelected = selectedArea === area.id;
-                  return (
-                    <ellipse
-                      key={area.id}
-                      cx={coords.x}
-                      cy={coords.y}
-                      rx={coords.rx}
-                      ry={coords.ry}
-                      fill={isSelected ? 'rgba(212,175,55,0.35)' : isHovered ? 'rgba(212,175,55,0.2)' : 'transparent'}
-                      stroke={isSelected || isHovered ? '#D4AF37' : 'transparent'}
-                      strokeWidth={3}
-                      className="cursor-pointer transition-all duration-300"
-                      onMouseEnter={() => setHoveredArea(area.id)}
-                      onMouseLeave={() => setHoveredArea(null)}
-                      onClick={() => handleAreaClick(area.id)}
-                    />
-                  );
-                })}
-              </svg>
-              
-              {/* Area Labels */}
-              {faceAreas.map((area) => {
-                const getLabelPosition = (id: string) => {
-                  switch(id) {
-                    case 'forehead': return { top: '20%', left: '50%', transform: 'translate(-50%, -50%)' };
-                    case 'eyes': return { top: '35%', left: '30%', transform: 'translate(-50%, -50%)' };
-                    case 'nose': return { top: '45%', left: '70%', transform: 'translate(-50%, -50%)' };
-                    case 'cheeks': return { top: '55%', left: '20%', transform: 'translate(-50%, -50%)' };
-                    case 'lips': return { top: '70%', left: '50%', transform: 'translate(-50%, -50%)' };
-                    case 'chin': return { top: '85%', left: '50%', transform: 'translate(-50%, -50%)' };
-                    default: return { top: '50%', left: '50%', transform: 'translate(-50%, -50%)' };
-                  }
-                };
-                
-                const position = getLabelPosition(area.id);
-                const isVisible = hoveredArea === area.id || selectedArea === area.id;
-                
-                return (
-                  <div
-                    key={`label-${area.id}`}
-                    className={`absolute pointer-events-none transition-all duration-300 ${
-                      isVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
-                    }`}
-                    style={position}
-                  >
-                    <div className="bg-white/95 backdrop-blur-sm px-3 py-2 rounded-lg shadow-lg border border-brand-accent/20">
-                      <p className="text-sm font-semibold text-gray-900 whitespace-nowrap">
-                        {area.name}
-                      </p>
-                    </div>
-                  </div>
-                );
-              })}
           </div>
         </div>
 
