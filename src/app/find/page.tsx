@@ -92,13 +92,14 @@ export default function FindPage() {
               >
                 {faceAreas.map((area) => {
                   const getAreaCoordinates = (id: string) => {
+                    // Tuned to match FTYRA.svg parts visually
                     switch(id) {
-                      case 'forehead': return { x: 199, y: 80, rx: 110, ry: 55 };
-                      case 'eyes': return { x: 199, y: 160, rx: 150, ry: 45 };
-                      case 'nose': return { x: 199, y: 215, rx: 22, ry: 65 };
-                      case 'cheeks': return { x: 199, y: 285, rx: 170, ry: 85 };
-                      case 'lips': return { x: 199, y: 340, rx: 65, ry: 25 };
-                      case 'chin': return { x: 199, y: 385, rx: 90, ry: 35 };
+                      case 'forehead': return { x: 199, y: 70, rx: 120, ry: 50 };
+                      case 'eyes': return { x: 199, y: 150, rx: 155, ry: 40 };
+                      case 'nose': return { x: 199, y: 210, rx: 24, ry: 70 };
+                      case 'cheeks': return { x: 199, y: 280, rx: 175, ry: 90 };
+                      case 'lips': return { x: 199, y: 350, rx: 85, ry: 32 };
+                      case 'chin': return { x: 199, y: 392, rx: 95, ry: 30 };
                       default: return { x: 199, y: 212, rx: 20, ry: 20 };
                     }
                   };
