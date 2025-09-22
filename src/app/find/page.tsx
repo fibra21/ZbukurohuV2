@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Sparkles, Eye, Smile } from 'lucide-react';
+import { FaceIllustration } from '@/components/find/FaceIllustration';
 
 export default function FindPage() {
   const router = useRouter();
@@ -83,80 +84,7 @@ export default function FindPage() {
           {/* Face Illustration */}
           <div className="relative">
             <div className="w-80 h-80 sm:w-96 sm:h-96 lg:w-[500px] lg:h-[600px] relative bg-gradient-to-br from-pink-100 to-purple-100 rounded-[50%] shadow-2xl overflow-hidden">
-              {/* Face SVG */}
-              <svg
-                viewBox="0 0 400 500"
-                className="w-full h-full"
-                style={{ filter: 'drop-shadow(0 10px 25px rgba(0,0,0,0.1))' }}
-              >
-                {/* Face shape */}
-                <ellipse cx="200" cy="250" rx="160" ry="200" fill="#F5E6D3" stroke="#E0C4A0" strokeWidth="2"/>
-                
-                {/* Forehead area */}
-                <ellipse cx="200" cy="150" rx="80" ry="40" fill="#F8EAD8" opacity="0.8"/>
-                
-                {/* Eye areas */}
-                <ellipse cx="160" cy="200" rx="25" ry="15" fill="#FFF" stroke="#D0B8A8" strokeWidth="1"/>
-                <ellipse cx="240" cy="200" rx="25" ry="15" fill="#FFF" stroke="#D0B8A8" strokeWidth="1"/>
-                <circle cx="160" cy="200" r="8" fill="#4A4A4A"/>
-                <circle cx="240" cy="200" r="8" fill="#4A4A4A"/>
-                
-                {/* Eyebrows */}
-                <path d="M135 185 Q160 180 185 185" stroke="#8B4513" strokeWidth="3" fill="none" strokeLinecap="round"/>
-                <path d="M215 185 Q240 180 265 185" stroke="#8B4513" strokeWidth="3" fill="none" strokeLinecap="round"/>
-                
-                {/* Nose */}
-                <ellipse cx="200" cy="240" rx="15" ry="25" fill="#F0D5C0" stroke="#E0C4A0" strokeWidth="1"/>
-                <ellipse cx="195" cy="255" rx="3" ry="2" fill="#D0B8A8"/>
-                <ellipse cx="205" cy="255" rx="3" ry="2" fill="#D0B8A8"/>
-                
-                {/* Cheek areas */}
-                <ellipse cx="140" cy="280" rx="35" ry="25" fill="#F5D5E0" opacity="0.6"/>
-                <ellipse cx="260" cy="280" rx="35" ry="25" fill="#F5D5E0" opacity="0.6"/>
-                
-                {/* Lips */}
-                <ellipse cx="200" cy="320" rx="25" ry="12" fill="#E8A4C4" stroke="#D089A8" strokeWidth="1"/>
-                <path d="M175 320 Q200 315 225 320" stroke="#D089A8" strokeWidth="1" fill="none"/>
-                
-                {/* Chin area */}
-                <ellipse cx="200" cy="380" rx="50" ry="30" fill="#F8EAD8" opacity="0.7"/>
-
-                {/* Interactive Clickable Areas */}
-                {faceAreas.map((area) => {
-                  const getAreaCoordinates = (id: string) => {
-                    switch(id) {
-                      case 'forehead': return { x: 200, y: 150, rx: 80, ry: 40 };
-                      case 'eyes': return { x: 200, y: 200, rx: 80, ry: 25 };
-                      case 'nose': return { x: 200, y: 240, rx: 20, ry: 30 };
-                      case 'cheeks': return { x: 200, y: 280, rx: 120, ry: 35 };
-                      case 'lips': return { x: 200, y: 320, rx: 30, ry: 15 };
-                      case 'chin': return { x: 200, y: 380, rx: 50, ry: 30 };
-                      default: return { x: 200, y: 250, rx: 20, ry: 20 };
-                    }
-                  };
-                  
-                  const coords = getAreaCoordinates(area.id);
-                  const isHovered = hoveredArea === area.id;
-                  const isSelected = selectedArea === area.id;
-                  
-                  return (
-                    <ellipse
-                      key={area.id}
-                      cx={coords.x}
-                      cy={coords.y}
-                      rx={coords.rx}
-                      ry={coords.ry}
-                      fill={isSelected ? "rgba(212, 175, 55, 0.4)" : isHovered ? "rgba(212, 175, 55, 0.2)" : "transparent"}
-                      stroke={isSelected || isHovered ? "#D4AF37" : "transparent"}
-                      strokeWidth="3"
-                      className="cursor-pointer transition-all duration-300"
-                      onMouseEnter={() => setHoveredArea(area.id)}
-                      onMouseLeave={() => setHoveredArea(null)}
-                      onClick={() => handleAreaClick(area.id)}
-                    />
-                  );
-                })}
-              </svg>
+              <FaceIllustration className="w-full h-full" />
               
               {/* Area Labels */}
               {faceAreas.map((area) => {
